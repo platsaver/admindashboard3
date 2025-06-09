@@ -7,8 +7,7 @@ const CustomHeader = () => {
     const { Search } = Input;
     return (
         <Flex align="center" justify="space-between">
-            <Typography.Title level={3} type="secondary">
-                Welcome back, User!
+            <Typography.Title level={4} type="secondary">
             </Typography.Title>
             <Flex align='center' gap='3rem'>
                 <Input placeholder='Search ...' allowClear/>

@@ -1,39 +1,17 @@
-import React from "react";
-import { Layout, Button } from 'antd';
-import SideBar from "./Component/SideBar";
-import CustomHeader from "./Component/Header";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import './App.css';
+import { Routes, Route, Navigate } from "react-router-dom";
+import Main from './Layout/Main'; // Verify this path
+import "antd/dist/reset.css";
 
-const { Sider, Header, Content } = Layout;
-
-const App = () => {
-  const [collapsed, setCollapsed] = React.useState(false);
+function App() {
   return (
-    <Layout>
-      <Sider 
-        theme='light' 
-        trigger={null} 
-        collapsible 
-        collapsed={collapsed} 
-        className="sider"
-      >
-        <SideBar />
-        <Button 
-          type='text' 
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} 
-          onClick={() => setCollapsed(!collapsed)}
-          className="trigger-btn"
-        />
-      </Sider>
-      <Layout>
-        <Header className="header">
-          <CustomHeader/>
-        </Header>
-        <Content className="content"></Content>
-      </Layout>
-    </Layout>
+    <div className="App">
+      <Routes>
+        <Route element={<Main />}>
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Route>
+      </Routes>
+    </div>
   );
-};
+}
 
 export default App;
