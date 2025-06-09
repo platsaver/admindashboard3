@@ -10,8 +10,6 @@ const CustomHeader = () => {
             <Typography.Title level={4} type="secondary">
             </Typography.Title>
             <Flex align='center' gap='3rem'>
-                <Input placeholder='Search ...' allowClear/>
-
                 <Flex align='center' gap='10px'>
                     <MessageOutlined className='header-icon'/>
                     <NotificationOutlined className='header-icon' />
