@@ -116,30 +116,9 @@ const projects = [
   },
 ];
 
-const CustomHeader = () => {
-  return (
-    <Flex align="center" justify="space-between" style={{ marginBottom: '24px' }}>
-      <Title level={3} type="secondary">
-        Welcome to Carbon Market Dashboard
-      </Title>
-      <Flex align="center" gap="3rem">
-        <Flex align="center" gap="18px">
-          <div className="header-icon">
-            <MessageOutlined />
-          </div>
-          <div className="header-icon">
-            <NotificationOutlined />
-          </div>
-        </Flex>
-      </Flex>
-    </Flex>
-  );
-};
-
 const CarbonMarketDashboard = () => {
   return (
     <div style={{ padding: '24px' }}>
-      <CustomHeader />
       <Flex gap="24px" style={{ marginBottom: '24px' }}>
         <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
           <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>

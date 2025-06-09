@@ -3,7 +3,10 @@ import { Menu } from "antd";
 import { Flex } from "antd"; 
 import {FaLeaf} from 'react-icons/fa';
 import { UserOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+
 const SideBar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Flex align='center' justify='center'>
@@ -15,6 +18,7 @@ const SideBar = () => {
         mode="inline" 
         defaultSelectedKeys={['1']} 
         className="menu-bar" 
+        onClick={({ key }) => navigate(key)}
         items={[
           {
             key: '1',

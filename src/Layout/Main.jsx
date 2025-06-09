@@ -1,36 +1,39 @@
 import React from "react";
-import { Layout, Button } from 'antd';
+import { Layout, Button } from "antd";
+import { Outlet } from "react-router-dom"; // Thêm Outlet
 import SideBar from "./SideBar";
 import CustomHeader from "./Header";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import '../App.css';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import "../App.css";
 
 const { Sider, Header, Content } = Layout;
 
 const App = () => {
   const [collapsed, setCollapsed] = React.useState(false);
   return (
-    <Layout>
-      <Sider 
-        theme='light' 
-        trigger={null} 
-        collapsible 
-        collapsed={collapsed} 
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        theme="light"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
         className="sider"
       >
         <SideBar />
-        <Button 
-          type='text' 
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} 
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           className="trigger-btn"
         />
       </Sider>
       <Layout>
         <Header className="header">
-          <CustomHeader/>
+          <CustomHeader />
         </Header>
-        <Content className="content"></Content>
+        <Content className="content">
+          <Outlet /> {/* Render các component con dựa trên route */}
+        </Content>
       </Layout>
     </Layout>
   );
