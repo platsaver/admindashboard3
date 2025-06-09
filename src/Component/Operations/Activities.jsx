@@ -18,7 +18,7 @@ import {
   Radio,
 } from 'antd';
 import { useState } from 'react';
-import { SearchOutlined, PlusOutlined } from '@ant-design/icons';
+import { SearchOutlined} from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 const { Option } = Select;

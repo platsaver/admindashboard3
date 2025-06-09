@@ -15,7 +15,7 @@ import {
   Select,
   Modal,
 } from "antd";
-import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 const { Option } = Select;

@@ -1,11 +1,8 @@
 import { Flex, Typography, Avatar } from "antd";
-import { Input } from "antd";
-import React from "react";
 import { MessageOutlined, BellOutlined , UserOutlined } from '@ant-design/icons';
 import { GlobalOutlined } from "@ant-design/icons";
 
 const CustomHeader = () => {
-    const { Search } = Input;
     return (
         <Flex align="center" justify="space-between">
             <Typography.Title level={4} type="secondary">

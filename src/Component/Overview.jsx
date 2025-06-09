@@ -1,6 +1,4 @@
 import { Flex, Card, Typography, Table, List } from "antd";
-import React from "react";
-import { MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -23,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 // Placeholder data for price chart
 const priceData = {

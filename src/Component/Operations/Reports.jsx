@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Row, Col, Card, Statistic, Table, Avatar, Typography, Tag } from 'antd';
 import {
   ArrowUpOutlined,
-  ArrowDownOutlined,
   UserOutlined,
   ShopOutlined,
   BankOutlined,

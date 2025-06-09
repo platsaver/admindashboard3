@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Row, Col, Drawer, Button, Form, Input, Select, DatePicker, Modal, Space } from "antd";
-import { Phone, Coffee, Users, Zap, ShoppingBag, Calendar, Gift, TrendingUp, Star } from "lucide-react";
+import { Zap} from "lucide-react";
 import moment from "moment";
 
 const { Option } = Select;
@@ -269,8 +269,6 @@ export default class CalendarComponent extends Component {
   };
 
   render() {
-    const { currentDate } = this.state;
-    // Filter events from current moment onwards
     const upcomingEvents = this.state.events
       .filter((event) => moment(event.start).isAfter(moment()))
       .sort((a, b) => moment(a.start).diff(moment(b.start)));

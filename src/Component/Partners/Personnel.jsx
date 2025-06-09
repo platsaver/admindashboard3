@@ -4,7 +4,6 @@ import {
   Col,
   Table,
   Button,
-  Typography,
   Input,
   Space,
   Tag,
@@ -17,9 +16,8 @@ import {
   Radio,
 } from 'antd';
 import { useState } from 'react';
-import { SearchOutlined, PlusOutlined } from '@ant-design/icons';
+import { SearchOutlined} from '@ant-design/icons';
 
-const { Title } = Typography;
 const { Option } = Select;
 
 const initialPersonnel = [
