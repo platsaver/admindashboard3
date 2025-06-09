@@ -3,6 +3,7 @@ import Main from "./Layout/Main";
 import CarbonMarketDashboard from "./Component/Overview"; 
 import Partners from './Component/Partners';
 import Standards from './Component/Standards';
+import PersonnelList from "./Component/Personnel";
 import "antd/dist/reset.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
           <Route path="/dashboard" element={<CarbonMarketDashboard />} />
           <Route path="/partners" element={<Partners/>} />
           <Route path="/standards" element={<Standards/>}/>
+          <Route path="/personnel" element={<PersonnelList/>}/>
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
       </Routes>
