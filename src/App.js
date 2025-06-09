@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Main from "./Layout/Main"; // Đường dẫn đến Main.jsx
-import CarbonMarketDashboard from "./Component/Overview"; // Import CarbonMarketDashboard từ Overview.jsx
+import Main from "./Layout/Main"; 
+import CarbonMarketDashboard from "./Component/Overview"; 
+import Partners from './Component/Partners';
+import Standards from './Component/Standards';
 import "antd/dist/reset.css";
 
 function App() {
@@ -9,6 +11,8 @@ function App() {
       <Routes>
         <Route element={<Main />}>
           <Route path="/dashboard" element={<CarbonMarketDashboard />} />
+          <Route path="/partners" element={<Partners/>} />
+          <Route path="/standards" element={<Standards/>}/>
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
       </Routes>

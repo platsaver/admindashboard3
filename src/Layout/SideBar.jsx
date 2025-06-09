@@ -1,45 +1,46 @@
 import React from "react";
 import { Menu } from "antd";
-import { Flex } from "antd"; 
-import {FaLeaf} from 'react-icons/fa';
-import { UserOutlined } from '@ant-design/icons';
+import { Flex } from "antd";
+import { FaLeaf } from "react-icons/fa";
+import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
   const navigate = useNavigate();
+
   return (
     <>
-      <Flex align='center' justify='center'>
+      <Flex align="center" justify="center">
         <div className="logo">
-            <FaLeaf />
+          <FaLeaf />
         </div>
       </Flex>
-      <Menu 
-        mode="inline" 
-        defaultSelectedKeys={['1']} 
-        className="menu-bar" 
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={["dashboard"]} // Match default route
+        className="menu-bar"
         onClick={({ key }) => navigate(key)}
         items={[
           {
-            key: '1',
+            key: "dashboard",
             icon: <UserOutlined />,
-            label: 'Tổng quan',
+            label: "Tổng quan",
           },
           {
-            key: '2',
+            key: "partners",
             icon: <UserOutlined />,
-            label: 'Đối tác',
+            label: "Đối tác",
           },
           {
-            key: '3',
+            key: "standards",
             icon: <UserOutlined />,
-            label: 'Tiêu chuẩn',
+            label: "Tiêu chuẩn",
           },
           {
-            key: '4',
+            key: "operations",
             icon: <UserOutlined />,
-            label: 'Vận hành',
-          }
+            label: "Vận hành",
+          },
         ]}
       />
     </>
