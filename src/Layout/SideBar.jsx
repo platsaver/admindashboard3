@@ -2,7 +2,7 @@ import React from "react";
 import { Menu } from "antd";
 import { Flex } from "antd";
 import { FaLeaf } from "react-icons/fa";
-import { UserOutlined } from "@ant-design/icons";
+import { TeamOutlined, FundOutlined, PlayCircleOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
@@ -24,12 +24,12 @@ const SideBar = () => {
         items={[
           {
             key: "dashboard",
-            icon: <UserOutlined />,
+            icon: <FundOutlined />,
             label: "Tổng quan",
           },
           {
             key: "management",
-            icon: <UserOutlined/>,
+            icon: <TeamOutlined />,
             label: "Đối tác",
             children: [
               {
@@ -44,7 +44,7 @@ const SideBar = () => {
           },
           {
             key: "management1",
-            icon: <UserOutlined/>,
+            icon: <SafetyCertificateOutlined />,
             label: "Tiêu chuẩn",
             children: [
               {
@@ -59,7 +59,7 @@ const SideBar = () => {
           },
           {
             key: "management2",
-            icon: <UserOutlined/>,
+            icon: <PlayCircleOutlined />,
             label: "Vận hành",
             children: [
               {

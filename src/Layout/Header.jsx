@@ -1,7 +1,8 @@
 import { Flex, Typography, Avatar } from "antd";
 import { Input } from "antd";
 import React from "react";
-import { MessageOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { MessageOutlined, BellOutlined , UserOutlined } from '@ant-design/icons';
+import { GlobalOutlined } from "@ant-design/icons";
 
 const CustomHeader = () => {
     const { Search } = Input;
@@ -12,7 +13,8 @@ const CustomHeader = () => {
             <Flex align='center' gap='3rem'>
                 <Flex align='center' gap='10px'>
                     <MessageOutlined className='header-icon'/>
-                    <NotificationOutlined className='header-icon' />
+                    <BellOutlined className='header-icon' />
+                    <GlobalOutlined className="header-icon"/>
                     <Avatar icon={<UserOutlined/>}/>
                 </Flex>
             </Flex>
