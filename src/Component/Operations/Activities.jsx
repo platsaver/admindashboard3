@@ -267,7 +267,7 @@ const Dashboard = () => {
       <Row gutter={[24, 24]} className="mb-8">
         <Col span={24}>
           <Card
-            title={<Title level={4} className="text-gray-800">Tóm tắt tình hình</Title>}
+            title={<Title level={4} className="text-gray-800 pt-3">Tóm tắt tình hình</Title>}
             className=" rounded-lg bg-white"
             style={{ border: '1px solid #e8e8e8' }}
           >
