@@ -19,6 +19,7 @@ import {
 } from 'antd';
 import { useState } from 'react';
 import { SearchOutlined} from '@ant-design/icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -264,35 +265,35 @@ const Dashboard = () => {
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
       <Row gutter={[24, 24]} className="mb-8">
-        <Col span={12}>
+        <Col span={24}>
           <Card
             title={<Title level={4} className="text-gray-800">Tóm tắt tình hình</Title>}
-            className="shadow-lg rounded-lg bg-white"
+            className=" rounded-lg bg-white"
             style={{ border: '1px solid #e8e8e8' }}
           >
             <Row gutter={[16, 16]}>
-              <Col span={12}>
+              <Col span={6}>
                 <Statistic
                   title={<Text strong>Trạng thái hệ thống</Text>}
                   value={summaryData.systemStatus}
                   valueStyle={{ color: '#52c41a' }}
                 />
               </Col>
-              <Col span={12}>
+              <Col span={6}>
                 <Statistic
                   title={<Text strong>Thời gian hoạt động</Text>}
                   value={summaryData.uptime}
                   valueStyle={{ color: '#1890ff' }}
                 />
               </Col>
-              <Col span={12}>
+              <Col span={6}>
                 <Statistic
                   title={<Text strong>Nhiệm vụ hoàn thành</Text>}
                   value={summaryData.tasksCompleted}
                   valueStyle={{ color: '#1890ff' }}
                 />
               </Col>
-              <Col span={12}>
+              <Col span={6}>
                 <Statistic
                   title={<Text strong>Nhiệm vụ đang thực hiện</Text>}
                   value={summaryData.tasksInProgress}
@@ -302,27 +303,11 @@ const Dashboard = () => {
             </Row>
           </Card>
         </Col>
-        <Col span={12}>
-          <Card
-            title={<Title level={4} className="text-gray-800">Thông báo quan trọng</Title>}
-            className="shadow-lg rounded-lg bg-white"
-            style={{ border: '1px solid #e8e8e8' }}
-          >
-            <div className="table-responsive">
-              <Table
-                columns={notificationColumns}
-                dataSource={notifications}
-                pagination={false}
-                className="ant-border-space"
-              />
-            </div>
-          </Card>
-        </Col>
       </Row>
       <Row gutter={[24, 24]} style={{ paddingTop: '15px' }}>
         <Col xs={24} xl={24}>
           <Card
-            className="criclebox tablespace mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox tablespace mb-24  rounded-lg bg-white"
             title="Nhiệm vụ"
             style={{ border: '1px solid #e8e8e8' }}
             extra={

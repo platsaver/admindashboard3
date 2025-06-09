@@ -220,7 +220,7 @@ const PersonnelList = () => {
       <Row gutter={[24, 24]}>
         <Col xs={24} xl={24}>
           <Card
-            className="criclebox tablespace mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox tablespace mb-24 rounded-lg bg-white"
             title="Danh sách Nhân sự"
             style={{ border: '1px solid #e8e8e8' }}
             extra={

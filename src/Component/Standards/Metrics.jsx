@@ -333,7 +333,7 @@ function Metrics() {
         {/* Bảng chỉ số */}
         <Col xs={24} md={16}>
           <Card
-            className="criclebox tablespace mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox tablespace mb-24  rounded-lg bg-white"
             title={<span className="text-lg font-poppins font-medium">Bảng Chỉ Số</span>}
             style={{ border: "1px solid #e8e8e8", borderRadius: 8 }}
             extra={
@@ -390,7 +390,7 @@ function Metrics() {
         {/* Biểu đồ phân bố */}
         <Col xs={24} md={8}>
           <Card
-            className="criclebox mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox mb-24  rounded-lg bg-white"
             title={<span className="text-lg font-poppins font-medium">Phân bố Chỉ Số</span>}
             style={{ border: "1px solid #e8e8e8", borderRadius: 8 }}
           >
@@ -403,7 +403,7 @@ function Metrics() {
         {/* Xu hướng */}
         <Col xs={24} md={12}>
           <Card
-            className="criclebox mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox mb-24  rounded-lg bg-white"
             title={<span className="text-lg font-poppins font-medium">Xu Hướng</span>}
             style={{ border: "1px solid #e8e8e8", borderRadius: 8 }}
           >
@@ -421,7 +421,7 @@ function Metrics() {
         {/* Mức độ hoàn thành */}
         <Col xs={24} md={12}>
           <Card
-            className="criclebox mb-24 shadow-lg rounded-lg bg-white"
+            className="criclebox mb-24  rounded-lg bg-white"
             style={{ border: "1px solid #e8e8e8", borderRadius: 8 }}
           >
             <div style={{ marginTop: 24 }}>

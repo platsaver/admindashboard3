@@ -63,7 +63,7 @@ const SideBar = () => {
             label: "Vận hành",
             children: [
               {
-                key: "activies",
+                key: "activities",
                 label: "Hoạt động",
               },
               {
