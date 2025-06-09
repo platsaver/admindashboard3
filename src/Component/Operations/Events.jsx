@@ -10,6 +10,9 @@ import moment from "moment";
 const { Option } = Select;
 
 const globalStyles = `
+  *{
+    text-decoration: none !important;
+  }
   .fc-event.bg-critical {
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
