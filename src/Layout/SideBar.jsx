@@ -20,7 +20,7 @@ const SideBar = () => {
         defaultSelectedKeys={["dashboard"]} // Match default route
         className="menu-bar"
         onClick={({ key }) => navigate(key)}
-        defaultOpenKeys={["management"]}
+        defaultOpenKeys={["management"]["management1"]}
         items={[
           {
             key: "dashboard",
@@ -34,7 +34,7 @@ const SideBar = () => {
             children: [
               {
                 key: "partners",
-                label: "Đối tác",
+                label: "Danh sách đối tác",
               },
               {
                 key: "personnel",
@@ -43,9 +43,19 @@ const SideBar = () => {
             ],
           },
           {
-            key: "standards",
-            icon: <UserOutlined />,
+            key: "management1",
+            icon: <UserOutlined/>,
             label: "Tiêu chuẩn",
+            children: [
+              {
+                key: "standards",
+                label: "Bộ tiêu chuẩn",
+              },
+              {
+                key: "metrics",
+                label: "Bộ chỉ số",
+              },
+            ],
           },
           {
             key: "operations",

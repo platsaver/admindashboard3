@@ -123,7 +123,6 @@ const CarbonMarketDashboard = () => {
       <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
         <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
         <Line data={priceData} options={chartOptions} />
-        <Text type="secondary">Source: Placeholder data, inspired by EU ETS (~$80/tCO2e in 2024)</Text>
       </Card>
 
       <Flex vertical gap="24px" style={{ flex: 1 }}>
@@ -134,7 +133,6 @@ const CarbonMarketDashboard = () => {
             pagination={false}
             size="small"
           />
-          <Text type="secondary">Source: Global volume from 2023 data</Text>
         </Card>
         <Card title="Recent Policies (Vietnam, 2025)">
           <List
@@ -153,7 +151,6 @@ const CarbonMarketDashboard = () => {
             pagination={false}
             size="small"
           />
-          <Text type="secondary">Source: Global market leaders</Text>
         </Card>
         <Card title="Recent Carbon Credit Projects" style={{ flex: 1 }}>
           <List
