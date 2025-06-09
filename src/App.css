@@ -41,6 +41,10 @@
     color: white !important;
 }
 
+.menu-bar .ant-menu-submenu-selected .ant-menu-submenu-title {
+  color: #27ae60 !important; /* Màu xanh lá khi được chọn */
+}
+
 /*header*/
 .header-icon{
     background: #d2e3c8; 
