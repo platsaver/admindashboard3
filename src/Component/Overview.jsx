@@ -120,12 +120,14 @@ const CarbonMarketDashboard = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Flex gap="24px" style={{ marginBottom: '24px' }}>
-        <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
-          <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
-          <Line data={priceData} options={chartOptions} />
-          <Text type="secondary">Source: Placeholder data, inspired by EU ETS (~$80/tCO2e in 2024)</Text>
-        </Card>
-        <Card title="Trading Volume" style={{ flex: 1 }}>
+      <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
+        <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
+        <Line data={priceData} options={chartOptions} />
+        <Text type="secondary">Source: Placeholder data, inspired by EU ETS (~$80/tCO2e in 2024)</Text>
+      </Card>
+
+      <Flex vertical gap="24px" style={{ flex: 1 }}>
+        <Card title="Trading Volume">
           <Table
             columns={tradingVolumeColumns}
             dataSource={tradingVolumeData}
@@ -134,13 +136,15 @@ const CarbonMarketDashboard = () => {
           />
           <Text type="secondary">Source: Global volume from 2023 data</Text>
         </Card>
-        <Card title="Recent Policies (Vietnam, 2025)" style={{ flex: 1 }}>
+        <Card title="Recent Policies (Vietnam, 2025)">
           <List
             dataSource={policies}
             renderItem={(item) => <List.Item>{item}</List.Item>}
           />
         </Card>
       </Flex>
+    </Flex>
+
       <Flex gap="24px">
         <Card title="Notable Companies in Carbon Credit Market" style={{ flex: 1 }}>
           <Table
