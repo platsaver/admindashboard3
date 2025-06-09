@@ -58,9 +58,23 @@ const SideBar = () => {
             ],
           },
           {
-            key: "operations",
-            icon: <UserOutlined />,
+            key: "management2",
+            icon: <UserOutlined/>,
             label: "Vận hành",
+            children: [
+              {
+                key: "activies",
+                label: "Hoạt động",
+              },
+              {
+                key: "reports",
+                label: "Báo cáo",
+              },
+              {
+                key: "events",
+                label: "Sự kiện",
+              },
+            ],
           },
         ]}
       />
