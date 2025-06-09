@@ -1,11 +1,10 @@
 import { Flex, Card, Typography, Table, List } from "antd";
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title as ChartTitle,
   Tooltip,
   Legend,
@@ -14,8 +13,7 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   ChartTitle,
   Tooltip,
   Legend
@@ -23,7 +21,6 @@ ChartJS.register(
 
 const { Text } = Typography;
 
-// Placeholder data for price chart
 const priceData = {
   labels: ['2025-06-01', '2025-06-02', '2025-06-03', '2025-06-04', '2025-06-05'],
   datasets: [
@@ -66,26 +63,53 @@ const chartOptions = {
   },
 };
 
-// Placeholder data for trading volume
-const tradingVolumeColumns = [
-  { title: 'Market', dataIndex: 'market', key: 'market' },
-  { title: 'Volume (MtCO2e)', dataIndex: 'volume', key: 'volume' },
-  { title: 'Year', dataIndex: 'year', key: 'year' },
-];
-const tradingVolumeData = [
-  { key: '1', market: 'Domestic (Vietnam)', volume: '0.5', year: '2024' },
-  { key: '2', market: 'International (EU ETS)', volume: '1123', year: '2023' },
-  { key: '3', market: 'Global', volume: '12500', year: '2023' },
-];
+const tradingVolumeData = {
+  labels: ['Domestic (Vietnam)', 'International (EU ETS)', 'Global'],
+  datasets: [
+    {
+      label: 'Volume (MtCO2e)',
+      data: [1000, 5000, 12500],
+      backgroundColor: '#52c41a',
+      borderColor: '#52c41a',
+      borderWidth: 1,
+    },
+  ],
+};
 
-// Placeholder data for recent policies
+const tradingVolumeOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Trading Volume by Market',
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Volume (MtCO2e)',
+      },
+    },
+    x: {
+      title: {
+        display: true,
+        text: 'Market',
+      },
+    },
+  },
+};
+
 const policies = [
   'Jan 2025: Vietnam sanctions a plan to establish a pilot ETS starting June 2025, with full implementation by 2029.',
   'Dec 2024: COP29 agreement to launch a centralized UN trading system for international carbon credits in 2025.',
   'Sep 2023: ASEAN Carbon Credit Trading Platform (CCTPA) launches Vietnam’s first carbon credit trading platform.',
 ];
 
-// Placeholder data for companies
 const companyColumns = [
   { title: 'Company', dataIndex: 'name', key: 'name' },
   { title: 'Role', dataIndex: 'role', key: 'role' },
@@ -98,7 +122,6 @@ const companyData = [
   { key: '5', name: 'Microsoft', role: 'Buyer' },
 ];
 
-// Placeholder data for projects
 const projects = [
   {
     title: 'Amazon Reforestation Project (Brazil)',
@@ -118,28 +141,23 @@ const CarbonMarketDashboard = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Flex gap="24px" style={{ marginBottom: '24px' }}>
-      <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
-        <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
-        <Line data={priceData} options={chartOptions} />
-      </Card>
+        <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
+          <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
+          <Line data={priceData} options={chartOptions} />
+        </Card>
 
-      <Flex vertical gap="24px" style={{ flex: 1 }}>
-        <Card title="Trading Volume">
-          <Table
-            columns={tradingVolumeColumns}
-            dataSource={tradingVolumeData}
-            pagination={false}
-            size="small"
-          />
-        </Card>
-        <Card title="Recent Policies (Vietnam, 2025)">
-          <List
-            dataSource={policies}
-            renderItem={(item) => <List.Item>{item}</List.Item>}
-          />
-        </Card>
+        <Flex vertical gap="24px" style={{ flex: 1 }}>
+          <Card title="Trading Volume">
+            <Bar data={tradingVolumeData} options={tradingVolumeOptions} />
+          </Card>
+          <Card title="Recent Policies (Vietnam, 2025)">
+            <List
+              dataSource={policies}
+              renderItem={(item) => <List.Item>{item}</List.Item>}
+            />
+          </Card>
+        </Flex>
       </Flex>
-    </Flex>
 
       <Flex gap="24px">
         <Card title="Notable Companies in Carbon Credit Market" style={{ flex: 1 }}>
