@@ -1,10 +1,12 @@
-import { Flex, Card, Typography, Table, List } from "antd";
+import { Flex, Card, Typography, 
+        Table, List, Row, Col } from "antd";
 import { Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
+  LineElement,
   Title as ChartTitle,
   Tooltip,
   Legend,
@@ -14,6 +16,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  LineElement,
   ChartTitle,
   Tooltip,
   Legend
@@ -140,45 +143,59 @@ const projects = [
 const CarbonMarketDashboard = () => {
   return (
     <div style={{ padding: '24px' }}>
-      <Flex gap="24px" style={{ marginBottom: '24px' }}>
-        <Card title="Carbon Credit Price Chart" style={{ flex: 1 }}>
-          <Text>Daily/Weekly/Monthly Price Trends (USD/tCO2e)</Text>
-          <Line data={priceData} options={chartOptions} />
-        </Card>
-
-        <Flex vertical gap="24px" style={{ flex: 1 }}>
-          <Card title="Trading Volume">
-            <Bar data={tradingVolumeData} options={tradingVolumeOptions} />
-          </Card>
-          <Card title="Recent Policies (Vietnam, 2025)">
-            <List
-              dataSource={policies}
-              renderItem={(item) => <List.Item>{item}</List.Item>}
-            />
-          </Card>
-        </Flex>
-      </Flex>
-
-      <Flex gap="24px">
-        <Card title="Notable Companies in Carbon Credit Market" style={{ flex: 1 }}>
-          <Table
-            columns={companyColumns}
-            dataSource={companyData}
-            pagination={false}
-            size="small"
-          />
-        </Card>
-        <Card title="Recent Carbon Credit Projects" style={{ flex: 1 }}>
-          <List
-            dataSource={projects}
-            renderItem={(item) => (
-              <List.Item>
-                <List.Item.Meta title={item.title} description={item.description} />
-              </List.Item>
-            )}
-          />
-        </Card>
-      </Flex>
+      <Row gutter={[24, 24]}>
+        <Col span={12}>
+          <Row gutter={[24, 24]}>
+            <Col span={24}>
+              <Card title="Carbon Credit Price Chart" style={{ width: '100%' }}>
+                <Line data={priceData} options={chartOptions} />
+              </Card>
+            </Col>
+            <Col span={24}>
+              <Card title="Trading Volume" style={{ width: '100%' }}>
+                <Bar data={tradingVolumeData} options={tradingVolumeOptions} />
+              </Card>
+            </Col>
+          </Row>
+        </Col>
+        <Col span={12}>
+          <Row gutter={[24, 24]}>
+            <Col span={24}>
+              <Card title="Notable Companies in Carbon Credit Market" style={{ width: '100%' }}>
+                <Table
+                  columns={companyColumns}
+                  dataSource={companyData}
+                  pagination={false}
+                  size="middle"
+                  bordered
+                  className="custom-table"
+                  style={{ borderRadius: '8px', overflow: 'hidden' }}
+                />
+              </Card>
+            </Col>
+            <Col span={24}>
+              <Card title="Recent Policies (Vietnam, 2025)" style={{ width: '100%' }}>
+                <List
+                  dataSource={policies}
+                  renderItem={(item) => <List.Item>{item}</List.Item>}
+                />
+              </Card>
+            </Col>
+            <Col span={24}>
+              <Card title="Recent Carbon Credit Projects" style={{ width: '100%' }}>
+                <List
+                  dataSource={projects}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <List.Item.Meta title={item.title} description={item.description} />
+                    </List.Item>
+                  )}
+                />
+              </Card>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
 };
