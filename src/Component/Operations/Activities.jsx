@@ -237,7 +237,7 @@ const Dashboard = () => {
             style={{ border: '1px solid #e8e8e8' }}
             extra={
               <Space>
-                <Button type="primary" onClick={handleAddNew}>
+                <Button type="primary" onClick={handleAddNew} style={{backgroundColor:"green"}}>
                   Thêm
                 </Button>
                 <Select

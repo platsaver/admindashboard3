@@ -342,7 +342,7 @@ function Metrics() {
                   type="primary"
                   icon={<PlusOutlined />}
                   onClick={handleAddNew}
-                  style={{ borderRadius: 6 }}
+                  style={{ borderRadius: 6 , backgroundColor:"green"}}
                 >
                   Thêm Chỉ Số
                 </Button>
@@ -361,7 +361,7 @@ function Metrics() {
                   type="primary"
                   icon={<DownloadOutlined />}
                   onClick={exportToExcel}
-                  style={{ borderRadius: 6 }}
+                  style={{ borderRadius: 6, backgroundColor:"green" }}
                 >
                   Excel
                 </Button>
@@ -369,7 +369,7 @@ function Metrics() {
                   type="primary"
                   icon={<DownloadOutlined />}
                   onClick={exportToPDF}
-                  style={{ borderRadius: 6 }}
+                  style={{ borderRadius: 6, backgroundColor:"green" }}
                 >
                   PDF
                 </Button>
