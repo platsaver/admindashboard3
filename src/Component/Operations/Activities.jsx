@@ -312,9 +312,9 @@ const Dashboard = () => {
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 150 }}
+                  style={{ width: 100 }}
                   onChange={(value) => {
-                    setFilterCategory(value);
+                    setFilterPriority(value);
                     setCurrentPage(1);
                   }}
                 >
