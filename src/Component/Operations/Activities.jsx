@@ -15,7 +15,6 @@ import {
   Input as FormInput,
   Select,
   Modal,
-  Radio,
 } from 'antd';
 import { useState } from 'react';
 import { SearchOutlined} from '@ant-design/icons';
@@ -102,75 +101,6 @@ const Dashboard = () => {
     tasksCompleted: 45,
     tasksInProgress: 12,
   };
-
-  const notifications = [
-    {
-      key: '1',
-      message: (
-        <div className="avatar-info">
-          <Title level={5}>Hệ thống bảo trì</Title>
-          <p>Hệ thống bảo trì dự kiến: 02/06/2025, 2AM-4AM</p>
-        </div>
-      ),
-      type: <Button type="primary" className="tag-primary">INFO</Button>,
-      action: (
-        <div className="ant-employed">
-          <a href="#pablo">View</a>
-        </div>
-      ),
-    },
-    {
-      key: '2',
-      message: (
-        <div className="avatar-info">
-          <Title level={5}>Lỗi API</Title>
-          <p>Lỗi API phát hiện ở module thanh toán</p>
-        </div>
-      ),
-      type: <Button className="tag-badge">ERROR</Button>,
-      action: (
-        <div className="ant-employed">
-          <a href="#pablo">View</a>
-        </div>
-      ),
-    },
-    {
-      key: '3',
-      message: (
-        <div className="avatar-info">
-          <Title level={5}>Cập nhật phiên bản</Title>
-          <p>Cập nhật phiên bản mới v2.1.3</p>
-        </div>
-      ),
-      type: <Button type="primary" className="tag-primary">SUCCESS</Button>,
-      action: (
-        <div className="ant-employed">
-          <a href="#pablo">View</a>
-        </div>
-      ),
-    },
-  ];
-
-  const notificationColumns = [
-    {
-      title: 'THÔNG BÁO',
-      dataIndex: 'message',
-      key: 'message',
-      width: '60%',
-    },
-    {
-      title: 'LOẠI',
-      dataIndex: 'type',
-      key: 'type',
-      width: '20%',
-    },
-    {
-      title: 'HÀNH ĐỘNG',
-      dataIndex: 'action',
-      key: 'action',
-      width: '20%',
-    },
-  ];
 
   const handleSearch = (value) => {
     setSearchText(value);

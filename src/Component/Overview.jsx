@@ -1,5 +1,4 @@
-import { Flex, Card, Typography, 
-        Table, List, Row, Col } from "antd";
+import { Card, Table, List, Row, Col } from "antd";
 import { Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -21,8 +20,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const { Text } = Typography;
 
 const priceData = {
   labels: ['2025-06-01', '2025-06-02', '2025-06-03', '2025-06-04', '2025-06-05'],
@@ -144,7 +141,8 @@ const CarbonMarketDashboard = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Row gutter={[24, 24]}>
-        <Col span={12}>
+        {/* Left Column: Biểu đồ */}
+        <Col xs={24} md={12}>
           <Row gutter={[24, 24]}>
             <Col span={24}>
               <Card title="Carbon Credit Price Chart" style={{ width: '100%' }}>
@@ -158,7 +156,9 @@ const CarbonMarketDashboard = () => {
             </Col>
           </Row>
         </Col>
-        <Col span={12}>
+
+        {/* Right Column: Table + Lists */}
+        <Col xs={24} md={12}>
           <Row gutter={[24, 24]}>
             <Col span={24}>
               <Card title="Notable Companies in Carbon Credit Market" style={{ width: '100%' }}>
