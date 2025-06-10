@@ -107,11 +107,6 @@ function Standards() {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const handleFilterChange = (e) => {
-    setFilterCategory(e.target.value);
-    setCurrentPage(1);
-  };
-
   const handleSearch = (value) => {
     setSearchText(value);
     setCurrentPage(1);
@@ -213,21 +208,22 @@ function Standards() {
             title="Bộ Tiêu Chuẩn"
             extra={
               <Space>
-                <Button
-                  type="primary"
-                  onClick={handleAddNew}
-                >
+                <Button type="primary" onClick={handleAddNew}>
                   Thêm
                 </Button>
-                <Radio.Group
-                  onChange={handleFilterChange}
+                <Select
                   defaultValue="all"
+                  style={{ width: 100 }}
+                  onChange={(value) => {
+                    setFilterCategory(value);
+                    setCurrentPage(1);
+                  }}
                 >
-                  <Radio.Button value="all">Tất cả</Radio.Button>
-                  <Radio.Button value="Sản phẩm">Sản phẩm</Radio.Button>
-                  <Radio.Button value="Quy trình">Quy trình</Radio.Button>
-                  <Radio.Button value="An toàn">An toàn</Radio.Button>
-                </Radio.Group>
+                  <Option value="all">Tất cả</Option>
+                  <Option value="Sản phẩm">Sản phẩm</Option>
+                  <Option value="Quy trình">Quy trình</Option>
+                  <Option value="An toàn">An toàn</Option>
+                </Select>
                 <Input
                   placeholder="Tìm kiếm tiêu chuẩn"
                   prefix={<SearchOutlined />}

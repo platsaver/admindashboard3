@@ -125,11 +125,6 @@ const PersonnelList = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const handleFilterChange = (e) => {
-    setFilterStatus(e.target.value);
-    setCurrentPage(1);
-  };
-
   const handleSearch = (value) => {
     setSearchText(value);
     setCurrentPage(1);
@@ -228,11 +223,18 @@ const PersonnelList = () => {
                 <Button type="primary" onClick={handleAddNew}>
                   Thêm
                 </Button>
-                <Radio.Group onChange={handleFilterChange} defaultValue="all">
-                  <Radio.Button value="all">Tất cả</Radio.Button>
-                  <Radio.Button value="Active">Active</Radio.Button>
-                  <Radio.Button value="Inactive">Inactive</Radio.Button>
-                </Radio.Group>
+                <Select
+                  defaultValue="all"
+                  style={{ width: 100 }}
+                  onChange={(value) => {
+                    setFilterStatus(value);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <Option value="all">Tất cả</Option>
+                  <Option value="Active">Active</Option>
+                  <Option value="Inactive">Inactive</Option>
+                </Select>
                 <Input
                   placeholder="Tìm kiếm nhân sự"
                   prefix={<SearchOutlined />}

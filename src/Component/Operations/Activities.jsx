@@ -172,11 +172,6 @@ const Dashboard = () => {
     },
   ];
 
-  const handleFilterChange = (e) => {
-    setFilterPriority(e.target.value);
-    setCurrentPage(1);
-  };
-
   const handleSearch = (value) => {
     setSearchText(value);
     setCurrentPage(1);
@@ -315,12 +310,19 @@ const Dashboard = () => {
                 <Button type="primary" onClick={handleAddNew}>
                   Thêm
                 </Button>
-                <Radio.Group onChange={handleFilterChange} defaultValue="all">
-                  <Radio.Button value="all">Tất cả</Radio.Button>
-                  <Radio.Button value="Cao">Cao</Radio.Button>
-                  <Radio.Button value="Trung bình">Trung bình</Radio.Button>
-                  <Radio.Button value="Thấp">Thấp</Radio.Button>
-                </Radio.Group>
+                <Select
+                  defaultValue="all"
+                  style={{ width: 150 }}
+                  onChange={(value) => {
+                    setFilterCategory(value);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <Option value="all">Tất cả</Option>
+                  <Option value="Cao">Cao</Option>
+                  <Option value="Trung bình">Trung bình</Option>
+                  <Option value="Thấp">Thấp</Option>
+                </Select>
                 <Input
                   placeholder="Tìm kiếm nhiệm vụ"
                   prefix={<SearchOutlined />}
