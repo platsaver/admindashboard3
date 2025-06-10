@@ -207,7 +207,7 @@ function Standards() {
             title="Bộ Tiêu Chuẩn"
             extra={
               <Space>
-                <Button type="primary" onClick={handleAddNew}>
+                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor:"green"}}>
                   Thêm
                 </Button>
                 <Select
