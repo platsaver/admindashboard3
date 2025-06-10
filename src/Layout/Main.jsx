@@ -17,6 +17,8 @@ const App = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
+        breakpoint="lg"
+        onBreakpoint={(broken) => setCollapsed(broken)}
         className="sider"
       >
         <SideBar />

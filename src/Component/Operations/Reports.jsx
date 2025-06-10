@@ -7,6 +7,7 @@ import {
   BankOutlined,
 } from '@ant-design/icons';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ChartJS.register(...registerables);
 
@@ -251,7 +252,7 @@ const CarbonDashboard = () => {
             icon={<UserOutlined />}
             style={{ backgroundColor: '#87d068' }}
           />
-          <div className="avatar-info">
+          <div className="avatar-info ps-3">
             <Title level={5}>Nguyễn Văn An</Title>
             <Text>Cá nhân</Text>
           </div>
@@ -273,7 +274,7 @@ const CarbonDashboard = () => {
             icon={<ShopOutlined />}
             style={{ backgroundColor: '#1890ff' }}
           />
-          <div className="avatar-info">
+          <div className="avatar-info ps-3">
             <Title level={5}>Công ty ABC</Title>
             <Text>Doanh nghiệp</Text>
           </div>
@@ -295,7 +296,7 @@ const CarbonDashboard = () => {
             icon={<BankOutlined />}
             style={{ backgroundColor: '#722ed1' }}
           />
-          <div className="avatar-info">
+          <div className="avatar-info ps-3">
             <Title level={5}>Tổ chức Xanh</Title>
             <Text>Tổ chức</Text>
           </div>
@@ -317,7 +318,7 @@ const CarbonDashboard = () => {
             icon={<UserOutlined />}
             style={{ backgroundColor: '#f56a00' }}
           />
-          <div className="avatar-info">
+          <div className="avatar-info ps-3">
             <Title level={5}>Trần Thị Bình</Title>
             <Text>Cá nhân</Text>
           </div>
