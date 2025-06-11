@@ -1,583 +1,458 @@
-import React, { Component } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import { Row, Col, Drawer, Button, Form, Input, Select, DatePicker, Modal, Space } from "antd";
-import { Zap} from "lucide-react";
-import moment from "moment";
+import {
+  Row,
+  Col,
+  Card,
+  Table,
+  Input,
+  Space,
+  Tag,
+  Drawer,
+  Button,
+  Descriptions,
+  Form,
+  Input as FormInput,
+  Select,
+  Modal,
+} from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
 const { Option } = Select;
 
-const globalStyles = `
-  *{
-    text-decoration: none !important;
-  }
-  .fc-event.bg-critical {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-    color: #fff !important;
-  }
-  .fc-event.bg-important {
-    background-color: #007bff !important;
-    border-color: #007bff !important;
-    color: #fff !important;
-  }
-  .fc-event.bg-less-important {
-    background-color: #28a745 !important;
-    border-color: #28a745 !important;
-    color: #fff !important;
-  }
-  .fc-event.text-dark {
-    color: #343a40 !important;
-  }
-  .fc .fc-toolbar.fc-header-toolbar {
-    padding: 0;
-  }
-  .fc .fc-toolbar-title {
-    margin: 0;
-    padding: 10px 0 0 10px;
-  }
-  .fc .fc-toolbar-chunk:last-child {
-    padding: 10px 10px 0 0;
-  }
-  .fc .fc-button {
-    background-color: #fff !important;
-    color: #000 !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-    border: none !important;
-    border-radius: 4px !important;
-  }
-  .fc .fc-button:hover {
-    background-color: #f0f0f0 !important;
-  }
-  .fc .fc-button:active {
-    background-color: #e0e0e0 !important;
-  }
-  .fc-daygrid-day-events {
-    max-height: none;
-    overflow: visible;
-  }
-  .fc-event-main {
-    font-size: 12px;
-  }
-  /* Fix hover issues */
-  .fc-day-today {
-    background-color: rgba(255, 220, 40, 0.15) !important;
-  }
-  .fc-daygrid-day:hover {
-    background-color: rgba(0, 123, 255, 0.1) !important;
-    cursor: pointer;
-  }
-  .fc-daygrid-day-frame {
-    position: relative;
-    min-height: 100px;
-  }
-`;
+const initialEvents = [
+  {
+    id: '1',
+    title: 'Họp ban điều hành',
+    start: '2024-01-15T09:00:00',
+    end: '2024-01-15T11:00:00',
+    priority: 'Cao',
+    description: 'Họp định kỳ ban điều hành công ty',
+    location: 'Phòng họp A',
+    attendees: 'Ban điều hành',
+  },
+  {
+    id: '2',
+    title: 'Đào tạo ISO 9001',
+    start: '2024-01-16T14:00:00',
+    end: '2024-01-16T17:00:00',
+    priority: 'Trung bình',
+    description: 'Khóa đào tạo về tiêu chuẩn ISO 9001',
+    location: 'Phòng đào tạo',
+    attendees: 'Nhân viên phòng QA',
+  },
+  {
+    id: '3',
+    title: 'Kiểm tra chất lượng sản phẩm',
+    start: '2024-01-17T08:00:00',
+    end: '2024-01-17T12:00:00',
+    priority: 'Cao',
+    description: 'Kiểm tra chất lượng lô hàng mới',
+    location: 'Nhà máy sản xuất',
+    attendees: 'Đội QC',
+  },
+  {
+    id: '4',
+    title: 'Đánh giá nhà cung cấp',
+    start: '2024-01-18T13:30:00',
+    end: '2024-01-18T16:30:00',
+    priority: 'Thấp',
+    description: 'Đánh giá hiệu suất nhà cung cấp quý 4',
+    location: 'Phòng họp B',
+    attendees: 'Phòng mua hàng',
+  },
+  {
+    id: '5',
+    title: 'Audit nội bộ',
+    start: '2024-01-19T09:00:00',
+    end: '2024-01-19T17:00:00',
+    priority: 'Cao',
+    description: 'Audit nội bộ hệ thống quản lý chất lượng',
+    location: 'Toàn công ty',
+    attendees: 'Đội audit nội bộ',
+  },
+  {
+    id: '6',
+    title: 'Họp đánh giá tháng',
+    start: '2024-01-20T10:00:00',
+    end: '2024-01-20T12:00:00',
+    priority: 'Trung bình',
+    description: 'Đánh giá kết quả hoạt động tháng 1',
+    location: 'Phòng họp chính',
+    attendees: 'Toàn bộ nhân viên',
+  },
+];
 
-export default class CalendarComponent extends Component {
-  formRef = React.createRef();
+const priorityColors = {
+  'Cao': 'red',
+  'Trung bình': 'orange',
+  'Thấp': 'green',
+};
 
-  state = {
-    events: [
-      {
-        id: "1",
-        title: "Team Meeting",
-        start: moment().add(1, 'day').hour(10).minute(0).format(),
-        end: moment().add(1, 'day').hour(11).minute(0).format(),
-        importance: "important",
-        notes: "Discuss project updates",
-        icon: Zap,
-        iconColor: "#007bff",
-      },
-      {
-        id: "2",
-        title: "Coffee Break",
-        start: moment().add(2, 'days').hour(14).minute(0).format(),
-        end: moment().add(2, 'days').hour(14).minute(30).format(),
-        importance: "less-important",
-        notes: "Quick team catch-up",
-        icon: Zap,
-        iconColor: "#28a745",
-      },
-      {
-        id: "3",
-        title: "Client Call",
-        start: moment().add(3, 'days').hour(16).minute(0).format(),
-        end: moment().add(3, 'days').hour(17).minute(0).format(),
-        importance: "critical",
-        notes: "Review contract",
-        icon: Zap,
-        iconColor: "#dc3545",
-      },
-      {
-        id: "4",
-        title: "Project Deadline",
-        start: moment().add(5, 'days').hour(23).minute(59).format(),
-        end: moment().add(5, 'days').hour(23).minute(59).format(),
-        importance: "critical",
-        notes: "Submit final report",
-        icon: Zap,
-        iconColor: "#dc3545",
-      },
+const columns = [
+  {
+    title: "Tiêu đề",
+    dataIndex: "title",
+    key: "title",
+    width: "25%",
+    sorter: (a, b) => a.title.localeCompare(b.title),
+  },
+  {
+    title: "Ngày giờ",
+    dataIndex: "start",
+    key: "start",
+    width: "20%",
+    render: (start) => new Date(start).toLocaleString('vi-VN'),
+    sorter: (a, b) => new Date(a.start) - new Date(b.start),
+  },
+  {
+    title: "Độ ưu tiên",
+    dataIndex: "priority",
+    key: "priority",
+    filters: [
+      { text: "Cao", value: "Cao" },
+      { text: "Trung bình", value: "Trung bình" },
+      { text: "Thấp", value: "Thấp" },
     ],
-    drawerVisible: false,
-    selectedDate: null,
-    selectedEvents: [],
-    editEvent: null,
-    formVisible: false,
-    deleteConfirmVisible: false,
-    eventToDelete: null,
-    currentDate: moment().format('YYYY-MM-DD'),
-  };
+    width: "10%",
+    onFilter: (value, record) => record.priority === value,
+    render: (priority) => (
+      <Tag color={priorityColors[priority]}>{priority}</Tag>
+    ),
+  },
+  {
+    title: "Địa điểm",
+    dataIndex: "location",
+    key: "location",
+    width: "20%",
+  },
+  {
+    title: "Mô tả",
+    dataIndex: "description",
+    key: "description",
+    width: "35%",
+  },
+];
 
-  componentDidMount() {
-    // Update current date every minute to keep it fresh
-    this.dateInterval = setInterval(() => {
-      this.setState({ currentDate: moment().format('YYYY-MM-DD') });
-    }, 60000);
-  }
+function EventsList() {
+  const [events, setEvents] = useState(initialEvents);
+  const [filterPriority, setFilterPriority] = useState("all");
+  const [searchText, setSearchText] = useState("");
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
-  componentWillUnmount() {
-    if (this.dateInterval) {
-      clearInterval(this.dateInterval);
-    }
-  }
-
-  handleDateClick = (info) => {
-    const selectedDate = moment(info.dateStr).format("YYYY-MM-DD");
-    const selectedEvents = this.state.events.filter((event) =>
-      moment(event.start).isSame(selectedDate, "day") ||
-      (moment(event.start).isBefore(selectedDate, "day") && moment(event.end).isAfter(selectedDate, "day"))
-    );
-    this.setState({
-      drawerVisible: true,
-      selectedDate,
-      selectedEvents,
+  const handleRowClick = (record) => {
+    setSelectedEvent(record);
+    setDrawerVisible(true);
+    setIsEditing(false);
+    setIsAdding(false);
+    form.setFieldsValue({
+      ...record,
+      start: new Date(record.start).toISOString().slice(0, 16),
+      end: new Date(record.end).toISOString().slice(0, 16),
     });
   };
 
-  closeDrawer = () => {
-    this.setState({
-      drawerVisible: false,
-      selectedDate: null,
-      selectedEvents: [],
-      editEvent: null,
-      formVisible: false,
-      deleteConfirmVisible: false,
-      eventToDelete: null,
+  const handleSearch = (value) => {
+    setSearchText(value);
+    setCurrentPage(1);
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerVisible(false);
+    setSelectedEvent(null);
+    setIsEditing(false);
+    setIsAdding(false);
+    form.resetFields();
+  };
+
+  const handleEdit = (record) => {
+    setIsEditing(true);
+    setIsAdding(false);
+    form.setFieldsValue({
+      ...record,
+      start: new Date(record.start).toISOString().slice(0, 16),
+      end: new Date(record.end).toISOString().slice(0, 16),
     });
   };
 
-  openAddForm = () => {
-    this.setState({ formVisible: true, editEvent: null });
+  const handleAddNew = () => {
+    setIsAdding(true);
+    setIsEditing(false);
+    setSelectedEvent(null);
+    setDrawerVisible(true);
+    form.resetFields();
   };
 
-  openEditForm = (event) => {
-    this.setState({ formVisible: true, editEvent: event });
-  };
-
-  handleFormSubmit = (values) => {
-    const { events, editEvent, selectedDate } = this.state;
-    const newEvent = {
-      id: editEvent ? editEvent.id : `${Date.now()}`,
-      title: values.title,
-      start: values.start.format(),
-      end: values.end.format(),
-      importance: values.importance,
-      notes: values.notes || "",
-      icon: this.getIconForImportance(values.importance),
-      iconColor: this.getColorForImportance(values.importance),
-    };
-
-    if (editEvent) {
-      const updatedEvents = events.map((event) =>
-        event.id === editEvent.id ? newEvent : event
-      );
-      this.setState(
-        { events: updatedEvents, formVisible: false, editEvent: null },
-        () => {
-          const selectedEvents = updatedEvents.filter(
-            (event) =>
-              moment(event.start).isSame(selectedDate, "day") ||
-              (moment(event.start).isBefore(selectedDate, "day") && moment(event.end).isAfter(selectedDate, "day"))
-          );
-          this.setState({ selectedEvents });
-        }
-      );
-    } else {
-      const updatedEvents = [...events, newEvent];
-      this.setState(
-        { events: updatedEvents, formVisible: false, editEvent: null },
-        () => {
-          const selectedEvents = updatedEvents.filter(
-            (event) =>
-              moment(event.start).isSame(selectedDate, "day") ||
-              (moment(event.start).isBefore(selectedDate, "day") && moment(event.end).isAfter(selectedDate, "day"))
-          );
-          this.setState({ selectedEvents });
-        }
-      );
-    }
-  };
-
-  confirmDelete = (event) => {
-    this.setState({ deleteConfirmVisible: true, eventToDelete: event });
-  };
-
-  handleDelete = () => {
-    const { events, eventToDelete, selectedDate } = this.state;
-    const updatedEvents = events.filter((event) => event.id !== eventToDelete.id);
-    this.setState(
-      {
-        events: updatedEvents,
-        deleteConfirmVisible: false,
-        eventToDelete: null,
-      },
-      () => {
-        const selectedEvents = updatedEvents.filter(
-          (event) =>
-            moment(event.start).isSame(selectedDate, "day") ||
-            (moment(event.start).isBefore(selectedDate, "day") && moment(event.end).isAfter(selectedDate, "day"))
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      if (isAdding) {
+        const newEvent = {
+          id: (events.length + 1).toString(),
+          ...values,
+          start: new Date(values.start).toISOString(),
+          end: new Date(values.end).toISOString(),
+        };
+        setEvents((prevEvents) => [...prevEvents, newEvent]);
+      } else {
+        setEvents((prevEvents) =>
+          prevEvents.map((item) =>
+            item.id === selectedEvent.id
+              ? {
+                  ...item,
+                  ...values,
+                  start: new Date(values.start).toISOString(),
+                  end: new Date(values.end).toISOString(),
+                }
+              : item
+          )
         );
-        this.setState({ selectedEvents });
+        setSelectedEvent({
+          ...selectedEvent,
+          ...values,
+          start: new Date(values.start).toISOString(),
+          end: new Date(values.end).toISOString(),
+        });
       }
+      setIsEditing(false);
+      setIsAdding(false);
+      setDrawerVisible(false);
+      form.resetFields();
+    });
+  };
+
+  const handleDelete = () => {
+    setEvents((prevEvents) =>
+      prevEvents.filter((item) => item.id !== selectedEvent.id)
     );
+    setDeleteModalVisible(false);
+    setDrawerVisible(false);
+    setSelectedEvent(null);
   };
 
-  getIconForImportance = (importance) => {
-    switch (importance) {
-      case "critical":
-        return Zap;
-      case "important":
-        return Zap;
-      case "less-important":
-        return Zap;
-      default:
-        return Zap;
-    }
+  const showDeleteModal = () => {
+    setDeleteModalVisible(true);
   };
 
-  getColorForImportance = (importance) => {
-    switch (importance) {
-      case "critical":
-        return "#dc3545";
-      case "important":
-        return "#007bff";
-      case "less-important":
-        return "#28a745";
-      default:
-        return "#6c757d";
-    }
+  const filteredEvents = events.filter((item) => {
+    const matchesPriority =
+      filterPriority === "all" || item.priority === filterPriority;
+    const matchesSearch = item.title
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+    return matchesPriority && matchesSearch;
+  });
+
+  const handlePaginationChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
   };
 
-  render() {
-    const upcomingEvents = this.state.events
-      .filter((event) => moment(event.start).isAfter(moment()))
-      .sort((a, b) => moment(a.start).diff(moment(b.start)));
-
-    const formattedEvents = this.state.events.map((event) => ({
-      ...event,
-      classNames: [`bg-${event.importance}`],
-      display: 'auto',
-    }));
-
-    return (
-      <>
-        <style>{globalStyles}</style>
-        <div className="layout-content" style={{ padding: "24px" }}>
-          <Row gutter={[24, 24]}>
-            <Col span={16}>
-              <div style={{ borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", overflow: "hidden" }}>
-                <FullCalendar
-                  contentHeight="auto"
-                  height={400}
-                  headerToolbar={{
-                    left: "prev,next today",
-                    center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay",
+  return (
+    <div className="events-list-container">
+      <Row gutter={[24, 24]}>
+        <Col xs={24}>
+          <Card
+            className="criclebox tablespace"
+            title="Danh Sách Sự Kiện"
+            extra={
+              <Space>
+                <Button 
+                  type="primary" 
+                  onClick={handleAddNew}
+                  style={{ backgroundColor: "green" }}
+                >
+                  Thêm sự kiện
+                </Button>
+                <Select
+                  defaultValue="all"
+                  style={{ width: 150 }}
+                  onChange={(value) => {
+                    setFilterPriority(value);
+                    setCurrentPage(1);
                   }}
-                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                  initialView="dayGridMonth"
-                  weekends={true}
-                  selectable={true}
-                  editable={true}
-                  events={formattedEvents}
-                  dateClick={this.handleDateClick}
-                  displayEventTime={true}
-                  displayEventEnd={true}
-                  eventDisplay="block"
-                  dayMaxEvents={false}
-                  moreLinkClick="popover"
-                  eventTimeFormat={{
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    meridiem: 'short'
-                  }}
-                  fixedWeekCount={false}
-                  showNonCurrentDates={false}
+                >
+                  <Option value="all">Tất cả mức độ</Option>
+                  <Option value="Cao">Cao</Option>
+                  <Option value="Trung bình">Trung bình</Option>
+                  <Option value="Thấp">Thấp</Option>
+                </Select>
+                <Input
+                  placeholder="Tìm kiếm sự kiện"
+                  prefix={<SearchOutlined />}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  style={{ width: 200 }}
                 />
-              </div>
-            </Col>
-            <Col span={8}>
-              <div
-                style={{
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  height: "400px",
-                  overflowY: "auto",
-                  padding: "16px",
-                  background: "#f8f9fa",
-                }}
-              >
-                <h3>Upcoming Events</h3>
-                <div style={{ fontSize: "12px", color: "#666", marginBottom: "16px" }}>
-                  From {moment().format("MMM DD, YYYY")} onwards
-                </div>
-                {upcomingEvents.length > 0 ? (
-                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {upcomingEvents.map((event, index) => {
-                      const IconComponent = event.icon;
-                      const timeFromNow = moment(event.start).fromNow();
-                      const isToday = moment(event.start).isSame(moment(), 'day');
-                      const isTomorrow = moment(event.start).isSame(moment().add(1, 'day'), 'day');
-                      
-                      let dateLabel = moment(event.start).format("MMM DD, YYYY");
-                      if (isToday) dateLabel = "Today";
-                      else if (isTomorrow) dateLabel = "Tomorrow";
-                      
-                      return (
-                        <li
-                          key={index}
-                          style={{
-                            padding: "12px 0",
-                            borderBottom: "1px solid #eee",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              backgroundColor: event.iconColor,
-                              borderRadius: "6px",
-                              padding: "8px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              minWidth: "32px",
-                              height: "32px",
-                            }}
-                          >
-                            <IconComponent size={16} color="white" />
-                          </div>
-                          <div style={{ flex: 1 }}>
-                            <div style={{ fontWeight: "500", marginBottom: "2px" }}>{event.title}</div>
-                            <div style={{ fontSize: "12px", color: "#666" }}>
-                              {dateLabel} • {moment(event.start).format("HH:mm")}
-                            </div>
-                            <div style={{ fontSize: "11px", color: "#999" }}>
-                              {timeFromNow}
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : (
-                  <div style={{ textAlign: "center", color: "#666", padding: "20px" }}>
-                    No upcoming events
-                  </div>
-                )}
-              </div>
-            </Col>
-          </Row>
-        </div>
-
-        {/* Drawer for displaying events on selected date */}
-        <Drawer
-          title={`Events on ${this.state.selectedDate || ""}`}
-          placement="right"
-          onClose={this.closeDrawer}
-          open={this.state.drawerVisible}
-          width={400}
-        >
-          <Button type="primary" onClick={this.openAddForm} style={{ marginBottom: 16 }}>
-            Add Event
-          </Button>
-          
-          {this.state.selectedEvents.length > 0 ? (
-            <div>
-              {this.state.selectedEvents.map((event, index) => {
-                const IconComponent = event.icon;
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      padding: "12px",
-                      marginBottom: "12px",
-                      borderRadius: "8px",
-                      border: "1px solid #e8e8e8",
-                      backgroundColor: "#fafafa",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                      <div
-                        style={{
-                          backgroundColor: event.iconColor,
-                          borderRadius: "6px",
-                          padding: "6px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <IconComponent size={14} color="white" />
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: "500" }}>{event.title}</div>
-                        <div style={{ fontSize: "12px", color: "#666" }}>
-                          {moment(event.start).format("MMM DD, YYYY HH:mm")} - {moment(event.end).format("HH:mm")}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {event.notes && (
-                      <div style={{ fontSize: "12px", color: "#666", marginBottom: "8px" }}>
-                        {event.notes}
-                      </div>
-                    )}
-                    
-                    <Space>
-                      <Button size="small" onClick={() => this.openEditForm(event)}>
-                        Edit
-                      </Button>
-                      <Button size="small" danger onClick={() => this.confirmDelete(event)}>
-                        Delete
-                      </Button>
-                    </Space>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div style={{ textAlign: "center", color: "#666", padding: "20px" }}>
-              No events on this date
-            </div>
-          )}
-        </Drawer>
-
-        {/* Modal for Add/Edit Event */}
-        <Modal
-          title={this.state.editEvent ? "Edit Event" : "Add Event"}
-          open={this.state.formVisible}
-          onCancel={() => this.setState({ formVisible: false, editEvent: null })}
-          footer={null}
-          width={500}
-        >
-          <Form
-            ref={this.formRef}
-            layout="vertical"
-            onFinish={this.handleFormSubmit}
-            initialValues={
-              this.state.editEvent
-                ? {
-                    title: this.state.editEvent.title,
-                    start: moment(this.state.editEvent.start),
-                    end: moment(this.state.editEvent.end),
-                    importance: this.state.editEvent.importance,
-                    notes: this.state.editEvent.notes,
-                  }
-                : {
-                    start: this.state.selectedDate ? moment(this.state.selectedDate).hour(9) : moment().hour(9),
-                    end: this.state.selectedDate ? moment(this.state.selectedDate).hour(10) : moment().hour(10),
-                    importance: "important",
-                  }
+              </Space>
             }
+          >
+            <div className="table-responsive">
+              <Table
+                columns={columns}
+                dataSource={filteredEvents}
+                pagination={{
+                  current: currentPage,
+                  pageSize: pageSize,
+                  total: filteredEvents.length,
+                  onChange: handlePaginationChange,
+                  showSizeChanger: true,
+                  pageSizeOptions: ["5", "10", "20"],
+                }}
+                className="ant-border-space"
+                onRow={(record) => ({
+                  onClick: () => handleRowClick(record),
+                })}
+                rowKey="id"
+              />
+            </div>
+          </Card>
+        </Col>
+      </Row>
+
+      <Drawer
+        title={
+          isAdding
+            ? "Thêm sự kiện mới"
+            : isEditing
+            ? "Chỉnh sửa sự kiện"
+            : selectedEvent?.title || "Chi tiết sự kiện"
+        }
+        placement="right"
+        onClose={handleCloseDrawer}
+        open={drawerVisible}
+        width={500}
+      >
+        {selectedEvent && !isEditing && !isAdding && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <Descriptions column={1} bordered>
+              <Descriptions.Item label="Tiêu đề">
+                {selectedEvent.title}
+              </Descriptions.Item>
+              <Descriptions.Item label="Thời gian bắt đầu">
+                {new Date(selectedEvent.start).toLocaleString('vi-VN')}
+              </Descriptions.Item>
+              <Descriptions.Item label="Thời gian kết thúc">
+                {new Date(selectedEvent.end).toLocaleString('vi-VN')}
+              </Descriptions.Item>
+              <Descriptions.Item label="Mức độ quan trọng">
+                <Tag color={priorityColors[selectedEvent.priority]}>
+                  {selectedEvent.priority}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="Địa điểm">
+                {selectedEvent.location}
+              </Descriptions.Item>
+              <Descriptions.Item label="Người tham gia">
+                {selectedEvent.attendees}
+              </Descriptions.Item>
+              <Descriptions.Item label="Mô tả">
+                {selectedEvent.description}
+              </Descriptions.Item>
+            </Descriptions>
+            <Button
+              type="primary"
+              onClick={() => handleEdit(selectedEvent)}
+              style={{ marginBottom: "8px" }}
+            >
+              Chỉnh sửa
+            </Button>
+            <Button type="primary" danger onClick={showDeleteModal}>
+              Xóa
+            </Button>
+          </div>
+        )}
+
+        {(isEditing || isAdding) && (
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleSave}
           >
             <Form.Item
               name="title"
-              label="Event Title"
-              rules={[{ required: true, message: "Please enter event title" }]}
+              label="Tiêu đề"
+              rules={[{ required: true, message: "Vui lòng nhập tiêu đề!" }]}
             >
-              <Input placeholder="Enter event title" />
+              <FormInput />
             </Form.Item>
-
-            <Row gutter={16}>
-              <Col span={12}>
-                <Form.Item
-                  name="start"
-                  label="Start Time"
-                  rules={[{ required: true, message: "Please select start time" }]}
-                >
-                  <DatePicker
-                    showTime
-                    format="YYYY-MM-DD HH:mm"
-                    placeholder="Select start time"
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="end"
-                  label="End Time"
-                  rules={[{ required: true, message: "Please select end time" }]}
-                >
-                  <DatePicker
-                    showTime
-                    format="YYYY-MM-DD HH:mm"
-                    placeholder="Select end time"
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-
             <Form.Item
-              name="importance"
-              label="Importance"
-              rules={[{ required: true, message: "Please select importance level" }]}
+              name="start"
+              label="Thời gian bắt đầu"
+              rules={[{ required: true, message: "Vui lòng chọn thời gian bắt đầu!" }]}
             >
-              <Select placeholder="Select importance level">
-                <Option value="critical">Critical</Option>
-                <Option value="important">Important</Option>
-                <Option value="less-important">Less Important</Option>
+              <FormInput type="datetime-local" />
+            </Form.Item>
+            <Form.Item
+              name="end"
+              label="Thời gian kết thúc"
+              rules={[{ required: true, message: "Vui lòng chọn thời gian kết thúc!" }]}
+            >
+              <FormInput type="datetime-local" />
+            </Form.Item>
+            <Form.Item
+              name="priority"
+              label="Mức độ quan trọng"
+              rules={[{ required: true, message: "Vui lòng chọn mức độ quan trọng!" }]}
+            >
+              <Select>
+                <Option value="Cao">Cao</Option>
+                <Option value="Trung bình">Trung bình</Option>
+                <Option value="Thấp">Thấp</Option>
               </Select>
             </Form.Item>
-
-            <Form.Item name="notes" label="Notes">
-              <Input.TextArea placeholder="Add notes (optional)" rows={3} />
+            <Form.Item
+              name="location"
+              label="Địa điểm"
+              rules={[{ required: true, message: "Vui lòng nhập địa điểm!" }]}
+            >
+              <FormInput />
             </Form.Item>
-
-            <Form.Item style={{ marginBottom: 0 }}>
-              <Space style={{ width: "100%", justifyContent: "flex-end" }}>
-                <Button onClick={() => this.setState({ formVisible: false, editEvent: null })}>
-                  Cancel
-                </Button>
+            <Form.Item
+              name="attendees"
+              label="Người tham gia"
+              rules={[{ required: true, message: "Vui lòng nhập người tham gia!" }]}
+            >
+              <FormInput />
+            </Form.Item>
+            <Form.Item
+              name="description"
+              label="Mô tả"
+              rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}
+            >
+              <FormInput.TextArea rows={4} />
+            </Form.Item>
+            <Form.Item>
+              <Space>
                 <Button type="primary" htmlType="submit">
-                  {this.state.editEvent ? "Update Event" : "Add Event"}
+                  Lưu
                 </Button>
+                <Button onClick={handleCloseDrawer}>Hủy</Button>
               </Space>
             </Form.Item>
           </Form>
-        </Modal>
+        )}
+      </Drawer>
 
-        {/* Confirmation Modal for Delete */}
-        <Modal
-          title="Xác nhận xóa"
-          open={this.state.deleteConfirmVisible}
-          onOk={this.handleDelete}
-          onCancel={() => this.setState({ deleteConfirmVisible: false, eventToDelete: null })}
-          okText="Delete"
-          cancelText="Cancel"
-          okButtonProps={{ danger: true }}
-        >
-          <p>
-            Bạn có chắc chắn muốn xóa sự kiện "{this.state.eventToDelete?.title}"?
-          </p>
-        </Modal>
-      </>
-    );
-  }
+      <Modal
+        title="Xác nhận xóa"
+        open={deleteModalVisible}
+        onOk={handleDelete}
+        onCancel={() => setDeleteModalVisible(false)}
+        okText="Xóa"
+        cancelText="Hủy"
+        okType="danger"
+      >
+        <p>
+          Bạn có chắc chắn muốn xóa sự kiện "{selectedEvent?.title}" không?
+        </p>
+      </Modal>
+    </div>
+  );
 }
+
+export default EventsList;
