@@ -271,13 +271,13 @@ function EventsList() {
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 150 }}
+                  style={{ width: 100 }}
                   onChange={(value) => {
                     setFilterPriority(value);
                     setCurrentPage(1);
                   }}
                 >
-                  <Option value="all">Tất cả mức độ</Option>
+                  <Option value="all">Tất cả</Option>
                   <Option value="Cao">Cao</Option>
                   <Option value="Trung bình">Trung bình</Option>
                   <Option value="Thấp">Thấp</Option>
