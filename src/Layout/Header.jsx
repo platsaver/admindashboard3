@@ -1,5 +1,5 @@
 import { Flex, Typography, Avatar, Menu, Dropdown, Badge } from "antd";
-import { MessageOutlined, BellOutlined , UserOutlined } from '@ant-design/icons';
+import { BellOutlined , UserOutlined } from '@ant-design/icons';
 import { GlobalOutlined } from "@ant-design/icons";
 
 const CustomHeader = () => {

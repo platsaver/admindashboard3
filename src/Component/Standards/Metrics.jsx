@@ -12,7 +12,7 @@ import {
   Form,
   Input as FormInput,
 } from "antd";
-import { DownloadOutlined, PlusOutlined } from "@ant-design/icons";
+import { DownloadOutlined} from "@ant-design/icons";
 import { useState } from "react";
 import * as XLSX from "xlsx";
 import { jsPDF } from "jspdf";
@@ -329,7 +329,7 @@ function Metrics() {
 
   return (
     <div className="metrics p-8 bg-gray-50 min-h-screen">
-      <Row gutter={[24, 24]}>
+      <Row gutter={[16,16]}>
         {/* Bảng chỉ số */}
         <Col xs={24} md={16}>
           <Card
@@ -337,18 +337,17 @@ function Metrics() {
             title={<span className="text-lg font-poppins font-medium">Bảng Chỉ Số</span>}
             style={{ border: "1px solid #e8e8e8", borderRadius: 8 }}
             extra={
-              <Space>
+              <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Button
                   type="primary"
-                  icon={<PlusOutlined />}
                   onClick={handleAddNew}
-                  style={{ borderRadius: 6 , backgroundColor:"green"}}
+                  style={{ borderRadius: 6, backgroundColor: "green", whiteSpace: 'nowrap' }}
                 >
-                  Thêm Chỉ Số
+                  Thêm
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 120 }}
+                  style={{ width: 120, minWidth: '80px', whiteSpace: 'nowrap' }}
                   onChange={handleGroupChange}
                   options={[
                     { value: "all", label: "Tất cả" },
@@ -361,7 +360,7 @@ function Metrics() {
                   type="primary"
                   icon={<DownloadOutlined />}
                   onClick={exportToExcel}
-                  style={{ borderRadius: 6, backgroundColor:"green" }}
+                  style={{ borderRadius: 6, backgroundColor: "green", whiteSpace: 'nowrap' }}
                 >
                   Excel
                 </Button>
@@ -369,7 +368,7 @@ function Metrics() {
                   type="primary"
                   icon={<DownloadOutlined />}
                   onClick={exportToPDF}
-                  style={{ borderRadius: 6, backgroundColor:"green" }}
+                  style={{ borderRadius: 6, backgroundColor: "green", whiteSpace: 'nowrap' }}
                 >
                   PDF
                 </Button>

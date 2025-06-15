@@ -200,23 +200,20 @@ function Standards() {
 
   return (
     <div className="tabled">
-      <Row gutter={[24, 0]}>
-        <Col xs={24} xl={24}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card
             className="criclebox tablespace mb-24"
             title="Bộ Tiêu Chuẩn"
             extra={
-              <Space>
-                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor:"green"}}>
+              <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: "green", whiteSpace: 'nowrap' }}>
                   Thêm
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 100 }}
-                  onChange={(value) => {
-                    setFilterCategory(value);
-                    setCurrentPage(1);
-                  }}
+                  style={{ width: 100, minWidth: '80px', whiteSpace: 'nowrap' }}
+                  onChange={(value) => { setFilterCategory(value); setCurrentPage(1); }}
                 >
                   <Option value="all">Tất cả</Option>
                   <Option value="Sản phẩm">Sản phẩm</Option>
@@ -227,13 +224,14 @@ function Standards() {
                   placeholder="Tìm kiếm tiêu chuẩn"
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: 200 }}
+                  style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
                 />
               </Space>
             }
           >
             <div className="table-responsive">
               <Table
+                scroll={{ x: 500 }}
                 columns={columns}
                 dataSource={filteredData}
                 pagination={{
@@ -258,7 +256,7 @@ function Standards() {
         placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
-        width={400}
+        width={isEditing || isAdding ? "80%" : "50%"}
       >
         {selectedStandard && !isEditing && !isAdding && (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -371,6 +369,7 @@ function Standards() {
       </Drawer>
 
       <Modal
+        centered
         title="Xác nhận xóa"
         open={deleteModalVisible}
         onOk={handleDelete}
