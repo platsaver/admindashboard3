@@ -267,7 +267,7 @@ const PersonnelList = () => {
       </Row>
       <Drawer
         title={isAdding ? 'Thêm nhân sự mới' : isEditing ? 'Chỉnh sửa nhân sự' : (selectedPersonnel?.name || 'Chi tiết nhân sự')}
-        placement="bottom"
+        placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
         height={isEditing || isAdding ? '80%' : '50%'}

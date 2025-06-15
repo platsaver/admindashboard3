@@ -275,7 +275,7 @@ function PartnersDashboard() {
       </Row>
       <Drawer
         title={isEditingPartner ? "Chỉnh sửa đối tác" : selectedPartner?.name || "Chi tiết đối tác"}
-        placement="bottom"
+        placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
         height={isEditingPartner ? "80%" : "50%"}
