@@ -245,7 +245,7 @@ function PartnersDashboard() {
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card className="criclebox mb-24" title="Partner Locations">
-            <div style={{ height: "300px", minHeight: "300px" }}>
+            <div style={{ height: "500px", minHeight: "300px" }}>
               {isClient ? (
                 <MapContainer
                   center={[16.0471, 108.2062]}
