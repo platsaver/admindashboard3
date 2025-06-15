@@ -212,11 +212,10 @@ function PartnersDashboard() {
                 />
                 <Button
                   type="primary"
-                  icon={<PlusOutlined />}
                   onClick={handleAddPartnerDrawer}
                   style={{ backgroundColor: "green" }}
                 >
-                  Thêm đối tác
+                  Thêm
                 </Button>
               </Space>
             }

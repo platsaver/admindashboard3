@@ -15,7 +15,7 @@ import {
   Modal,
 } from 'antd';
 import { useState } from 'react';
-import { SearchOutlined} from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -210,21 +210,21 @@ const PersonnelList = () => {
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <Row gutter={[24, 24]}>
-        <Col xs={24} xl={24}>
+    <>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card
             className="criclebox tablespace mb-24 rounded-lg bg-white"
             title="Danh sách Nhân sự"
             style={{ border: '1px solid #e8e8e8' }}
             extra={
-              <Space>
-                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor:"green"}}>
+              <Space wrap>
+                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: 'green' }}>
                   Thêm
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 100 }}
+                  style={{ width: 100, minWidth: '100px' }}
                   onChange={(value) => {
                     setFilterStatus(value);
                     setCurrentPage(1);
@@ -238,7 +238,7 @@ const PersonnelList = () => {
                   placeholder="Tìm kiếm nhân sự"
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: 200 }}
+                  style={{ width: '100%', maxWidth: '200px' }}
                 />
               </Space>
             }
@@ -259,6 +259,7 @@ const PersonnelList = () => {
                 onRow={(record) => ({
                   onClick: () => handleRowClick(record),
                 })}
+                scroll={{ x: 500 }} // Enable horizontal scroll on mobile
               />
             </div>
           </Card>
@@ -266,10 +267,10 @@ const PersonnelList = () => {
       </Row>
       <Drawer
         title={isAdding ? 'Thêm nhân sự mới' : isEditing ? 'Chỉnh sửa nhân sự' : (selectedPersonnel?.name || 'Chi tiết nhân sự')}
-        placement="right"
+        placement="bottom"
         onClose={handleCloseDrawer}
         open={drawerVisible}
-        width={400}
+        height={isEditing || isAdding ? '80%' : '50%'}
       >
         {selectedPersonnel && !isEditing && !isAdding && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -278,7 +279,7 @@ const PersonnelList = () => {
               <Descriptions.Item label="Vai trò">{selectedPersonnel.role}</Descriptions.Item>
               <Descriptions.Item label="Email">{selectedPersonnel.email}</Descriptions.Item>
               <Descriptions.Item label="Trạng thái">
-                <Tag color={selectedPersonnel.status === 'Active' ? 'yellow' : 'red'}>
+                <Tag color={selectedPersonnel.status === 'Active' ? 'green' : 'red'}>
                   {selectedPersonnel.status}
                 </Tag>
               </Descriptions.Item>
@@ -287,7 +288,7 @@ const PersonnelList = () => {
             <Button
               type="primary"
               onClick={() => handleEdit(selectedPersonnel)}
-              style={{ marginBottom: '8px' }}
+              style={{ marginBottom: '8px', width: '100%' }}
             >
               Chỉnh sửa
             </Button>
@@ -295,6 +296,7 @@ const PersonnelList = () => {
               type="primary"
               danger
               onClick={showDeleteModal}
+              style={{ width: '100%' }}
             >
               Xóa
             </Button>
@@ -353,11 +355,11 @@ const PersonnelList = () => {
               </Select>
             </Form.Item>
             <Form.Item>
-              <Space>
-                <Button type="primary" htmlType="submit">
+              <Space style={{ width: '100%' }}>
+                <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
                   Lưu
                 </Button>
-                <Button onClick={handleCloseDrawer}>
+                <Button onClick={handleCloseDrawer} style={{ width: '100%' }}>
                   Hủy
                 </Button>
               </Space>
@@ -373,12 +375,13 @@ const PersonnelList = () => {
         okText="Xóa"
         cancelText="Hủy"
         okType="danger"
+        centered
       >
         <p>
           Bạn có chắc chắn muốn xóa nhân sự "{selectedPersonnel?.name}" không?
         </p>
       </Modal>
-    </div>
+    </>
   );
 };
 
