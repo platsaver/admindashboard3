@@ -255,27 +255,24 @@ function EventsList() {
 
   return (
     <div className="events-list-container">
-      <Row gutter={[24, 24]}>
-        <Col xs={24}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card
             className="criclebox tablespace"
             title="Danh Sách Sự Kiện"
             extra={
-              <Space>
+              <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Button 
                   type="primary" 
                   onClick={handleAddNew}
-                  style={{ backgroundColor: "green" }}
+                  style={{ backgroundColor: "green", whiteSpace: 'nowrap' }}
                 >
                   Thêm sự kiện
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 100 }}
-                  onChange={(value) => {
-                    setFilterPriority(value);
-                    setCurrentPage(1);
-                  }}
+                  style={{ width: 100, minWidth: '80px', whiteSpace: 'nowrap' }}
+                  onChange={(value) => { setFilterPriority(value); setCurrentPage(1); }}
                 >
                   <Option value="all">Tất cả</Option>
                   <Option value="Cao">Cao</Option>
@@ -286,13 +283,14 @@ function EventsList() {
                   placeholder="Tìm kiếm sự kiện"
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: 200 }}
+                  style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
                 />
               </Space>
             }
           >
             <div className="table-responsive">
               <Table
+                scroll={{ x: 500 }}
                 columns={columns}
                 dataSource={filteredEvents}
                 pagination={{
@@ -325,7 +323,7 @@ function EventsList() {
         placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
-        width={500}
+        width={isEditing || isAdding ? "80%" : "50%"}
       >
         {selectedEvent && !isEditing && !isAdding && (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -439,6 +437,7 @@ function EventsList() {
       </Drawer>
 
       <Modal
+      centered
         title="Xác nhận xóa"
         open={deleteModalVisible}
         onOk={handleDelete}
