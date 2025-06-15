@@ -189,6 +189,7 @@ const Dashboard = () => {
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
+      {/*
       <Row gutter={[24, 24]} className="mb-8">
         <Col span={24}>
           <Card
@@ -229,24 +230,22 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row gutter={[24, 24]} style={{ paddingTop: '15px' }}>
-        <Col xs={24} xl={24}>
+      */}
+      <Row gutter={[16,16]} style={{ paddingTop: '15px' }}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card
             className="criclebox tablespace mb-24  rounded-lg bg-white"
             title="Nhiệm vụ"
             style={{ border: '1px solid #e8e8e8' }}
             extra={
-              <Space>
-                <Button type="primary" onClick={handleAddNew} style={{backgroundColor:"green"}}>
+              <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: "green", whiteSpace: 'nowrap' }}>
                   Thêm
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 100 }}
-                  onChange={(value) => {
-                    setFilterPriority(value);
-                    setCurrentPage(1);
-                  }}
+                  style={{ width: 100, minWidth: '80px', whiteSpace: 'nowrap' }}
+                  onChange={(value) => { setFilterPriority(value); setCurrentPage(1); }}
                 >
                   <Option value="all">Tất cả</Option>
                   <Option value="Cao">Cao</Option>
@@ -257,13 +256,14 @@ const Dashboard = () => {
                   placeholder="Tìm kiếm nhiệm vụ"
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: 200 }}
+                  style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
                 />
               </Space>
             }
           >
             <div className="table-responsive">
               <Table
+                scroll={{ x: 500 }}
                 columns={columns}
                 dataSource={filteredTasks}
                 pagination={{
@@ -288,7 +288,7 @@ const Dashboard = () => {
         placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
-        width={400}
+        width={isEditing || isAdding ? "80%" : "50%"}
       >
         {selectedTask && !isEditing && !isAdding && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -361,6 +361,7 @@ const Dashboard = () => {
         )}
       </Drawer>
       <Modal
+        centered
         title="Xác nhận xóa"
         open={deleteModalVisible}
         onOk={handleDelete}
