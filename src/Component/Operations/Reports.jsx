@@ -433,6 +433,7 @@ const CarbonDashboard = () => {
               dataSource={transactionData}
               pagination={false}
               className="ant-border-space"
+              scroll={{ x: 800 }} // Thêm thuộc tính scroll để hỗ trợ cuộn ngang
             />
           </Card>
         </Col>
