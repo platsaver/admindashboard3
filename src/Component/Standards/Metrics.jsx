@@ -356,22 +356,6 @@ function Metrics() {
                     { value: "Hiệu suất", label: "Hiệu suất" },
                   ]}
                 />
-                <Button
-                  type="primary"
-                  icon={<DownloadOutlined />}
-                  onClick={exportToExcel}
-                  style={{ borderRadius: 6, backgroundColor: "green", whiteSpace: 'nowrap' }}
-                >
-                  Excel
-                </Button>
-                <Button
-                  type="primary"
-                  icon={<DownloadOutlined />}
-                  onClick={exportToPDF}
-                  style={{ borderRadius: 6, backgroundColor: "green", whiteSpace: 'nowrap' }}
-                >
-                  PDF
-                </Button>
               </Space>
             }
           >
