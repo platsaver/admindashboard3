@@ -218,13 +218,13 @@ const PersonnelList = () => {
             title="Danh sách Nhân sự"
             style={{ border: '1px solid #e8e8e8' }}
             extra={
-              <Space wrap>
-                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: 'green' }}>
+              <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: 'green', whiteSpace: 'nowrap' }}>
                   Thêm
                 </Button>
                 <Select
                   defaultValue="all"
-                  style={{ width: 100, minWidth: '100px' }}
+                  style={{ width: 100, minWidth: '100px', whiteSpace: 'nowrap' }}
                   onChange={(value) => {
                     setFilterStatus(value);
                     setCurrentPage(1);
@@ -238,7 +238,7 @@ const PersonnelList = () => {
                   placeholder="Tìm kiếm nhân sự"
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: '100%', maxWidth: '200px' }}
+                  style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
                 />
               </Space>
             }
@@ -259,7 +259,7 @@ const PersonnelList = () => {
                 onRow={(record) => ({
                   onClick: () => handleRowClick(record),
                 })}
-                scroll={{ x: 500 }} // Enable horizontal scroll on mobile
+                scroll={{ x: 500 }}
               />
             </div>
           </Card>
