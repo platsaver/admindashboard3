@@ -11,7 +11,7 @@ import {
   Form,
   Input as FormInput,
   Modal,
-  Pagination
+  Pagination,
 } from "antd";
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -98,7 +98,7 @@ function PartnersDashboard() {
 
   const handleSearch = (value) => {
     setSearchText(value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleRowClick = (record) => {
@@ -189,16 +189,16 @@ function PartnersDashboard() {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  
-  const handlePageChange = (page) => {
+
+  const handlePageChange = (page, pageSize) => {
     setCurrentPage(page);
     setPageSize(pageSize);
-  }
+  };
 
   return (
     <div className="tabled">
-      <Row gutter={[24, 0]}>
-        <Col xs={24} xl={12}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card
             className="criclebox tablespace mb-24"
             title="Các đối tác"
@@ -208,13 +208,13 @@ function PartnersDashboard() {
                   placeholder="Tìm kiếm đối tác..."
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: 200 }}
+                  style={{ width: "100%", maxWidth: "200px" }}
                 />
                 <Button
                   type="primary"
                   icon={<PlusOutlined />}
                   onClick={handleAddPartnerDrawer}
-                  style={{ backgroundColor:"green"}}
+                  style={{ backgroundColor: "green" }}
                 >
                   Thêm đối tác
                 </Button>
@@ -224,12 +224,13 @@ function PartnersDashboard() {
             <div className="table-responsive">
               <Table
                 columns={columns}
-                dataSource={paginatedData} // Use paginated data
-                pagination={false} // Disable built-in pagination
+                dataSource={paginatedData}
+                pagination={false}
                 className="ant-border-space"
                 onRow={(record) => ({
                   onClick: () => handleRowClick(record),
                 })}
+                scroll={{ x: 400 }} // Ensure horizontal scroll on small screens
               />
               <Pagination
                 current={currentPage}
@@ -237,15 +238,15 @@ function PartnersDashboard() {
                 total={filteredData.length}
                 onChange={handlePageChange}
                 showSizeChanger
-                pageSizeOptions={["10", "20", "50"]}
-                style={{ marginTop: 16, textAlign: "right", paddingBottom: 10, paddingRight: 10 }}
+                pageSizeOptions={["5", "10", "20"]}
+                style={{ marginTop: 16, textAlign: "center", paddingBottom: 10 }}
               />
             </div>
           </Card>
         </Col>
-        <Col xs={24} xl={12}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card className="criclebox mb-24" title="Partner Locations">
-            <div style={{ height: "500px" }}>
+            <div style={{ height: "300px", minHeight: "300px" }}>
               {isClient ? (
                 <MapContainer
                   center={[16.0471, 108.2062]}
@@ -275,10 +276,10 @@ function PartnersDashboard() {
       </Row>
       <Drawer
         title={isEditingPartner ? "Chỉnh sửa đối tác" : selectedPartner?.name || "Chi tiết đối tác"}
-        placement="right"
+        placement="bottom"
         onClose={handleCloseDrawer}
         open={drawerVisible}
-        width={400}
+        height={isEditingPartner ? "80%" : "50%"}
       >
         {selectedPartner && !isEditingPartner && (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -290,11 +291,11 @@ function PartnersDashboard() {
             <Button
               type="primary"
               onClick={handleEditPartner}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "8px", width: "100%" }}
             >
               Chỉnh sửa
             </Button>
-            <Button type="primary" danger onClick={showDeletePartnerModal}>
+            <Button type="primary" danger onClick={showDeletePartnerModal} style={{ width: "100%" }}>
               Xóa
             </Button>
           </div>
@@ -328,11 +329,13 @@ function PartnersDashboard() {
               <FormInput />
             </Form.Item>
             <Form.Item>
-              <Space>
-                <Button type="primary" htmlType="submit">
+              <Space style={{ width: "100%" }}>
+                <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
                   Lưu
                 </Button>
-                <Button onClick={handleCloseDrawer}>Hủy</Button>
+                <Button onClick={handleCloseDrawer} style={{ width: "100%" }}>
+                  Hủy
+                </Button>
               </Space>
             </Form.Item>
           </Form>
@@ -340,10 +343,10 @@ function PartnersDashboard() {
       </Drawer>
       <Drawer
         title="Thêm đối tác mới"
-        placement="right"
+        placement="bottom"
         onClose={handleCloseAddPartnerDrawer}
         open={addPartnerDrawerVisible}
-        width={400}
+        height="60%"
       >
         <Form
           form={addPartnerForm}
@@ -372,11 +375,13 @@ function PartnersDashboard() {
             <FormInput />
           </Form.Item>
           <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit">
+            <Space style={{ width: "100%" }}>
+              <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
                 Lưu
               </Button>
-              <Button onClick={handleCloseAddPartnerDrawer}>Hủy</Button>
+              <Button onClick={handleCloseAddPartnerDrawer} style={{ width: "100%" }}>
+                Hủy
+              </Button>
             </Space>
           </Form.Item>
         </Form>
@@ -389,6 +394,7 @@ function PartnersDashboard() {
         okText="Xóa"
         cancelText="Hủy"
         okType="danger"
+        centered
       >
         <p>Bạn có chắc chắn muốn xóa đối tác "{selectedPartner?.name}" không?</p>
       </Modal>
