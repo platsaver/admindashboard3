@@ -19,66 +19,62 @@ const handleError = (error) => {
   }
 };
 
-const postApi = async (path, params) => {
-  try {
-    const response = await axios.post(path, params, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
-  } catch (error) {
+const post = (path, params) => {
+  return axios.post(path, params, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => response.data)
+  .catch(error => {
     handleError(error);
     throw error;
-  }
+  });
 };
 
-const getApi = async (path, query) => {
-  try {
-    const queryString = query ? `?${new URLSearchParams(query).toString()}` : '';
-    const response = await axios.get(`${path}${queryString}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
-  } catch (error) {
+const get = (path, query) => {
+  const queryString = query ? `?${new URLSearchParams(query).toString()}` : '';
+  return axios.get(`${path}${queryString}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => response.data)
+  .catch(error => {
     handleError(error);
     throw error;
-  }
+  });
 };
 
-const putApi = async (path, params) => {
-  try {
-    const response = await axios.put(path, params, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
-  } catch (error) {
+const put = (path, params) => {
+  return axios.put(path, params, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => response.data)
+  .catch(error => {
     handleError(error);
     throw error;
-  }
+  });
 };
 
-const deleteApi = async (path, params) => {
-  try {
-    const response = await axios.delete(path, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: params,
-    });
-    return response.data;
-  } catch (error) {
+const delete1 = (path, params) => {
+  return axios.delete(path, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: params,
+  })
+  .then(response => response.data)
+  .catch(error => {
     handleError(error);
     throw error;
-  }
+  });
 };
 
 const showToast = (message, type) => {
   console.log(`Toast [${type}]: ${message}`);
 };
 
-export { postApi, getApi, putApi, deleteApi };
+export { post, get, put, delete1 };
