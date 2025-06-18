@@ -34,10 +34,6 @@ const PersonnelList = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    setPersonnelData(initialPersonnel);
-  }, []);
-
   const initialPersonnel = [
   {
       key: '1',
@@ -80,6 +76,9 @@ const PersonnelList = () => {
       partner: 'BlueWave Danang',
     },
   ];
+  useEffect(() => {
+    setPersonnelData(initialPersonnel);
+  }, []);
 
   const columns = [
     {
