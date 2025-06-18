@@ -22,7 +22,7 @@ const SideBar = () => {
         defaultSelectedKeys={["dashboard"]}
         className="menu-bar"
         onClick={({ key }) => navigate(key)}
-        defaultOpenKeys={["management", "management1"]} // Sửa cú pháp
+        defaultOpenKeys={["management", "management1"]} 
         items={[
           {
             key: "dashboard",
