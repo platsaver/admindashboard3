@@ -18,6 +18,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { SearchOutlined } from "@ant-design/icons";
+import {useTranslation } from "react-i18next";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -33,48 +34,22 @@ const initialPartnerData = [
     key: "1",
     name: "TechCorp Hanoi",
     contact: "contact@techcorp.vn",
-    location: "Hanoi",
+    location: "Hà Nội",
     coordinates: [21.0285, 105.8542],
   },
   {
     key: "2",
     name: "GreenSolutions HCMC",
     contact: "info@greensolutions.vn",
-    location: "Ho Chi Minh City",
+    location: "Hồ Chí Minh",
     coordinates: [10.7769, 106.7009],
   },
   {
     key: "3",
     name: "BlueWave Danang",
     contact: "support@bluewave.vn",
-    location: "Da Nang",
+    location: "Đà Nẵng",
     coordinates: [16.0544, 108.2022],
-  },
-];
-
-const columns = [
-  {
-    title: "Tên đối tác",
-    dataIndex: "name",
-    key: "name",
-    width: "35%",
-    render: (text) => (
-      <div className="avatar-info">
-        <Title level={5}>{text}</Title>
-      </div>
-    ),
-  },
-  {
-    title: "Email",
-    dataIndex: "contact",
-    key: "contact",
-    width: "35%",
-  },
-  {
-    title: "Địa chỉ",
-    dataIndex: "location",
-    key: "location",
-    width: "30%",
   },
 ];
 
@@ -91,6 +66,33 @@ function PartnersDashboard() {
   const [addPartnerForm] = Form.useForm();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
+  const {t} = useTranslation();
+
+  const columns = [
+    {
+      title: t('partner'),
+      dataIndex: "name",
+      key: "name",
+      width: "35%",
+      render: (text) => (
+        <div className="avatar-info">
+          <Title level={5}>{text}</Title>
+        </div>
+      ),
+    },
+    {
+      title: t('email'),
+      dataIndex: "contact",
+      key: "contact",
+      width: "35%",
+    },
+    {
+      title: t('address'),
+      dataIndex: "location",
+      key: "location",
+      width: "30%",
+    },
+  ];
 
   useEffect(() => {
     setIsClient(true);
@@ -201,11 +203,11 @@ function PartnersDashboard() {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <Card
             className="criclebox tablespace mb-24"
-            title="Các đối tác"
+            title={t('partner')}
             extra={
               <Space>
                 <FormInput
-                  placeholder="Tìm kiếm đối tác..."
+                  placeholder={t('partnerSearch')}
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
                   style={{ width: "100%", maxWidth: "200px" }}
@@ -215,7 +217,7 @@ function PartnersDashboard() {
                   onClick={handleAddPartnerDrawer}
                   style={{ backgroundColor: "green" }}
                 >
-                  Thêm
+                  {t('add')}
                 </Button>
               </Space>
             }
@@ -244,7 +246,7 @@ function PartnersDashboard() {
           </Card>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Card className="criclebox mb-24" title="Partner Locations">
+          <Card className="criclebox mb-24" title={t('partnerLocation')}>
             <div style={{ height: "500px", minHeight: "300px" }}>
               {isClient ? (
                 <MapContainer
@@ -267,14 +269,14 @@ function PartnersDashboard() {
                   ))}
                 </MapContainer>
               ) : (
-                <div>Loading map...</div>
+                <div>{t('mapLoading')}</div>
               )}
             </div>
           </Card>
         </Col>
       </Row>
       <Drawer
-        title={isEditingPartner ? "Chỉnh sửa đối tác" : selectedPartner?.name || "Chi tiết đối tác"}
+        title={isEditingPartner ? t('editPartnerTitle') : selectedPartner?.name || t('partnerDetails')}
         placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
@@ -283,19 +285,19 @@ function PartnersDashboard() {
         {selectedPartner && !isEditingPartner && (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <Descriptions column={1} bordered>
-              <Descriptions.Item label="Partner Name">{selectedPartner.name}</Descriptions.Item>
-              <Descriptions.Item label="Contact">{selectedPartner.contact}</Descriptions.Item>
-              <Descriptions.Item label="Location">{selectedPartner.location}</Descriptions.Item>
+              <Descriptions.Item label={t('partnerName')}>{selectedPartner.name}</Descriptions.Item>
+              <Descriptions.Item label={t('partnerContact')}>{selectedPartner.contact}</Descriptions.Item>
+              <Descriptions.Item label={t('partnerLocation')}>{selectedPartner.location}</Descriptions.Item>
             </Descriptions>
             <Button
               type="primary"
               onClick={handleEditPartner}
               style={{ marginBottom: "8px", width: "100%" }}
             >
-              Chỉnh sửa
+              {t('edit')}
             </Button>
             <Button type="primary" danger onClick={showDeletePartnerModal} style={{ width: "100%" }}>
-              Xóa
+              {t('delete')}
             </Button>
           </div>
         )}
@@ -308,32 +310,32 @@ function PartnersDashboard() {
           >
             <Form.Item
               name="name"
-              label="Partner Name"
-              rules={[{ required: true, message: "Vui lòng nhập tên đối tác!" }]}
+              label={t('partnerName')}
+              rules={[{ required: true, message: t('partnerNameWarning') }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="contact"
-              label="Contact"
-              rules={[{ required: true, message: "Vui lòng nhập liên hệ!" }]}
+              label={t('partnerContact')}
+              rules={[{ required: true, message: t('partnerContactWarning') }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="location"
-              label="Location"
-              rules={[{ required: true, message: "Vui lòng nhập địa điểm!" }]}
+              label={t('partnerLocation')}
+              rules={[{ required: true, message: t('partnerAddressWarning') }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item>
               <Space style={{ width: "100%" }}>
                 <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                  Lưu
+                  {t('save')}
                 </Button>
                 <Button onClick={handleCloseDrawer} style={{ width: "100%" }}>
-                  Hủy
+                  {t('cancel')}
                 </Button>
               </Space>
             </Form.Item>
@@ -341,8 +343,8 @@ function PartnersDashboard() {
         )}
       </Drawer>
       <Drawer
-        title="Thêm đối tác mới"
-        placement="bottom"
+        title={t('addPartnerTitle')}  
+        placement="right"
         onClose={handleCloseAddPartnerDrawer}
         open={addPartnerDrawerVisible}
         height="60%"
@@ -352,50 +354,60 @@ function PartnersDashboard() {
           layout="vertical"
           onFinish={handleAddPartner}
         >
-          <Form.Item
-            name="name"
-            label="Partner Name"
-            rules={[{ required: true, message: "Vui lòng nhập tên đối tác!" }]}
-          >
-            <FormInput />
-          </Form.Item>
-          <Form.Item
-            name="contact"
-            label="Contact"
-            rules={[{ required: true, message: "Vui lòng nhập liên hệ!" }]}
-          >
-            <FormInput />
-          </Form.Item>
-          <Form.Item
-            name="location"
-            label="Location"
-            rules={[{ required: true, message: "Vui lòng nhập địa điểm!" }]}
-          >
-            <FormInput />
-          </Form.Item>
+            <Form.Item
+              name="name"
+              label={t('partnerName')}
+              rules={[{ required: true, message: t('partnerNameWarning') }]}
+            >
+              <FormInput />
+            </Form.Item>
+            <Form.Item
+              name="contact"
+              label={t('partnerContact')}
+              rules={[{ required: true, message: t('partnerContactWarning') }]}
+            >
+              <FormInput />
+            </Form.Item>
+            <Form.Item
+              name="location"
+              label={t('partnerLocation')}
+              rules={[{ required: true, message: t('partnerAddressWarning') }]}
+            >
+              <FormInput />
+            </Form.Item>
+            <Form.Item>
+              <Space style={{ width: "100%" }}>
+                <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+                  {t('save')}
+                </Button>
+                <Button onClick={handleCloseDrawer} style={{ width: "100%" }}>
+                  {t('cancel')}
+                </Button>
+              </Space>
+            </Form.Item>
           <Form.Item>
             <Space style={{ width: "100%" }}>
               <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                Lưu
+                {t('save')}
               </Button>
               <Button onClick={handleCloseAddPartnerDrawer} style={{ width: "100%" }}>
-                Hủy
+                {t('cancel')}
               </Button>
             </Space>
           </Form.Item>
         </Form>
       </Drawer>
       <Modal
-        title="Xác nhận xóa đối tác"
+        title={t('deleteTitle')}
         open={deletePartnerModalVisible}
         onOk={handleDeletePartner}
         onCancel={() => setDeletePartnerModalVisible(false)}
-        okText="Xóa"
-        cancelText="Hủy"
+        okText={t('delete')}
+        cancelText={t('cancel')}
         okType="danger"
         centered
       >
-        <p>Bạn có chắc chắn muốn xóa đối tác "{selectedPartner?.name}" không?</p>
+        <p>{t('deleteWarning', { partnerName: selectedPartner?.name })}</p>
       </Modal>
     </div>
   );
