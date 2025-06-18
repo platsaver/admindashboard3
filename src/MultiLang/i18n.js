@@ -33,6 +33,28 @@ const resources = {
       trending: "Price carbon credits trend",
       price: "Price (USD/tCO2e)",
       days: "Days",
+      domestic: "Domestic (Vietnam)",
+      international: "International (EU ETS)",
+      global: "Global",
+      policies: [
+        "January 2025: Vietnam issues a plan to establish a pilot emissions trading system (ETS) starting in June 2025, with full implementation by 2029.",
+        "December 2024: COP29 agreement launches the UN's centralized international carbon credit trading system in 2025.",
+        "September 2023: ASEAN Carbon Credit Trading Platform (CCTPA) launches Vietnam's first carbon credit trading platform.",
+      ],
+      projects: [
+        {
+          title: 'Amazon Reforestation Project (Brazil)',
+          description: 'Mercuria partners with Nature Conservancy to protect the Amazon, generating credits through forestry.',
+        },
+        {
+          title: 'Vietnam Renewable Energy Project',
+          description: 'Solar and wind projects contribute to carbon credits for Vietnam’s pilot ETS.',
+        },
+        {
+          title: 'Indonesia Renewable Energy Credits',
+          description: 'IDX Carbon platform adds 1.78 million credits from renewable energy in 2024.',
+        },
+      ],
     },
   },
   vi: {
@@ -66,6 +88,28 @@ const resources = {
       trending: "Xu hướng giá tín chỉ carbon",
       price: "Giá (USD/tCO2e)",
       days: "Ngày",
+      domestic: "Trong nước (Việt Nam)",
+      international: "Quốc tế (EU ETS)",
+      global: "Toàn cầu",
+      policies: [
+        "Tháng 1 năm 2025: Việt Nam ban hành kế hoạch thiết lập hệ thống giao dịch phát thải (ETS) thí điểm bắt đầu từ tháng 6 năm 2025, với triển khai đầy đủ vào năm 2029.",
+        "Tháng 12 năm 2024: Thỏa thuận COP29 ra mắt hệ thống giao dịch tín chỉ carbon quốc tế tập trung của Liên Hợp Quốc vào năm 2025.",
+        "Tháng 9 năm 2023: Nền tảng giao dịch tín chỉ carbon ASEAN (CCTPA) ra mắt nền tảng giao dịch tín chỉ carbon đầu tiên của Việt Nam.",
+      ],
+      projects: [
+        {
+          title: 'Dự án trồng rừng Amazon (Brazil)',
+          description: 'Mercuria hợp tác với Nature Conservancy để bảo vệ Amazon, tạo ra tín chỉ thông qua lâm nghiệp.',
+        },
+        {
+          title: 'Dự án năng lượng tái tạo Việt Nam',
+          description: 'Các dự án năng lượng mặt trời và gió đóng góp vào tín chỉ carbon cho ETS thí điểm của Việt Nam.',
+        },
+        {
+          title: 'Tín chỉ năng lượng tái tạo Indonesia',
+          description: 'Nền tảng IDX Carbon bổ sung 1.78 triệu tín chỉ từ năng lượng tái tạo vào năm 2024.',
+        },
+      ],
     },
   },
 };

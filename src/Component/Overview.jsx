@@ -22,26 +22,6 @@ ChartJS.register(
   Legend
 );
 
-const policies = [
-  'Tháng 1 năm 2025: Việt Nam ban hành kế hoạch thiết lập hệ thống giao dịch phát thải (ETS) thí điểm bắt đầu từ tháng 6 năm 2025, với triển khai đầy đủ vào năm 2029.',
-  'Tháng 12 năm 2024: Thỏa thuận COP29 ra mắt hệ thống giao dịch tín chỉ carbon quốc tế tập trung của Liên Hợp Quốc vào năm 2025.',
-  'Tháng 9 năm 2023: Nền tảng giao dịch tín chỉ carbon ASEAN (CCTPA) ra mắt nền tảng giao dịch tín chỉ carbon đầu tiên của Việt Nam.',
-];
-const projects = [
-  {
-    title: 'Dự án trồng rừng Amazon (Brazil)',
-    description: 'Mercuria hợp tác với Nature Conservancy để bảo vệ Amazon, tạo ra tín chỉ thông qua lâm nghiệp.',
-  },
-  {
-    title: 'Dự án năng lượng tái tạo Việt Nam',
-    description: 'Các dự án năng lượng mặt trời và gió đóng góp vào tín chỉ carbon cho ETS thí điểm của Việt Nam.',
-  },
-  {
-    title: 'Tín chỉ năng lượng tái tạo Indonesia',
-    description: 'Nền tảng IDX Carbon bổ sung 1.78 triệu tín chỉ từ năng lượng tái tạo vào năm 2024.',
-  },
-];
-
 const CarbonMarketDashboard = () => {
   const {t} = useTranslation();
   const companyColumns = [
@@ -56,7 +36,7 @@ const CarbonMarketDashboard = () => {
     { key: '5', name: 'Microsoft', role: t('sell') },
   ];
   const tradingVolumeData = {
-    labels: ['Trong nước (Việt Nam)', 'Quốc tế (EU ETS)', 'Toàn cầu'],
+    labels: [t('domestic'), t('international'), t('global')],
     datasets: [
       {
         label: t('volume'),
@@ -145,6 +125,8 @@ const CarbonMarketDashboard = () => {
       },
     ],
   };
+  const policies = t('policies', { returnObjects: true });
+  const projects = t('projects', { returnObjects: true });
 
   return (
     <div style={{ padding: '24px' }}>
