@@ -4,9 +4,11 @@ import { Flex } from "antd";
 import { FaLeaf } from "react-icons/fa";
 import { TeamOutlined, FundOutlined, PlayCircleOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -17,62 +19,62 @@ const SideBar = () => {
       </Flex>
       <Menu
         mode="inline"
-        defaultSelectedKeys={["dashboard"]} // Match default route
+        defaultSelectedKeys={["dashboard"]}
         className="menu-bar"
         onClick={({ key }) => navigate(key)}
-        defaultOpenKeys={["management"]["management1"]}
+        defaultOpenKeys={["management", "management1"]} // Sửa cú pháp
         items={[
           {
             key: "dashboard",
             icon: <FundOutlined />,
-            label: "Tổng quan",
+            label: t('overview'),
           },
           {
             key: "management",
             icon: <TeamOutlined />,
-            label: "Đối tác",
+            label: t('partners'),
             children: [
               {
                 key: "partners",
-                label: "Danh sách đối tác",
+                label: t('partners'),
               },
               {
                 key: "personnel",
-                label: "Nhân sự",
+                label: t('personnel'),
               },
             ],
           },
           {
             key: "management1",
             icon: <SafetyCertificateOutlined />,
-            label: "Tiêu chuẩn",
+            label: t('standards'),
             children: [
               {
                 key: "standards",
-                label: "Bộ tiêu chuẩn",
+                label: t('standards'),
               },
               {
                 key: "metrics",
-                label: "Bộ chỉ số",
+                label: t('metrics'),
               },
             ],
           },
           {
             key: "management2",
             icon: <PlayCircleOutlined />,
-            label: "Vận hành",
+            label: t('operations'),
             children: [
               {
                 key: "activities",
-                label: "Hoạt động",
+                label: t('activities'),
               },
               {
                 key: "reports",
-                label: "Báo cáo",
+                label: t('reports'),
               },
               {
                 key: "events",
-                label: "Sự kiện",
+                label: t('events'),
               },
             ],
           },

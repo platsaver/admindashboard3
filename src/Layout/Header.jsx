@@ -1,8 +1,10 @@
 import { Flex, Typography, Avatar, Menu, Dropdown, Badge } from "antd";
 import { BellOutlined , UserOutlined } from '@ant-design/icons';
 import { GlobalOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
 
 const CustomHeader = () => {
+    const { i18n } = useTranslation();
     const notificationMenu = (
         <Menu
         items={[
@@ -30,12 +32,17 @@ const CustomHeader = () => {
             {
             key: 'en',
             label: 'English',
-            onClick: () => console.log('Selected English'), // Add your logic here
+            onClick: () => {
+                i18n.changeLanguage('en');
+                console.log('Selected English')}, 
             },
             {
             key: 'vi',
             label: 'Tiếng Việt',
-            onClick: () => console.log('Selected Vietnamese'), // Add your logic here
+            onClick: () => {
+                i18n.changeLanguage('vi');
+                console.log('Selected Vietnamese')
+            }, 
             },
         ]}
         />
