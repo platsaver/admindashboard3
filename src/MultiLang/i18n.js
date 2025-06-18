@@ -13,6 +13,8 @@ const resources = {
       activities: "Activities",
       reports: "Reports",
       events: "Events",
+      english: "English",
+      vietnamese: "Vietnamese",
     },
   },
   vi: {
@@ -26,6 +28,8 @@ const resources = {
       activities: "Hoạt động",
       reports: "Báo cáo",
       events: "Sự kiện",
+      english: "Tiếng Anh",
+      vietnamese: "Tiếng Việt", 
     },
   },
 };
