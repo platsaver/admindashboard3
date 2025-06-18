@@ -38,7 +38,7 @@ const PersonnelList = () => {
   {
       key: '1',
       name: 'Nguyen Van A',
-      role: t('Manager'),
+      role: 'Manager',
       email: 'nguyen.a@techcorp.vn',
       status: 'Active',
       partner: 'TechCorp Hanoi',
@@ -46,7 +46,7 @@ const PersonnelList = () => {
     {
       key: '2',
       name: 'Tran Thi B',
-      role: t('Developer'),
+      role: 'Developer',
       email: 'tran.b@techcorp.vn',
       status: 'Active',
       partner: 'TechCorp Hanoi',
@@ -54,7 +54,7 @@ const PersonnelList = () => {
     {
       key: '3',
       name: 'Le Minh C',
-      role: t('Consultant'),
+      role: 'Consultant',
       email: 'le.c@greensolutions.vn',
       status: 'Active',
       partner: 'GreenSolutions HCMC',
@@ -62,7 +62,7 @@ const PersonnelList = () => {
     {
       key: '4',
       name: 'Pham D',
-      role: t('Analyst'),
+      role: 'Analyst',
       email: 'pham.d@greensolutions.vn',
       status: 'Inactive',
       partner: 'GreenSolutions HCMC',
@@ -70,15 +70,20 @@ const PersonnelList = () => {
     {
       key: '5',
       name: 'Hoang E',
-      role: t('LogisticsManager'),
+      role: 'Employee',
       email: 'hoang.e@bluewave.vn',
       status: 'Active',
       partner: 'BlueWave Danang',
     },
   ];
   useEffect(() => {
-    setPersonnelData(initialPersonnel);
-  }, []);
+  setPersonnelData(
+    initialPersonnel.map((person) => ({
+        ...person,
+        role: t(person.role), 
+      }))
+    );
+  }, [t]);
 
   const columns = [
     {
@@ -121,9 +126,9 @@ const PersonnelList = () => {
       key: 'partner',
       width: '20%',
       filters: [
-        { text: t('personnel.filters.partner.techCorpHanoi'), value: 'TechCorp Hanoi' },
-        { text: t('personnel.filters.partner.greenSolutionsHCMC'), value: 'GreenSolutions HCMC' },
-        { text: t('personnel.filters.partner.blueWaveDanang'), value: 'BlueWave Danang' },
+        { text: 'TechCorp Hanoi', value: 'TechCorp Hanoi' },
+        { text: 'GreenSolutions HCMC', value: 'GreenSolutions HCMC' },
+        { text: 'BlueWave Danang', value: 'BlueWave Danang' },
       ],
       onFilter: (value, record) => record.partner === value,
     },
@@ -299,14 +304,14 @@ const PersonnelList = () => {
                 {selectedPersonnel.name}
               </Descriptions.Item>
               <Descriptions.Item label={t('personnelRole')}>
-                {selectedPersonnel.role}
+                {t(selectedPersonnel.role)}
               </Descriptions.Item>
               <Descriptions.Item label={t('personnelEmail')}>
                 {selectedPersonnel.email}
               </Descriptions.Item>
               <Descriptions.Item label={t('personnelStatus')}>
                 <Tag color={selectedPersonnel.status === 'Active' ? 'green' : 'red'}>
-                  {t(`personnel${selectedPersonnel.status}`)}
+                  {t(`${selectedPersonnel.status}`)}
                 </Tag>
               </Descriptions.Item>
               <Descriptions.Item label={t('personnelPartner')}>
