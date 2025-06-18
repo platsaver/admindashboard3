@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import 'antd/dist/reset.css'; 
 import { I18nextProvider } from 'react-i18next'; 
-import i18n from './MultiLang/i18n'; // Adjust the path as necessary
+import i18n from './MultiLang/i18n'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
