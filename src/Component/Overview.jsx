@@ -37,6 +37,7 @@ const priceData = {
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top',
@@ -53,6 +54,11 @@ const chartOptions = {
         display: true,
         text: 'Price (USD/tCO2e)',
       },
+      ticks: {
+        min: 79,    // Dưới mức nhỏ nhất một chút để có khoảng cách
+        max: 88,    // Trên mức lớn nhất một chút để có khoảng cách
+        stepSize: 1, // Bước chia nhỏ để hiển thị chi tiết
+      },
     },
     x: {
       title: {
@@ -68,7 +74,7 @@ const tradingVolumeData = {
   datasets: [
     {
       label: 'Volume (MtCO2e)',
-      data: [1000, 5000, 12500],
+      data: [3000, 5000, 12500],
       backgroundColor: '#52c41a',
       borderColor: '#52c41a',
       borderWidth: 1,
@@ -78,6 +84,7 @@ const tradingVolumeData = {
 
 const tradingVolumeOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top',
@@ -93,6 +100,10 @@ const tradingVolumeOptions = {
       title: {
         display: true,
         text: 'Volume (MtCO2e)',
+      },
+      ticks: {
+        max: 15000,  // Tăng max để bao gồm 12,500
+        stepSize: 2500, // Bước chia hợp lý hơn
       },
     },
     x: {
@@ -142,23 +153,27 @@ const CarbonMarketDashboard = () => {
     <div style={{ padding: '24px' }}>
       <Row gutter={[24, 24]}>
         {/* Left Column: Biểu đồ */}
-        <Col xs={24} md={12}>
+        <Col xs={24} sm={24} md={12}>
           <Row gutter={[24, 24]}>
             <Col span={24}>
               <Card title="Carbon Credit Price Chart" style={{ width: '100%' }}>
-                <Line data={priceData} options={chartOptions} />
+                <div style={{ height: 300 }}>
+                  <Line data={priceData} options={chartOptions} />
+                </div>
               </Card>
             </Col>
             <Col span={24}>
               <Card title="Trading Volume" style={{ width: '100%' }}>
-                <Bar data={tradingVolumeData} options={tradingVolumeOptions} />
+                <div style={{ height: 300 }}>
+                  <Bar data={tradingVolumeData} options={tradingVolumeOptions} />
+                </div>
               </Card>
             </Col>
           </Row>
         </Col>
 
         {/* Right Column: Table + Lists */}
-        <Col xs={24} md={12}>
+        <Col xs={24} sm={24} md={12}>
           <Row gutter={[24, 24]}>
             <Col span={24}>
               <Card title="Notable Companies in Carbon Credit Market" style={{ width: '100%' }}>
