@@ -14,105 +14,15 @@ import {
   Select,
   Modal,
 } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
-const initialPersonnel = [
-  {
-    key: '1',
-    name: 'Nguyen Van A',
-    role: 'Manager',
-    email: 'nguyen.a@techcorp.vn',
-    status: 'Active',
-    partner: 'TechCorp Hanoi',
-  },
-  {
-    key: '2',
-    name: 'Tran Thi B',
-    role: 'Developer',
-    email: 'tran.b@techcorp.vn',
-    status: 'Active',
-    partner: 'TechCorp Hanoi',
-  },
-  {
-    key: '3',
-    name: 'Le Minh C',
-    role: 'Consultant',
-    email: 'le.c@greensolutions.vn',
-    status: 'Active',
-    partner: 'GreenSolutions HCMC',
-  },
-  {
-    key: '4',
-    name: 'Pham D',
-    role: 'Analyst',
-    email: 'pham.d@greensolutions.vn',
-    status: 'Inactive',
-    partner: 'GreenSolutions HCMC',
-  },
-  {
-    key: '5',
-    name: 'Hoang E',
-    role: 'Logistics Manager',
-    email: 'hoang.e@bluewave.vn',
-    status: 'Active',
-    partner: 'BlueWave Danang',
-  },
-];
-
-const columns = [
-  {
-    title: 'Tên',
-    dataIndex: 'name',
-    key: 'name',
-    width: '20%',
-    sorter: (a, b) => a.name.localeCompare(b.name),
-  },
-  {
-    title: 'Vai trò',
-    dataIndex: 'role',
-    key: 'role',
-    width: '20%',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-    width: '25%',
-  },
-  {
-    title: 'Trạng thái',
-    dataIndex: 'status',
-    key: 'status',
-    render: (status) => (
-      <Tag color={status === 'Active' ? 'green' : 'red'}>
-        {status}
-      </Tag>
-    ),
-    filters: [
-      { text: 'Active', value: 'Active' },
-      { text: 'Inactive', value: 'Inactive' },
-    ],
-    onFilter: (value, record) => record.status === value,
-  },
-  {
-    title: 'Đối tác',
-    dataIndex: 'partner',
-    key: 'partner',
-    width: '20%',
-    filters: [
-      { text: 'TechCorp Hanoi', value: 'TechCorp Hanoi' },
-      { text: 'GreenSolutions HCMC', value: 'GreenSolutions HCMC' },
-      { text: 'BlueWave Danang', value: 'BlueWave Danang' },
-    ],
-    onFilter: (value, record) => record.partner === value,
-  },
-];
-
 const PersonnelList = () => {
-  const [personnelData, setPersonnelData] = useState(initialPersonnel);
+  const { t } = useTranslation();
+  const [personnelData, setPersonnelData] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchText, setSearchText] = useState('');
   const [pageSize, setPageSize] = useState(5);
@@ -123,6 +33,102 @@ const PersonnelList = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    setPersonnelData(initialPersonnel);
+  }, []);
+
+  const initialPersonnel = [
+  {
+      key: '1',
+      name: 'Nguyen Van A',
+      role: t('Manager'),
+      email: 'nguyen.a@techcorp.vn',
+      status: 'Active',
+      partner: 'TechCorp Hanoi',
+    },
+    {
+      key: '2',
+      name: 'Tran Thi B',
+      role: t('Developer'),
+      email: 'tran.b@techcorp.vn',
+      status: 'Active',
+      partner: 'TechCorp Hanoi',
+    },
+    {
+      key: '3',
+      name: 'Le Minh C',
+      role: t('Consultant'),
+      email: 'le.c@greensolutions.vn',
+      status: 'Active',
+      partner: 'GreenSolutions HCMC',
+    },
+    {
+      key: '4',
+      name: 'Pham D',
+      role: t('Analyst'),
+      email: 'pham.d@greensolutions.vn',
+      status: 'Inactive',
+      partner: 'GreenSolutions HCMC',
+    },
+    {
+      key: '5',
+      name: 'Hoang E',
+      role: t('LogisticsManager'),
+      email: 'hoang.e@bluewave.vn',
+      status: 'Active',
+      partner: 'BlueWave Danang',
+    },
+  ];
+
+  const columns = [
+    {
+      title: t('personnelName'),
+      dataIndex: 'name',
+      key: 'name',
+      width: '20%',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: t('personnelRole'),
+      dataIndex: 'role',
+      key: 'role',
+      width: '20%',
+    },
+    {
+      title: t('personnelEmail'),
+      dataIndex: 'email',
+      key: 'email',
+      width: '25%',
+    },
+    {
+      title: t('personnelStatus'),
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (
+        <Tag color={status === 'Active' ? 'green' : 'red'}>
+          {t(`personnel${status}`)}
+        </Tag>
+      ),
+      filters: [
+        { text: t('personnelActive'), value: 'Active' },
+        { text: t('personnelInactive'), value: 'Inactive' },
+      ],
+      onFilter: (value, record) => record.status === value,
+    },
+    {
+      title: t('personnelPartner'),
+      dataIndex: 'partner',
+      key: 'partner',
+      width: '20%',
+      filters: [
+        { text: t('personnel.filters.partner.techCorpHanoi'), value: 'TechCorp Hanoi' },
+        { text: t('personnel.filters.partner.greenSolutionsHCMC'), value: 'GreenSolutions HCMC' },
+        { text: t('personnel.filters.partner.blueWaveDanang'), value: 'BlueWave Danang' },
+      ],
+      onFilter: (value, record) => record.partner === value,
+    },
+  ];
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -163,7 +169,7 @@ const PersonnelList = () => {
     form.validateFields().then((values) => {
       if (isAdding) {
         const newPersonnel = {
-          key: (personnelData.length + 1).toString(),
+          key: Date.now().toString(),
           ...values,
         };
         setPersonnelData((prevData) => [...prevData, newPersonnel]);
@@ -179,6 +185,8 @@ const PersonnelList = () => {
       setIsAdding(false);
       setDrawerVisible(false);
       form.resetFields();
+    }).catch((error) => {
+      console.log('Validation failed:', error);
     });
   };
 
@@ -189,20 +197,23 @@ const PersonnelList = () => {
     setDeleteModalVisible(false);
     setDrawerVisible(false);
     setSelectedPersonnel(null);
+    setCurrentPage(1);
   };
 
   const showDeleteModal = () => {
     setDeleteModalVisible(true);
   };
 
-  const filteredPersonnel = personnelData.filter((person) => {
-    const matchesStatus =
-      filterStatus === 'all' || person.status === filterStatus;
-    const matchesSearch = person.name
-      .toLowerCase()
-      .includes(searchText.toLowerCase());
-    return matchesStatus && matchesSearch;
-  });
+  const filteredPersonnel = personnelData
+    ? personnelData.filter((person) => {
+        const matchesStatus =
+          filterStatus === 'all' || person.status === filterStatus;
+        const matchesSearch = person.name
+          .toLowerCase()
+          .includes(searchText.toLowerCase());
+        return matchesStatus && matchesSearch;
+      })
+    : [];
 
   const handlePaginationChange = (page, pageSize) => {
     setCurrentPage(page);
@@ -210,17 +221,21 @@ const PersonnelList = () => {
   };
 
   return (
-    <>
+    <div className="tabled">
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card
             className="criclebox tablespace mb-24 rounded-lg bg-white"
-            title="Danh sách Nhân sự"
+            title={t('personnelList')}
             style={{ border: '1px solid #e8e8e8' }}
             extra={
               <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
-                <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: 'green', whiteSpace: 'nowrap' }}>
-                  Thêm
+                <Button
+                  type="primary"
+                  onClick={handleAddNew}
+                  style={{ backgroundColor: 'green', whiteSpace: 'nowrap' }}
+                >
+                  {t('addPersonnel')}
                 </Button>
                 <Select
                   defaultValue="all"
@@ -230,12 +245,12 @@ const PersonnelList = () => {
                     setCurrentPage(1);
                   }}
                 >
-                  <Option value="all">Tất cả</Option>
-                  <Option value="Active">Active</Option>
-                  <Option value="Inactive">Inactive</Option>
+                  <Option value="all">{t('personnelAllOption')}</Option>
+                  <Option value="Active">{t('personnelActiveOption')}</Option>
+                  <Option value="Inactive">{t('personnelInactiveOption')}</Option>
                 </Select>
                 <Input
-                  placeholder="Tìm kiếm nhân sự"
+                  placeholder={t('searchPersonnel')}
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
                   style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
@@ -266,7 +281,13 @@ const PersonnelList = () => {
         </Col>
       </Row>
       <Drawer
-        title={isAdding ? 'Thêm nhân sự mới' : isEditing ? 'Chỉnh sửa nhân sự' : (selectedPersonnel?.name || 'Chi tiết nhân sự')}
+        title={
+          isAdding
+            ? t('addPersonnel')
+            : isEditing
+            ? t('editPersonnel')
+            : selectedPersonnel?.name || t('personnelDetails')
+        }
         placement="right"
         onClose={handleCloseDrawer}
         open={drawerVisible}
@@ -275,22 +296,30 @@ const PersonnelList = () => {
         {selectedPersonnel && !isEditing && !isAdding && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <Descriptions column={1} bordered>
-              <Descriptions.Item label="Tên">{selectedPersonnel.name}</Descriptions.Item>
-              <Descriptions.Item label="Vai trò">{selectedPersonnel.role}</Descriptions.Item>
-              <Descriptions.Item label="Email">{selectedPersonnel.email}</Descriptions.Item>
-              <Descriptions.Item label="Trạng thái">
+              <Descriptions.Item label={t('personnelName')}>
+                {selectedPersonnel.name}
+              </Descriptions.Item>
+              <Descriptions.Item label={t('personnelRole')}>
+                {selectedPersonnel.role}
+              </Descriptions.Item>
+              <Descriptions.Item label={t('personnelEmail')}>
+                {selectedPersonnel.email}
+              </Descriptions.Item>
+              <Descriptions.Item label={t('personnelStatus')}>
                 <Tag color={selectedPersonnel.status === 'Active' ? 'green' : 'red'}>
-                  {selectedPersonnel.status}
+                  {t(`personnel${selectedPersonnel.status}`)}
                 </Tag>
               </Descriptions.Item>
-              <Descriptions.Item label="Đối tác">{selectedPersonnel.partner}</Descriptions.Item>
+              <Descriptions.Item label={t('personnelPartner')}>
+                {selectedPersonnel.partner}
+              </Descriptions.Item>
             </Descriptions>
             <Button
               type="primary"
               onClick={() => handleEdit(selectedPersonnel)}
               style={{ marginBottom: '8px', width: '100%' }}
             >
-              Chỉnh sửa
+              {t('editPersonnel')}
             </Button>
             <Button
               type="primary"
@@ -298,7 +327,7 @@ const PersonnelList = () => {
               onClick={showDeleteModal}
               style={{ width: '100%' }}
             >
-              Xóa
+              {t('deletePersonnel')}
             </Button>
           </div>
         )}
@@ -311,56 +340,52 @@ const PersonnelList = () => {
           >
             <Form.Item
               name="name"
-              label="Tên"
-              rules={[{ required: true, message: 'Vui lòng nhập tên!' }]}
+              label={t('personnelName')}
+              rules={[{ required: true, message: t('personnelNameWarning') }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="role"
-              label="Vai trò"
-              rules={[{ required: true, message: 'Vui lòng nhập vai trò!' }]}
+              label={t('personnelRole')}
+              rules={[{ required: true, message: t('personnelRoleWarning') }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="email"
-              label="Email"
+              label={t('personnelEmail')}
               rules={[
-                { required: true, message: 'Vui lòng nhập email!' },
-                { type: 'email', message: 'Email không hợp lệ!' },
+                { required: true, message: t('personnelEmailWarning') },
+                { type: 'email', message: t('personnelInvalidEmailWarning') },
               ]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="status"
-              label="Trạng thái"
-              rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
+              label={t('personnelStatus')}
+              rules={[{ required: true, message: t('personnelStatusWarning') }]}
             >
               <Select>
-                <Option value="Active">Active</Option>
-                <Option value="Inactive">Inactive</Option>
+                <Option value="Active">{t('personnelActive')}</Option>
+                <Option value="Inactive">{t('personnelInactive')}</Option>
               </Select>
             </Form.Item>
             <Form.Item
               name="partner"
-              label="Đối tác"
-              rules={[{ required: true, message: 'Vui lòng chọn đối tác!' }]}
+              label={t('personnelPartner')}
+              rules={[{ required: true, message: t('personnelPartnerWarning') }]}
             >
-              <Select>
-                <Option value="TechCorp Hanoi">TechCorp Hanoi</Option>
-                <Option value="GreenSolutions HCMC">GreenSolutions HCMC</Option>
-                <Option value="BlueWave Danang">BlueWave Danang</Option>
-              </Select>
+              <FormInput/>
             </Form.Item>
             <Form.Item>
               <Space style={{ width: '100%' }}>
                 <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                  Lưu
+                  {t('save')}
                 </Button>
                 <Button onClick={handleCloseDrawer} style={{ width: '100%' }}>
-                  Hủy
+                  {t('cancel')}
                 </Button>
               </Space>
             </Form.Item>
@@ -368,20 +393,20 @@ const PersonnelList = () => {
         )}
       </Drawer>
       <Modal
-        title="Xác nhận xóa"
+        title={t('personnelDeleteTitle')}
         open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={() => setDeleteModalVisible(false)}
-        okText="Xóa"
-        cancelText="Hủy"
+        okText={t('deletePersonnel')}
+        cancelText={t('cancel')}
         okType="danger"
         centered
       >
         <p>
-          Bạn có chắc chắn muốn xóa nhân sự "{selectedPersonnel?.name}" không?
+          {t('personnelDeleteWarning', { name: selectedPersonnel?.name })}
         </p>
       </Modal>
-    </>
+    </div>
   );
 };
 
