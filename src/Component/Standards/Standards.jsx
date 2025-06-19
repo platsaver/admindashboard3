@@ -16,43 +16,9 @@ import {
 } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const { Option } = Select;
-
-const columns = [
-  {
-    title: "Tên tiêu chuẩn",
-    dataIndex: "name",
-    key: "name",
-    width: "15%",
-    sorter: (a, b) => a.name.localeCompare(b.name),
-  },
-  {
-    title: "Phân loại",
-    dataIndex: "category",
-    key: "category",
-    filters: [
-      { text: "Products", value: "Sản phẩm" },
-      { text: "Procedure", value: "Quy trình" },
-      { text: "Safety", value: "An toàn" },
-    ],
-    onFilter: (value, record) => record.category === value,
-  },
-  {
-    title: "Mô tả",
-    dataIndex: "description",
-    key: "description",
-    width: "30%",
-  },
-  {
-    title: "Mức độ chấp hành",
-    dataIndex: "complianceLevel",
-    key: "complianceLevel",
-    render: (level) => (
-      <Tag color={level === "Nâng cao" ? "blue" : "green"}>{level}</Tag>
-    ),
-  },
-];
 
 const initialData = [
   {
@@ -94,6 +60,7 @@ const initialData = [
 ];
 
 function Standards() {
+  const { t } = useTranslation();
   const [filterCategory, setFilterCategory] = useState("all");
   const [searchText, setSearchText] = useState("");
   const [pageSize, setPageSize] = useState(5);
@@ -105,6 +72,41 @@ function Standards() {
   const [isAdding, setIsAdding] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm();
+
+  const columns = [
+    {
+      title: t('standardName'),
+      dataIndex: "name",
+      key: "name",
+      width: "15%",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: t('category'),
+      dataIndex: "category",
+      key: "category",
+      filters: [
+        { text: "Products", value: "Sản phẩm" },
+        { text: "Procedure", value: "Quy trình" },
+        { text: "Safety", value: "An toàn" },
+      ],
+      onFilter: (value, record) => record.category === value,
+    },
+    {
+      title: t('standardDescription'),
+      dataIndex: "description",
+      key: "description",
+      width: "30%",
+    },
+    {
+      title: t('complianceLevel'),
+      dataIndex: "complianceLevel",
+      key: "complianceLevel",
+      render: (level) => (
+        <Tag color={level === "Nâng cao" ? "blue" : "green"}>{level}</Tag>
+      ),
+    },
+  ];
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -208,20 +210,20 @@ function Standards() {
             extra={
               <Space direction="horizontal" style={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Button type="primary" onClick={handleAddNew} style={{ backgroundColor: "green", whiteSpace: 'nowrap' }}>
-                  Thêm
+                  {t('add')}
                 </Button>
                 <Select
                   defaultValue="all"
                   style={{ width: 100, minWidth: '80px', whiteSpace: 'nowrap' }}
                   onChange={(value) => { setFilterCategory(value); setCurrentPage(1); }}
                 >
-                  <Option value="all">Tất cả</Option>
-                  <Option value="Sản phẩm">Sản phẩm</Option>
-                  <Option value="Quy trình">Quy trình</Option>
-                  <Option value="An toàn">An toàn</Option>
+                  <Option value="all">{t('all')}</Option>
+                  <Option value="Sản phẩm">{t('products')}</Option>
+                  <Option value="Quy trình">{t('procedures')}</Option>
+                  <Option value="An toàn">{t('safety')}</Option>
                 </Select>
                 <Input
-                  placeholder="Tìm kiếm tiêu chuẩn"
+                  placeholder={t('searchStandard')}
                   prefix={<SearchOutlined />}
                   onChange={(e) => handleSearch(e.target.value)}
                   style={{ width: '100%', maxWidth: '200px', whiteSpace: 'nowrap' }}
@@ -261,26 +263,26 @@ function Standards() {
         {selectedStandard && !isEditing && !isAdding && (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <Descriptions column={1} bordered>
-              <Descriptions.Item label="Tên tiêu chuẩn">
+              <Descriptions.Item label={t("standardName")}>
                 {selectedStandard.name}
               </Descriptions.Item>
-              <Descriptions.Item label="Danh mục">
+              <Descriptions.Item label={t("category")}>
                 {selectedStandard.category}
               </Descriptions.Item>
-              <Descriptions.Item label="Mô tả">
+              <Descriptions.Item label={t("description")}>
                 {selectedStandard.description}
               </Descriptions.Item>
-              <Descriptions.Item label="Mức độ tuân thủ">
+              <Descriptions.Item label={t("complianceLevel")}>
                 <Tag color={selectedStandard.complianceLevel === "Nâng cao" ? "blue" : "green"}>
                   {selectedStandard.complianceLevel}
                 </Tag>
               </Descriptions.Item>
-              <Descriptions.Item label="Hướng dẫn">
+              <Descriptions.Item label={t("guidelines")}>
                 {selectedStandard.guidelines}
               </Descriptions.Item>
-              <Descriptions.Item label="Tài liệu">
+              <Descriptions.Item label={t("documents")}>
                 <a href={selectedStandard.documents} target="_blank" rel="noopener noreferrer">
-                  Xem tài liệu
+                  {t('viewDocuments')}
                 </a>
               </Descriptions.Item>
             </Descriptions>
@@ -289,14 +291,14 @@ function Standards() {
               onClick={() => handleEdit(selectedStandard)}
               style={{ marginBottom: "8px" }}
             >
-              Chỉnh sửa
+              {t("edit")}
             </Button>
             <Button
               type="primary"
               danger
               onClick={showDeleteModal}
             >
-              Xóa
+              {t("delete")}
             </Button>
           </div>
         )}
@@ -309,49 +311,49 @@ function Standards() {
           >
             <Form.Item
               name="name"
-              label="Tên tiêu chuẩn"
+              label={t('standardName')}
               rules={[{ required: true, message: "Vui lòng nhập tên tiêu chuẩn!" }]}
             >
               <FormInput />
             </Form.Item>
             <Form.Item
               name="category"
-              label="Danh mục"
+              label={t('category')}
               rules={[{ required: true, message: "Vui lòng chọn danh mục!" }]}
             >
               <Select>
-                <Option value="Sản phẩm">Sản phẩm</Option>
-                <Option value="Quy trình">Quy trình</Option>
-                <Option value="An toàn">An toàn</Option>
+                <Option value="Sản phẩm">{t('products')}</Option>
+                <Option value="Quy trình">{t('procedures')}</Option>
+                <Option value="An toàn">{t('safety')}</Option>
               </Select>
             </Form.Item>
             <Form.Item
               name="description"
-              label="Mô tả"
+              label={t("description")}
               rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}
             >
               <FormInput.TextArea rows={4} />
             </Form.Item>
             <Form.Item
               name="complianceLevel"
-              label="Mức độ tuân thủ"
+              label={t("complianceLevel")}
               rules={[{ required: true, message: "Vui lòng chọn mức độ tuân thủ!" }]}
             >
               <Select>
-                <Option value="Cơ bản">Cơ bản</Option>
-                <Option value="Nâng cao">Nâng cao</Option>
+                <Option value="Cơ bản">{t("basic")}</Option>
+                <Option value="Nâng cao">{t("advanced")}</Option>
               </Select>
             </Form.Item>
             <Form.Item
               name="guidelines"
-              label="Hướng dẫn"
+              label={t("guidelines")}
               rules={[{ required: true, message: "Vui lòng nhập hướng dẫn!" }]}
             >
               <FormInput.TextArea rows={4} />
             </Form.Item>
             <Form.Item
               name="documents"
-              label="Tài liệu"
+              label={t("documents")}
               rules={[{ required: true, message: "Vui lòng nhập liên kết tài liệu!" }]}
             >
               <FormInput />
@@ -359,9 +361,9 @@ function Standards() {
             <Form.Item>
               <Space>
                 <Button type="primary" htmlType="submit">
-                  Lưu
+                  {t("save")}
                 </Button>
-                <Button onClick={handleCloseDrawer}>Hủy</Button>
+                <Button onClick={handleCloseDrawer}>{t("cancel")}</Button>
               </Space>
             </Form.Item>
           </Form>
@@ -370,12 +372,12 @@ function Standards() {
 
       <Modal
         centered
-        title="Xác nhận xóa"
+        title={t("confirmDelete")}
         open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={() => setDeleteModalVisible(false)}
-        okText="Xóa"
-        cancelText="Hủy"
+        okText={t("delete")}
+        cancelText={t("cancel")}
         okType="danger"
       >
         <p>

@@ -1,3 +1,4 @@
+import { all } from 'axios';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
@@ -92,6 +93,21 @@ const resources = {
       personnelPartnerWarning: "Personnel partner is required.",
       personnelDeleteTitle: "Delete Personnel",
       personnelDeleteWarning: "Are you sure to delete this personnel?",
+      standardset: "Standard Set",
+      searchStandard: "Search for standards ...",
+      all: "All",
+      category: "Category",
+      standardName: "Standard Name",
+      standardDescription: "Description",
+      complianceLevel: "Compliance Level",
+      guidelines: "Guidelines",
+      documents: "Documents",
+      viewDocuments: "View Documents",
+      products: "Products",
+      procedures: "Procedures",
+      safety: "Safety",
+      basic: "Basic",
+      advanced: "Advanced",
       policies: [
         "January 2025: Vietnam issues a plan to establish a pilot emissions trading system (ETS) starting in June 2025, with full implementation by 2029.",
         "December 2024: COP29 agreement launches the UN's centralized international carbon credit trading system in 2025.",
@@ -203,6 +219,21 @@ const resources = {
       personnelStatusWarning: "Trạng thái là bắt buộc.",
       personnelInvalidEmailWarning: "Định dạng email không hợp lệ.",
       personnelPartnerWarning: "Thông tin đối tác là bắt buộc.",
+      standardset: "Bộ tiêu chuẩn",
+      searchStandard: "Tìm kiếm tiêu chuẩn ...",
+      all: "Tất cả",
+      category: "Danh mục",
+      standardName: "Tên tiêu chuẩn",
+      standardDescription: "Mô tả",
+      complianceLevel: "Cấp độ tuân thủ",
+      guidelines: "Hướng dẫn",
+      documents: "Tài liệu",
+      viewDocuments: "Xem tài liệu",
+      products: "Sản phẩm",
+      procedures: "Quy trình",
+      safety: "An toàn",
+      basic: "Cơ bản",
+      advanced: "Nâng cao",
       policies: [
         "Tháng 1 năm 2025: Việt Nam ban hành kế hoạch thiết lập hệ thống giao dịch phát thải (ETS) thí điểm bắt đầu từ tháng 6 năm 2025, với triển khai đầy đủ vào năm 2029.",
         "Tháng 12 năm 2024: Thỏa thuận COP29 ra mắt hệ thống giao dịch tín chỉ carbon quốc tế tập trung của Liên Hợp Quốc vào năm 2025.",
