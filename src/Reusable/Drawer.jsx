@@ -40,8 +40,8 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onDelete, fieldsConf
       title={isEditing ? 'Chỉnh sửa thông tin' : 'Thông tin chi tiết'}
       width={400}
       onClose={onClose}
-      visible={visible}
-      bodyStyle={{ paddingBottom: 80 }}
+      open={visible}
+      styles={{ paddingBottom: 80 }}
       footer={
         <Space style={{ width: '100%', justifyContent: 'space-between' }}>
           {isEditing ? (
