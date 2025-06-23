@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, CloudOutlined, FireOutlined } from '@ant-design/icons';
+import CarbonDrawer from '../../Reusable/Drawer';
 
 const carbonData = [
   {
@@ -36,6 +37,8 @@ const carbonData = [
 const CarbonCreditDashboard = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonData);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -46,15 +49,37 @@ const CarbonCreditDashboard = () => {
     setFilteredData(filtered);
   };
 
+  const handleUpdate = (updatedRecord) => {
+    setFilteredData((prev) =>
+      prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
+    );
+  };
+
+  const handleDelete = (key) => {
+    setFilteredData((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const fieldsConfig = [
+    { name: 'tenChiSo', label: 'Tên chỉ số' },
+    { name: 'loai', label: 'Loại' },
+    { name: 'giaTri', label: 'Giá trị' },
+    { name: 'trangThai', label: 'Trạng thái' },
+  ];
+
   const columns = [
     {
       title: 'Tên chỉ số',
       dataIndex: 'tenChiSo',
       key: 'tenChiSo',
-      render: (text) => (
+      render: (text, record) => (
         <Space>
           <CloudOutlined />
-          <strong>{text}</strong>
+          <a onClick={() => {
+            setSelectedRecord(record);
+            setDrawerVisible(true);
+          }}>
+            <strong>{text}</strong>
+          </a>
         </Space>
       ),
     },
@@ -121,7 +146,24 @@ const CarbonCreditDashboard = () => {
             }}
             scroll={{ x: 'max-content' }}
             size="middle"
+            onRow={(record) => ({
+              onClick: () => {
+                setSelectedRecord(record);
+                setDrawerVisible(true);
+              },
+              style: { cursor: 'pointer' },
+            })}
           />
+          {selectedRecord && (
+            <CarbonDrawer
+              visible={drawerVisible}
+              onClose={() => setDrawerVisible(false)}
+              record={selectedRecord}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              fieldsConfig={fieldsConfig}
+            />
+          )}
         </Card>
       </Col>
     </Row>
