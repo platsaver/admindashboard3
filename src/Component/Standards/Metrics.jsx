@@ -19,7 +19,7 @@ const columns = [
     title: 'CHỈ SỐ',
     dataIndex: 'name',
     key: 'name',
-    width: '30%',
+    width: '20%',
     sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
@@ -46,36 +46,12 @@ const columns = [
   },
 ];
 
-// Danh sách chỉ số tạm thời được fix cứng
+// Danh sách chỉ số cố định, tương tự companyData trong Overview.jsx
 const fixedData = [
-  {
-    key: '1',
-    name: 'Tỷ lệ lỗi sản phẩm',
-    group: 'Chất lượng',
-    value: 2.5,
-    target: 3.0,
-  },
-  {
-    key: '2',
-    name: 'Thời gian giao hàng',
-    group: 'Tốc độ',
-    value: 4.2,
-    target: 5.0,
-  },
-  {
-    key: '3',
-    name: 'Hiệu suất máy móc',
-    group: 'Hiệu suất',
-    value: 85,
-    target: 90,
-  },
-  {
-    key: '4',
-    name: 'Tỷ lệ hoàn thành đơn hàng',
-    group: 'Hiệu suất',
-    value: 95,
-    target: 98,
-  },
+  { key: '1', name: 'Tỷ lệ lỗi sản phẩm', group: 'Chất lượng', value: 2.5, target: 3.0 },
+  { key: '2', name: 'Thời gian giao hàng', group: 'Tốc độ', value: 4.2, target: 5.0 },
+  { key: '3', name: 'Hiệu suất máy móc', group: 'Hiệu suất', value: 85, target: 90 },
+  { key: '4', name: 'Tỷ lệ hoàn thành đơn hàng', group: 'Hiệu suất', value: 95, target: 98 },
 ];
 
 function Metrics() {
@@ -157,6 +133,8 @@ function Metrics() {
                 dataSource={filteredData}
                 pagination={false}
                 className="ant-border-space"
+                bordered
+                style={{ borderRadius: '8px', overflow: 'hidden' }}
               />
             </div>
           </Card>
