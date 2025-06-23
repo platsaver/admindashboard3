@@ -124,15 +124,6 @@ const NhanSuList = () => {
       render: (text, record) => (
         <Space direction="vertical" size="small">
           <strong>{text}</strong>
-          <Tag 
-            color={
-              record.status === 'active' ? 'green' : 
-              record.status === 'inactive' ? 'red' : 'orange'
-            }
-          >
-            {record.status === 'active' ? 'Đang làm việc' : 
-             record.status === 'inactive' ? 'Nghỉ việc' : 'Chờ duyệt'}
-          </Tag>
         </Space>
       ),
     },
@@ -169,6 +160,16 @@ const NhanSuList = () => {
         </Space>
       ),
     },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => {
+        const color = status === 'active' ? 'green' : status === 'inactive' ? 'red' : 'orange';
+        const label = status === 'active' ? 'Đang làm việc' : status === 'inactive' ? 'Nghỉ việc' : 'Chờ duyệt';
+        return <Tag color={color}>{label}</Tag>;
+      },
+    }
   ];
 
   return (
