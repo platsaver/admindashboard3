@@ -23,16 +23,14 @@ const App = () => {
         className="sider"
       >
         <SideBar />
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          className="trigger-btn"
-        />
+        
       </Sider>
       <Layout>
         <Header className="header">
-          <CustomHeader />
+          <CustomHeader
+            collapsed={collapsed}
+            onToggle={() => setCollapsed(!collapsed)}
+          />
         </Header>
         <Content className="content">
           <Outlet /> {/* Render các component con dựa trên route */}

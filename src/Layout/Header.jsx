@@ -1,9 +1,9 @@
-import { Flex, Typography, Avatar, Menu, Dropdown, Badge } from "antd";
+import { Flex, Typography, Avatar, Menu, Dropdown, Badge, Button } from "antd";
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import { GlobalOutlined } from "@ant-design/icons";
+import { GlobalOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
 
-const CustomHeader = () => {
+const CustomHeader = ({ collapsed, onToggle }) => {
   const { t, i18n } = useTranslation(); // Lấy cả t và i18n
 
   const notificationMenu = (
@@ -53,23 +53,23 @@ const CustomHeader = () => {
 
   return (
     <Flex align="center" justify="space-between">
-      <Typography.Title level={4} type="secondary"></Typography.Title>
-      <Flex align="center" gap="3rem">
+      <Flex align="center" justify="start">
+          <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={onToggle}
+          className="trigger-btn"
+          style={{ fontSize: 18 }}
+          />
+      </Flex>
+      <Flex align="center" justify="end">
         <Flex align="center" gap="10px">
-          <Dropdown
-            overlay={notificationMenu}
-            trigger={['hover']}
-            placement="bottomRight"
-          >
+          <Dropdown overlay={notificationMenu} trigger={['hover']} placement="bottomRight">
             <Badge dot>
               <BellOutlined className="header-icon" style={{ cursor: 'pointer' }} />
             </Badge>
           </Dropdown>
-          <Dropdown
-            overlay={languageMenu}
-            trigger={['hover']}
-            placement="bottomRight"
-          >
+          <Dropdown overlay={languageMenu} trigger={['hover']} placement="bottomRight">
             <GlobalOutlined className="header-icon" />
           </Dropdown>
           <Avatar icon={<UserOutlined />} />
