@@ -1,0 +1,130 @@
+import React, { useState } from 'react';
+import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
+import { SearchOutlined, EnvironmentOutlined, CalendarOutlined } from '@ant-design/icons';
+
+const carbonActivities = [
+  {
+    key: '1',
+    tenHoatDong: 'Trồng rừng tại Gia Lai',
+    loai: 'Hấp thụ carbon',
+    thoiGian: '05/2024',
+    trangThai: 'hoàn thành',
+  },
+  {
+    key: '2',
+    tenHoatDong: 'Lắp đặt hệ thống điện mặt trời',
+    loai: 'Giảm phát thải',
+    thoiGian: '09/2023',
+    trangThai: 'đang theo dõi',
+  },
+  {
+    key: '3',
+    tenHoatDong: 'Tham gia giao dịch tín chỉ carbon với Singapore',
+    loai: 'Thị trường',
+    thoiGian: '12/2024',
+    trangThai: 'dự kiến',
+  },
+  {
+    key: '4',
+    tenHoatDong: 'Đánh giá chuỗi cung ứng theo ESG',
+    loai: 'Kiểm toán',
+    thoiGian: '03/2025',
+    trangThai: 'đang thực hiện',
+  },
+];
+
+const CarbonActivityList = () => {
+  const [searchText, setSearchText] = useState('');
+  const [filteredData, setFilteredData] = useState(carbonActivities);
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filtered = carbonActivities.filter(item =>
+      item.tenHoatDong.toLowerCase().includes(value.toLowerCase()) ||
+      item.loai.toLowerCase().includes(value.toLowerCase()) ||
+      item.trangThai.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+  const columns = [
+    {
+      title: 'Tên hoạt động',
+      dataIndex: 'tenHoatDong',
+      key: 'tenHoatDong',
+      render: (text) => (
+        <Space>
+          <EnvironmentOutlined />
+          <strong>{text}</strong>
+        </Space>
+      ),
+    },
+    {
+      title: 'Loại',
+      dataIndex: 'loai',
+      key: 'loai',
+      render: (text) => <Tag color="blue">{text}</Tag>,
+    },
+    {
+      title: 'Thời gian',
+      dataIndex: 'thoiGian',
+      key: 'thoiGian',
+      render: (text) => (
+        <Space>
+          <CalendarOutlined />
+          {text}
+        </Space>
+      ),
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'trangThai',
+      key: 'trangThai',
+      render: (status) => {
+        let color = 'green';
+        if (status.includes('dự kiến')) color = 'orange';
+        else if (status.includes('đang')) color = 'gold';
+        else if (status.includes('hoàn')) color = 'green';
+        return <Tag color={color}>{status}</Tag>;
+      },
+    },
+  ];
+
+  return (
+    <Row gutter={[16, 16]}>
+      <Col span={24}>
+        <Card
+          title={
+            <Row justify="end" gutter={[8, 8]}>
+              <Col xs={24} sm={16} md={12} lg={8} xl={6}>
+                <Input.Search
+                  placeholder="Tìm kiếm hoạt động carbon..."
+                  allowClear
+                  enterButton={<Button icon={<SearchOutlined />} />}
+                  onSearch={handleSearch}
+                  onChange={(e) => {
+                    if (!e.target.value) handleSearch('');
+                  }}
+                  style={{ width: '100%' }}
+                />
+              </Col>
+            </Row>
+          }
+        >
+          <Table
+            columns={columns}
+            dataSource={filteredData}
+            pagination={{
+              responsive: true,
+              pageSize: 5,
+            }}
+            scroll={{ x: 'max-content' }}
+            size="middle"
+          />
+        </Card>
+      </Col>
+    </Row>
+  );
+};
+
+export default CarbonActivityList;
