@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Tag, Space, Button, Input, Avatar, Typography } from 'antd';
+import { Table, Tag, Space, Button, Input, Avatar, Typography, Row, Col, Card } from 'antd';
 import { SearchOutlined, EditOutlined, DeleteOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -120,7 +120,6 @@ const PartnerList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(partnerData);
 
-  // Hàm tìm kiếm
   const handleSearch = (value) => {
     setSearchText(value);
     const filtered = partnerData.filter(item =>
@@ -132,7 +131,6 @@ const PartnerList = () => {
     setFilteredData(filtered);
   };
 
-  // Định nghĩa các cột của bảng
   const columns = [
     {
       title: 'Tên đối tác',
@@ -228,40 +226,50 @@ const PartnerList = () => {
   ];
 
   return (
-    <div style={{ padding: 24, background: '#f0f2f5', minHeight: '100vh' }}>
-      <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-        <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Title level={3}>
-            Danh sách đối tác
-          </Title>
-          <Input.Search
-            placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
-            allowClear
-            enterButton={<SearchOutlined />}
-            size="large"
-            style={{ width: 400 }}
-            onSearch={handleSearch}
-            onChange={(e) => {
-              if (!e.target.value) {
-                handleSearch('');
-              }
+    <Row style={{ background: '#f0f2f5', minHeight: '100vh', padding: 24 }}>
+      <Col span={24}>
+        <Card 
+          title={
+            <Row justify="space-between" align="middle">
+              <Col xs={24} sm={12} md={8}>
+                <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
+                  Danh sách Đối tác
+                </Title>
+              </Col>
+              <Col xs={24} sm={12} md={16} style={{ textAlign: 'right' }}>
+                <Input.Search
+                  placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
+                  allowClear
+                  enterButton={<SearchOutlined />}
+                  size="large"
+                  style={{ width: '100%', maxWidth: 400 }}
+                  onSearch={handleSearch}
+                  onChange={(e) => {
+                    if (!e.target.value) {
+                      handleSearch('');
+                    }
+                  }}
+                />
+              </Col>
+            </Row>
+          }
+          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+        >
+          <Table
+            columns={columns}
+            dataSource={filteredData}
+            pagination={{
+              pageSize: 5,
+              responsive: true,
             }}
+            scroll={{ x: 1000 }}
+            rowClassName={(record, index) => 
+              index % 2 === 0 ? 'even-row' : 'odd-row'
+            }
           />
-        </div>
-
-        <Table
-          columns={columns}
-          dataSource={filteredData}
-          pagination={{
-            pageSize: 8,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            pageSizeOptions: ['5', '10', '20'],
-          }}
-          scroll={{ x: 1000 }}
-        />
-      </div>
-    </div>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
