@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Tag, Space, Input, Row, Col, Card } from 'antd';
+import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
 const partnerData = [
@@ -171,34 +171,38 @@ const PartnerList = () => {
   ];
 
   return (
-    <Row gutter={16}>
+    <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Card 
+        <Card
           title={
-            <Row justify="end">
-              <Col xs={24} sm={12} md={8} lg={6}>
+            <Row justify="end" gutter={[8, 8]}>
+              <Col xs={24} sm={16} md={12} lg={8} xl={6}>
                 <Input.Search
                   placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
                   allowClear
-                  enterButton={<SearchOutlined />}
+                  enterButton={<Button icon={<SearchOutlined />} />}
                   onSearch={handleSearch}
                   onChange={(e) => {
                     if (!e.target.value) {
                       handleSearch('');
                     }
                   }}
+                  style={{ width: '100%' }}
                 />
               </Col>
             </Row>
           }
+          styles={{ padding: 16 }}
         >
           <Table
             columns={columns}
             dataSource={filteredData}
             pagination={{
-              showSizeChanger: true,
-              pageSizeOptions: ['5', '10', '20', '50'],
+              responsive: true,
+              pageSize: 5,
             }}
+            scroll={{ x: 'max-content' }} // Enable horizontal scroll for small screens
+            size="middle" // Adjust table size for better mobile display
           />
         </Card>
       </Col>
