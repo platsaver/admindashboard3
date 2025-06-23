@@ -18,6 +18,7 @@ const App = () => {
         collapsible
         collapsed={collapsed}
         breakpoint="lg"
+        collapsedWidth={0}
         onBreakpoint={(broken) => setCollapsed(broken)}
         className="sider"
       >

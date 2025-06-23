@@ -1,416 +1,268 @@
-import {
-  Row,
-  Col,
-  Card,
-  Table,
-  Button,
-  Typography,
-  Drawer,
-  Descriptions,
-  Space,
-  Form,
-  Input as FormInput,
-  Modal,
-  Pagination,
-} from "antd";
-import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { SearchOutlined } from "@ant-design/icons";
-import {useTranslation } from "react-i18next";
-
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-});
+import React, { useState } from 'react';
+import { Table, Tag, Space, Button, Input, Avatar, Typography } from 'antd';
+import { SearchOutlined, EditOutlined, DeleteOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
-const initialPartnerData = [
+// Dữ liệu mẫu cho danh sách đối tác
+const partnerData = [
   {
-    key: "1",
-    name: "TechCorp Hanoi",
-    contact: "contact@techcorp.vn",
-    location: "Hà Nội",
-    coordinates: [21.0285, 105.8542],
+    key: '1',
+    name: 'Công ty TNHH ABC',
+    email: 'contact@abc.com.vn',
+    address: 'Số 123, Đường Láng, Đống Đa, Hà Nội',
+    phone: '024-3856-7890',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=ABC&background=1890ff&color=fff'
   },
   {
-    key: "2",
-    name: "GreenSolutions HCMC",
-    contact: "info@greensolutions.vn",
-    location: "Hồ Chí Minh",
-    coordinates: [10.7769, 106.7009],
+    key: '2',
+    name: 'Tập đoàn XYZ',
+    email: 'info@xyz.com.vn',
+    address: '456 Nguyễn Huệ, Quận 1, TP.HCM',
+    phone: '028-3925-1234',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=XYZ&background=52c41a&color=fff'
   },
   {
-    key: "3",
-    name: "BlueWave Danang",
-    contact: "support@bluewave.vn",
-    location: "Đà Nẵng",
-    coordinates: [16.0544, 108.2022],
+    key: '3',
+    name: 'Công ty Cổ phần DEF',
+    email: 'support@def.vn',
+    address: '789 Trần Hưng Đạo, Hải Châu, Đà Nẵng',
+    phone: '0236-3567-890',
+    status: 'inactive',
+    avatar: 'https://ui-avatars.com/api/?name=DEF&background=faad14&color=fff'
   },
+  {
+    key: '4',
+    name: 'Doanh nghiệp GHI',
+    email: 'hello@ghi.com',
+    address: '321 Lê Lợi, Quận 1, TP.HCM',
+    phone: '028-3876-5432',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=GHI&background=722ed1&color=fff'
+  },
+  {
+    key: '5',
+    name: 'Công ty JKL',
+    email: 'contact@jkl.vn',
+    address: '654 Hoàng Hoa Thám, Ba Đình, Hà Nội',
+    phone: '024-3765-4321',
+    status: 'pending',
+    avatar: 'https://ui-avatars.com/api/?name=JKL&background=eb2f96&color=fff'
+  },
+  {
+    key: '6',
+    name: 'Tổng công ty MNO',
+    email: 'admin@mno.com.vn',
+    address: '987 Nguyễn Văn Cừ, Quận 5, TP.HCM',
+    phone: '028-3654-7890',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=MNO&background=13c2c2&color=fff'
+  },
+  {
+    key: '7',
+    name: 'Công ty TNHH PQR',
+    email: 'info@pqr.vn',
+    address: '159 Lý Thường Kiệt, Hoàn Kiếm, Hà Nội',
+    phone: '024-3543-2109',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=PQR&background=f5222d&color=fff'
+  },
+  {
+    key: '8',
+    name: 'Doanh nghiệp STU',
+    email: 'support@stu.com',
+    address: '753 Điện Biên Phủ, Bình Thạnh, TP.HCM',
+    phone: '028-3432-1098',
+    status: 'inactive',
+    avatar: 'https://ui-avatars.com/api/?name=STU&background=fa8c16&color=fff'
+  },
+  {
+    key: '9',
+    name: 'Công ty VWX',
+    email: 'contact@vwx.vn',
+    address: '852 Cầu Giấy, Cầu Giấy, Hà Nội',
+    phone: '024-3321-0987',
+    status: 'pending',
+    avatar: 'https://ui-avatars.com/api/?name=VWX&background=2f54eb&color=fff'
+  },
+  {
+    key: '10',
+    name: 'Tập đoàn YZ',
+    email: 'hello@yz.com.vn',
+    address: '741 Võ Văn Tần, Quận 3, TP.HCM',
+    phone: '028-3210-9876',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=YZ&background=52c41a&color=fff'
+  },
+  {
+    key: '11',
+    name: 'Công ty Alpha',
+    email: 'info@alpha.vn',
+    address: '963 Hai Bà Trưng, Quận 1, TP.HCM',
+    phone: '028-3109-8765',
+    status: 'active',
+    avatar: 'https://ui-avatars.com/api/?name=Alpha&background=1890ff&color=fff'
+  },
+  {
+    key: '12',
+    name: 'Doanh nghiệp Beta',
+    email: 'contact@beta.com',
+    address: '147 Nguyễn Thái Học, Ba Đình, Hà Nội',
+    phone: '024-3098-7654',
+    status: 'inactive',
+    avatar: 'https://ui-avatars.com/api/?name=Beta&background=faad14&color=fff'
+  }
 ];
 
-function PartnersDashboard() {
-  const [isClient, setIsClient] = useState(false);
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [addPartnerDrawerVisible, setAddPartnerDrawerVisible] = useState(false);
-  const [selectedPartner, setSelectedPartner] = useState(null);
-  const [isEditingPartner, setIsEditingPartner] = useState(false);
-  const [deletePartnerModalVisible, setDeletePartnerModalVisible] = useState(false);
-  const [data, setData] = useState(initialPartnerData);
-  const [searchText, setSearchText] = useState("");
-  const [partnerForm] = Form.useForm();
-  const [addPartnerForm] = Form.useForm();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  const {t} = useTranslation();
+const PartnerList = () => {
+  const [searchText, setSearchText] = useState('');
+  const [filteredData, setFilteredData] = useState(partnerData);
 
+  // Hàm tìm kiếm
+  const handleSearch = (value) => {
+    setSearchText(value);
+    const filtered = partnerData.filter(item =>
+      item.name.toLowerCase().includes(value.toLowerCase()) ||
+      item.email.toLowerCase().includes(value.toLowerCase()) ||
+      item.address.toLowerCase().includes(value.toLowerCase()) ||
+      item.phone.includes(value)
+    );
+    setFilteredData(filtered);
+  };
+
+  // Định nghĩa các cột của bảng
   const columns = [
     {
-      title: t('partner'),
-      dataIndex: "name",
-      key: "name",
-      width: "35%",
-      render: (text) => (
-        <div className="avatar-info">
-          <Title level={5}>{text}</Title>
+      title: 'Tên đối tác',
+      dataIndex: 'name',
+      key: 'name',
+      width: 250,
+      render: (text, record) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar src={record.avatar} size={40} style={{ marginRight: 12 }} />
+          <div>
+            <div style={{ fontWeight: 600, fontSize: 14 }}>{text}</div>
+            <Tag 
+              color={
+                record.status === 'active' ? 'green' : 
+                record.status === 'inactive' ? 'red' : 'orange'
+              }
+              style={{ marginTop: 4, fontSize: 11 }}
+            >
+              {record.status === 'active' ? 'Hoạt động' : 
+               record.status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt'}
+            </Tag>
+          </div>
         </div>
       ),
     },
     {
-      title: t('email'),
-      dataIndex: "contact",
-      key: "contact",
-      width: "35%",
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      width: 200,
+      render: (email) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <MailOutlined style={{ marginRight: 6, color: '#1890ff' }} />
+          <a href={`mailto:${email}`} style={{ color: '#1890ff' }}>
+            {email}
+          </a>
+        </div>
+      ),
     },
     {
-      title: t('address'),
-      dataIndex: "location",
-      key: "location",
-      width: "30%",
+      title: 'Địa chỉ',
+      dataIndex: 'address',
+      key: 'address',
+      width: 300,
+      render: (address) => (
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <EnvironmentOutlined style={{ marginRight: 6, color: '#52c41a', marginTop: 2 }} />
+          <span style={{ lineHeight: '20px' }}>{address}</span>
+        </div>
+      ),
+    },
+    {
+      title: 'Số điện thoại',
+      dataIndex: 'phone',
+      key: 'phone',
+      width: 150,
+      render: (phone) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <PhoneOutlined style={{ marginRight: 6, color: '#fa8c16' }} />
+          <a href={`tel:${phone}`} style={{ color: '#fa8c16' }}>
+            {phone}
+          </a>
+        </div>
+      ),
+    },
+    {
+      title: 'Thao tác',
+      key: 'action',
+      width: 120,
+      render: (_, record) => (
+        <Space size="small">
+          <Button 
+            type="text" 
+            icon={<EditOutlined />} 
+            size="small"
+            style={{ color: '#1890ff' }}
+            onClick={() => console.log('Edit:', record.key)}
+          >
+            Sửa
+          </Button>
+          <Button 
+            type="text" 
+            icon={<DeleteOutlined />} 
+            size="small"
+            danger
+            onClick={() => console.log('Delete:', record.key)}
+          >
+            Xóa
+          </Button>
+        </Space>
+      ),
     },
   ];
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const handleSearch = (value) => {
-    setSearchText(value);
-    setCurrentPage(1);
-  };
-
-  const handleRowClick = (record) => {
-    setSelectedPartner(record);
-    setDrawerVisible(true);
-    setIsEditingPartner(false);
-    partnerForm.setFieldsValue(record);
-  };
-
-  const handleCloseDrawer = () => {
-    setDrawerVisible(false);
-    setSelectedPartner(null);
-    setIsEditingPartner(false);
-    partnerForm.resetFields();
-  };
-
-  const handleAddPartnerDrawer = () => {
-    setAddPartnerDrawerVisible(true);
-    addPartnerForm.resetFields();
-  };
-
-  const handleCloseAddPartnerDrawer = () => {
-    setAddPartnerDrawerVisible(false);
-    addPartnerForm.resetFields();
-  };
-
-  const handleEditPartner = () => {
-    setIsEditingPartner(true);
-    partnerForm.setFieldsValue(selectedPartner);
-  };
-
-  const handleSavePartner = () => {
-    partnerForm.validateFields().then((values) => {
-      setData((prevData) =>
-        prevData.map((item) =>
-          item.key === selectedPartner.key ? { ...item, ...values } : item
-        )
-      );
-      setSelectedPartner((prev) => ({ ...prev, ...values }));
-      setIsEditingPartner(false);
-      setDrawerVisible(false);
-      partnerForm.resetFields();
-    }).catch((error) => {
-      console.log("Validation failed:", error);
-    });
-  };
-
-  const handleAddPartner = () => {
-    addPartnerForm.validateFields().then((values) => {
-      const newPartner = {
-        ...values,
-        key: Date.now().toString(),
-        coordinates: [21.0285, 105.8542],
-      };
-      setData((prevData) => [...prevData, newPartner]);
-      setAddPartnerDrawerVisible(false);
-      addPartnerForm.resetFields();
-      setCurrentPage(1);
-    }).catch((error) => {
-      console.log("Validation failed:", error);
-    });
-  };
-
-  const handleDeletePartner = () => {
-    setData((prevData) =>
-      prevData.filter((item) => item.key !== selectedPartner.key)
-    );
-    setDeletePartnerModalVisible(false);
-    setDrawerVisible(false);
-    setSelectedPartner(null);
-    setCurrentPage(1);
-  };
-
-  const showDeletePartnerModal = () => {
-    setDeletePartnerModalVisible(true);
-  };
-
-  const filteredData = data.filter((partner) => {
-    const query = searchText.toLowerCase();
-    return (
-      partner.name.toLowerCase().includes(query) ||
-      partner.contact.toLowerCase().includes(query) ||
-      partner.location.toLowerCase().includes(query)
-    );
-  });
-
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
-
-  const handlePageChange = (page, pageSize) => {
-    setCurrentPage(page);
-    setPageSize(pageSize);
-  };
-
   return (
-    <div className="tabled">
-      <Row gutter={[16, 16]}>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Card
-            className="criclebox tablespace mb-24"
-            title={t('partner')}
-            extra={
-              <Space>
-                <FormInput
-                  placeholder={t('partnerSearch')}
-                  prefix={<SearchOutlined />}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  style={{ width: "100%", maxWidth: "200px" }}
-                />
-                <Button
-                  type="primary"
-                  onClick={handleAddPartnerDrawer}
-                  style={{ backgroundColor: "green" }}
-                >
-                  {t('add')}
-                </Button>
-              </Space>
-            }
-          >
-            <div className="table-responsive">
-              <Table
-                columns={columns}
-                dataSource={paginatedData}
-                pagination={false}
-                className="ant-border-space"
-                onRow={(record) => ({
-                  onClick: () => handleRowClick(record),
-                })}
-                scroll={{ x: 400 }} // Ensure horizontal scroll on small screens
-              />
-              <Pagination
-                current={currentPage}
-                pageSize={pageSize}
-                total={filteredData.length}
-                onChange={handlePageChange}
-                showSizeChanger
-                pageSizeOptions={["5", "10", "20"]}
-                style={{ marginTop: 16, textAlign: "center", paddingBottom: 10 }}
-              />
-            </div>
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <Card className="criclebox mb-24" title={t('partnerLocation')}>
-            <div style={{ height: "500px", minHeight: "300px" }}>
-              {isClient ? (
-                <MapContainer
-                  center={[16.0471, 108.2062]}
-                  zoom={6}
-                  style={{ height: "100%", width: "100%" }}
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  />
-                  {filteredData.map((partner) => (
-                    <Marker key={partner.key} position={partner.coordinates}>
-                      <Popup>
-                        <b>{partner.name}</b>
-                        <br />
-                        {partner.location}
-                      </Popup>
-                    </Marker>
-                  ))}
-                </MapContainer>
-              ) : (
-                <div>{t('mapLoading')}</div>
-              )}
-            </div>
-          </Card>
-        </Col>
-      </Row>
-      <Drawer
-        title={isEditingPartner ? t('editPartnerTitle') : selectedPartner?.name || t('partnerDetails')}
-        placement="right"
-        onClose={handleCloseDrawer}
-        open={drawerVisible}
-        height={isEditingPartner ? "80%" : "50%"}
-      >
-        {selectedPartner && !isEditingPartner && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <Descriptions column={1} bordered>
-              <Descriptions.Item label={t('partnerName')}>{selectedPartner.name}</Descriptions.Item>
-              <Descriptions.Item label={t('partnerContact')}>{selectedPartner.contact}</Descriptions.Item>
-              <Descriptions.Item label={t('partnerLocation')}>{selectedPartner.location}</Descriptions.Item>
-            </Descriptions>
-            <Button
-              type="primary"
-              onClick={handleEditPartner}
-              style={{ marginBottom: "8px", width: "100%" }}
-            >
-              {t('edit')}
-            </Button>
-            <Button type="primary" danger onClick={showDeletePartnerModal} style={{ width: "100%" }}>
-              {t('delete')}
-            </Button>
-          </div>
-        )}
-        {isEditingPartner && (
-          <Form
-            form={partnerForm}
-            layout="vertical"
-            onFinish={handleSavePartner}
-            initialValues={selectedPartner}
-          >
-            <Form.Item
-              name="name"
-              label={t('partnerName')}
-              rules={[{ required: true, message: t('partnerNameWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item
-              name="contact"
-              label={t('partnerContact')}
-              rules={[{ required: true, message: t('partnerContactWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item
-              name="location"
-              label={t('partnerLocation')}
-              rules={[{ required: true, message: t('partnerAddressWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item>
-              <Space style={{ width: "100%" }}>
-                <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                  {t('save')}
-                </Button>
-                <Button onClick={handleCloseDrawer} style={{ width: "100%" }}>
-                  {t('cancel')}
-                </Button>
-              </Space>
-            </Form.Item>
-          </Form>
-        )}
-      </Drawer>
-      <Drawer
-        title={t('addPartnerTitle')}  
-        placement="right"
-        onClose={handleCloseAddPartnerDrawer}
-        open={addPartnerDrawerVisible}
-        height="60%"
-      >
-        <Form
-          form={addPartnerForm}
-          layout="vertical"
-          onFinish={handleAddPartner}
-        >
-            <Form.Item
-              name="name"
-              label={t('partnerName')}
-              rules={[{ required: true, message: t('partnerNameWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item
-              name="contact"
-              label={t('partnerContact')}
-              rules={[{ required: true, message: t('partnerContactWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item
-              name="location"
-              label={t('partnerLocation')}
-              rules={[{ required: true, message: t('partnerAddressWarning') }]}
-            >
-              <FormInput />
-            </Form.Item>
-            <Form.Item>
-              <Space style={{ width: "100%" }}>
-                <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                  {t('save')}
-                </Button>
-                <Button onClick={handleCloseDrawer} style={{ width: "100%" }}>
-                  {t('cancel')}
-                </Button>
-              </Space>
-            </Form.Item>
-          <Form.Item>
-            <Space style={{ width: "100%" }}>
-              <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                {t('save')}
-              </Button>
-              <Button onClick={handleCloseAddPartnerDrawer} style={{ width: "100%" }}>
-                {t('cancel')}
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Drawer>
-      <Modal
-        title={t('deleteTitle')}
-        open={deletePartnerModalVisible}
-        onOk={handleDeletePartner}
-        onCancel={() => setDeletePartnerModalVisible(false)}
-        okText={t('delete')}
-        cancelText={t('cancel')}
-        okType="danger"
-        centered
-      >
-        <p>{t('deleteWarning', { partnerName: selectedPartner?.name })}</p>
-      </Modal>
+    <div style={{ padding: 24, background: '#f0f2f5', minHeight: '100vh' }}>
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+        <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Title level={3}>
+            Danh sách đối tác
+          </Title>
+          <Input.Search
+            placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
+            allowClear
+            enterButton={<SearchOutlined />}
+            size="large"
+            style={{ width: 400 }}
+            onSearch={handleSearch}
+            onChange={(e) => {
+              if (!e.target.value) {
+                handleSearch('');
+              }
+            }}
+          />
+        </div>
+
+        <Table
+          columns={columns}
+          dataSource={filteredData}
+          pagination={{
+            pageSize: 8,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            pageSizeOptions: ['5', '10', '20'],
+          }}
+          scroll={{ x: 1000 }}
+        />
+      </div>
     </div>
   );
-}
+};
 
-export default PartnersDashboard;
+export default PartnerList;

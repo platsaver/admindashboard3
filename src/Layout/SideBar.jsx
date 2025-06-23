@@ -25,11 +25,6 @@ const SideBar = () => {
         defaultOpenKeys={["management", "management1"]} 
         items={[
           {
-            key: "dashboard",
-            icon: <FundOutlined />,
-            label: t('overview'),
-          },
-          {
             key: "management",
             icon: <TeamOutlined />,
             label: t('partners'),

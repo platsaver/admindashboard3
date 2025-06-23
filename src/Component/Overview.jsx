@@ -7,12 +7,14 @@ import {
   LinearScale,
   BarElement,
   LineElement,
+  PointElement,
   Title as ChartTitle,
   Tooltip,
   Legend,
 } from 'chart.js';
 
 ChartJS.register(
+  PointElement,
   CategoryScale,
   LinearScale,
   BarElement,
