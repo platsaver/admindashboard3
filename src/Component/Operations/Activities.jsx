@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, EnvironmentOutlined, CalendarOutlined } from '@ant-design/icons';
+import CarbonDrawer from '../../Reusable/Drawer';
 
 const carbonActivities = [
   {
@@ -8,44 +9,62 @@ const carbonActivities = [
     tenHoatDong: 'Trồng rừng tại Gia Lai',
     loai: 'Hấp thụ carbon',
     thoiGian: '05/2024',
-    trangThai: 'hoàn thành',
+    status: 'hoàn thành',
   },
   {
     key: '2',
     tenHoatDong: 'Lắp đặt hệ thống điện mặt trời',
     loai: 'Giảm phát thải',
     thoiGian: '09/2023',
-    trangThai: 'đang theo dõi',
+    status: 'đang theo dõi',
   },
   {
     key: '3',
     tenHoatDong: 'Tham gia giao dịch tín chỉ carbon với Singapore',
     loai: 'Thị trường',
     thoiGian: '12/2024',
-    trangThai: 'dự kiến',
+    status: 'dự kiến',
   },
   {
     key: '4',
     tenHoatDong: 'Đánh giá chuỗi cung ứng theo ESG',
     loai: 'Kiểm toán',
     thoiGian: '03/2025',
-    trangThai: 'đang thực hiện',
+    status: 'đang thực hiện',
   },
 ];
 
 const CarbonActivityList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonActivities);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const handleSearch = (value) => {
     setSearchText(value);
     const filtered = carbonActivities.filter(item =>
       item.tenHoatDong.toLowerCase().includes(value.toLowerCase()) ||
       item.loai.toLowerCase().includes(value.toLowerCase()) ||
-      item.trangThai.toLowerCase().includes(value.toLowerCase())
+      item.status.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredData(filtered);
   };
+  const handleUpdate = (updatedRecord) => {
+    setFilteredData((prev) =>
+      prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
+    );
+  };
+
+  const handleDelete = (key) => {
+    setFilteredData((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const fieldsConfig = [
+    { name: 'tenHoatDong', label: 'Tên hoạt động' },
+    { name: 'loai', label: 'Loại' },
+    { name: 'thoiGian', label: 'Thời gian' },
+    { name: 'status', label: 'Trạng thái' } 
+  ];
 
   const columns = [
     {
@@ -78,8 +97,8 @@ const CarbonActivityList = () => {
     },
     {
       title: 'Trạng thái',
-      dataIndex: 'trangThai',
-      key: 'trangThai',
+      dataIndex: 'status',
+      key: 'status',
       render: (status) => {
         let color = 'green';
         if (status.includes('dự kiến')) color = 'orange';
@@ -120,7 +139,24 @@ const CarbonActivityList = () => {
             }}
             scroll={{ x: 'max-content' }}
             size="middle"
+            onRow={(record) => ({
+              onClick: () => {
+                setSelectedRecord(record);
+                setDrawerVisible(true);
+              },
+              style: { cursor: 'pointer' },
+            })}
           />
+          {selectedRecord && (
+            <CarbonDrawer
+              visible={drawerVisible}
+              onClose={() => setDrawerVisible(false)}
+              record={selectedRecord}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              fieldsConfig={fieldsConfig}
+            />
+          )}
         </Card>
       </Col>
     </Row>
