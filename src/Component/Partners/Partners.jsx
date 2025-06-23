@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Table, Tag, Space, Button, Input, Avatar, Typography, Row, Col, Card } from 'antd';
-import { SearchOutlined, EditOutlined, DeleteOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Input, Row, Col, Card } from 'antd';
+import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
-const { Title } = Typography;
-
-// Dữ liệu mẫu cho danh sách đối tác
 const partnerData = [
   {
     key: '1',
@@ -108,7 +105,6 @@ const PartnerList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(partnerData);
 
-  // Hàm tìm kiếm
   const handleSearch = (value) => {
     setSearchText(value);
     const filtered = partnerData.filter(item =>
@@ -119,8 +115,6 @@ const PartnerList = () => {
     );
     setFilteredData(filtered);
   };
-
-  // Định nghĩa các cột của bảng
   const columns = [
     {
       title: 'Tên đối tác',
@@ -174,29 +168,6 @@ const PartnerList = () => {
         </Space>
       ),
     },
-    {
-      title: 'Thao tác',
-      key: 'action',
-      render: (_, record) => (
-        <Space>
-          <Button 
-            type="link" 
-            icon={<EditOutlined />}
-            onClick={() => console.log('Edit:', record.key)}
-          >
-            Sửa
-          </Button>
-          <Button 
-            type="link" 
-            icon={<DeleteOutlined />}
-            danger
-            onClick={() => console.log('Delete:', record.key)}
-          >
-            Xóa
-          </Button>
-        </Space>
-      ),
-    },
   ];
 
   return (
@@ -204,11 +175,8 @@ const PartnerList = () => {
       <Col span={24}>
         <Card 
           title={
-            <Row justify="space-between" align="middle">
-              <Col>
-                <Title level={3}>Danh sách Đối tác</Title>
-              </Col>
-              <Col>
+            <Row justify="end">
+              <Col xs={24} sm={12} md={8} lg={6}>
                 <Input.Search
                   placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
                   allowClear
