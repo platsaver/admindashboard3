@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, PhoneOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import CarbonDrawer from '../../Reusable/Drawer';
 
 const nhanSuData = [
   {
@@ -104,6 +105,8 @@ const nhanSuData = [
 const NhanSuList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(nhanSuData);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -115,6 +118,24 @@ const NhanSuList = () => {
     );
     setFilteredData(filtered);
   };
+
+  const handleUpdate = (updatedRecord) => {
+    setFilteredData((prev) =>
+      prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
+    );
+  };
+
+  const handleDelete = (key) => {
+    setFilteredData((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const fieldsConfig = [
+    { name: 'tenNhanSu', label: 'Tên nhân sự' },
+    { name: 'soDienThoai', label: 'Số điện thoại' },
+    { name: 'email', label: 'Email' },
+    { name: 'vaiTro', label: 'Vai trò' },
+    { name: 'status', label: 'Trạng thái' } 
+  ];
 
   const columns = [
     {
@@ -203,9 +224,26 @@ const NhanSuList = () => {
               responsive: true,
               pageSize: 5,
             }}
-            scroll={{ x: 'max-content' }} // Enable horizontal scroll for small screens
-            size="middle" // Adjust table size for better mobile display
+            scroll={{ x: 'max-content' }} 
+            size="middle" 
+            onRow={(record) => ({
+              onClick: () => {
+                setSelectedRecord(record);
+                setDrawerVisible(true);
+              },
+              style: { cursor: 'pointer' },
+            })}
           />
+          {selectedRecord && (
+            <CarbonDrawer
+              visible={drawerVisible}
+              onClose={() => setDrawerVisible(false)}
+              record={selectedRecord}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              fieldsConfig={fieldsConfig}
+            />
+          )}
         </Card>
       </Col>
     </Row>

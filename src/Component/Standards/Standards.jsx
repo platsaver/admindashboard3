@@ -75,12 +75,7 @@ const CarbonStandardList = () => {
       render: (text, record) => (
         <Space>
           <SafetyCertificateOutlined />
-          <a onClick={() => {
-            setSelectedRecord(record);
-            setDrawerVisible(true);
-          }}>
-            <strong>{text}</strong>
-          </a>
+          <strong>{text}</strong>
         </Space>
       ),
     },

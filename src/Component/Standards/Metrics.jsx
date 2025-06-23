@@ -74,12 +74,7 @@ const CarbonCreditDashboard = () => {
       render: (text, record) => (
         <Space>
           <CloudOutlined />
-          <a onClick={() => {
-            setSelectedRecord(record);
-            setDrawerVisible(true);
-          }}>
-            <strong>{text}</strong>
-          </a>
+          <strong>{text}</strong>
         </Space>
       ),
     },
