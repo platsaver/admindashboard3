@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import CarbonDrawer from '../../Reusable/Drawer';
 
 const partnerData = [
   {
@@ -104,6 +105,8 @@ const partnerData = [
 const PartnerList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(partnerData);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -115,6 +118,23 @@ const PartnerList = () => {
     );
     setFilteredData(filtered);
   };
+  const handleUpdate = (updatedRecord) => {
+    setFilteredData((prev) =>
+      prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
+    );
+  };
+
+  const handleDelete = (key) => {
+    setFilteredData((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const fieldsConfig = [
+    { name: 'name', label: 'Tên Doanh nghiệp' },
+    { name: 'email', label: 'Email' },
+    { name: 'address', label: 'Địa chỉ' },
+    { name: 'phone', label: 'Số điện thoại' },
+    { name: 'status', label: 'Trạng thái' } 
+  ];
   const columns = [
     {
       title: 'Tên đối tác',
@@ -123,15 +143,6 @@ const PartnerList = () => {
       render: (text, record) => (
         <Space direction="vertical" size="small">
           <strong>{text}</strong>
-          <Tag 
-            color={
-              record.status === 'active' ? 'green' : 
-              record.status === 'inactive' ? 'red' : 'orange'
-            }
-          >
-            {record.status === 'active' ? 'Hoạt động' : 
-             record.status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt'}
-          </Tag>
         </Space>
       ),
     },
@@ -168,6 +179,16 @@ const PartnerList = () => {
         </Space>
       ),
     },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => {
+        const color = status === 'active' ? 'green' : status === 'inactive' ? 'red' : 'orange';
+        const label = status === 'active' ? 'Hoạt động' : status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt';
+        return <Tag color={color}>{label}</Tag>;
+      },
+    }
   ];
 
   return (
@@ -201,9 +222,26 @@ const PartnerList = () => {
               responsive: true,
               pageSize: 5,
             }}
-            scroll={{ x: 'max-content' }} // Enable horizontal scroll for small screens
-            size="middle" // Adjust table size for better mobile display
+            scroll={{ x: 'max-content' }} 
+            size="middle"
+            onRow={(record) => ({
+              onClick: () => {
+                setSelectedRecord(record);
+                setDrawerVisible(true);
+              },
+              style: { cursor: 'pointer' },
+            })}
           />
+          {selectedRecord && (
+            <CarbonDrawer
+              visible={drawerVisible}
+              onClose={() => setDrawerVisible(false)}
+              record={selectedRecord}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              fieldsConfig={fieldsConfig}
+            />
+          )}
         </Card>
       </Col>
     </Row>
