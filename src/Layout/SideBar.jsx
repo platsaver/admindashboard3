@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import { Flex } from "antd";
-import { FaLeaf } from "react-icons/fa";
+import { FaSeedling } from "react-icons/fa";
 import { TeamOutlined, FundOutlined, PlayCircleOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -14,12 +14,12 @@ const SideBar = () => {
     <>
       <Flex align="center" justify="center">
         <div className="logo">
-          <FaLeaf />
+          <FaSeedling />
         </div>
       </Flex>
       <Menu
         mode="inline"
-        defaultSelectedKeys={["dashboard"]}
+        defaultSelectedKeys={["partners"]}
         className="menu-bar"
         onClick={({ key }) => navigate(key)}
         defaultOpenKeys={["management", "management1"]} 
