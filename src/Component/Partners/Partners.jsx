@@ -13,7 +13,6 @@ const partnerData = [
     address: 'Số 123, Đường Láng, Đống Đa, Hà Nội',
     phone: '024-3856-7890',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=ABC&background=1890ff&color=fff'
   },
   {
     key: '2',
@@ -22,7 +21,6 @@ const partnerData = [
     address: '456 Nguyễn Huệ, Quận 1, TP.HCM',
     phone: '028-3925-1234',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=XYZ&background=52c41a&color=fff'
   },
   {
     key: '3',
@@ -31,7 +29,6 @@ const partnerData = [
     address: '789 Trần Hưng Đạo, Hải Châu, Đà Nẵng',
     phone: '0236-3567-890',
     status: 'inactive',
-    avatar: 'https://ui-avatars.com/api/?name=DEF&background=faad14&color=fff'
   },
   {
     key: '4',
@@ -40,7 +37,6 @@ const partnerData = [
     address: '321 Lê Lợi, Quận 1, TP.HCM',
     phone: '028-3876-5432',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=GHI&background=722ed1&color=fff'
   },
   {
     key: '5',
@@ -49,7 +45,6 @@ const partnerData = [
     address: '654 Hoàng Hoa Thám, Ba Đình, Hà Nội',
     phone: '024-3765-4321',
     status: 'pending',
-    avatar: 'https://ui-avatars.com/api/?name=JKL&background=eb2f96&color=fff'
   },
   {
     key: '6',
@@ -58,7 +53,6 @@ const partnerData = [
     address: '987 Nguyễn Văn Cừ, Quận 5, TP.HCM',
     phone: '028-3654-7890',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=MNO&background=13c2c2&color=fff'
   },
   {
     key: '7',
@@ -67,7 +61,6 @@ const partnerData = [
     address: '159 Lý Thường Kiệt, Hoàn Kiếm, Hà Nội',
     phone: '024-3543-2109',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=PQR&background=f5222d&color=fff'
   },
   {
     key: '8',
@@ -76,7 +69,6 @@ const partnerData = [
     address: '753 Điện Biên Phủ, Bình Thạnh, TP.HCM',
     phone: '028-3432-1098',
     status: 'inactive',
-    avatar: 'https://ui-avatars.com/api/?name=STU&background=fa8c16&color=fff'
   },
   {
     key: '9',
@@ -85,7 +77,6 @@ const partnerData = [
     address: '852 Cầu Giấy, Cầu Giấy, Hà Nội',
     phone: '024-3321-0987',
     status: 'pending',
-    avatar: 'https://ui-avatars.com/api/?name=VWX&background=2f54eb&color=fff'
   },
   {
     key: '10',
@@ -94,7 +85,6 @@ const partnerData = [
     address: '741 Võ Văn Tần, Quận 3, TP.HCM',
     phone: '028-3210-9876',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=YZ&background=52c41a&color=fff'
   },
   {
     key: '11',
@@ -103,7 +93,6 @@ const partnerData = [
     address: '963 Hai Bà Trưng, Quận 1, TP.HCM',
     phone: '028-3109-8765',
     status: 'active',
-    avatar: 'https://ui-avatars.com/api/?name=Alpha&background=1890ff&color=fff'
   },
   {
     key: '12',
@@ -112,7 +101,6 @@ const partnerData = [
     address: '147 Nguyễn Thái Học, Ba Đình, Hà Nội',
     phone: '024-3098-7654',
     status: 'inactive',
-    avatar: 'https://ui-avatars.com/api/?name=Beta&background=faad14&color=fff'
   }
 ];
 
@@ -120,6 +108,7 @@ const PartnerList = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(partnerData);
 
+  // Hàm tìm kiếm
   const handleSearch = (value) => {
     setSearchText(value);
     const filtered = partnerData.filter(item =>
@@ -131,90 +120,75 @@ const PartnerList = () => {
     setFilteredData(filtered);
   };
 
+  // Định nghĩa các cột của bảng
   const columns = [
     {
       title: 'Tên đối tác',
       dataIndex: 'name',
       key: 'name',
-      width: 250,
       render: (text, record) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src={record.avatar} size={40} style={{ marginRight: 12 }} />
-          <div>
-            <div style={{ fontWeight: 600, fontSize: 14 }}>{text}</div>
-            <Tag 
-              color={
-                record.status === 'active' ? 'green' : 
-                record.status === 'inactive' ? 'red' : 'orange'
-              }
-              style={{ marginTop: 4, fontSize: 11 }}
-            >
-              {record.status === 'active' ? 'Hoạt động' : 
-               record.status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt'}
-            </Tag>
-          </div>
-        </div>
+        <Space direction="vertical" size="small">
+          <strong>{text}</strong>
+          <Tag 
+            color={
+              record.status === 'active' ? 'green' : 
+              record.status === 'inactive' ? 'red' : 'orange'
+            }
+          >
+            {record.status === 'active' ? 'Hoạt động' : 
+             record.status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt'}
+          </Tag>
+        </Space>
       ),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      width: 200,
       render: (email) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <MailOutlined style={{ marginRight: 6, color: '#1890ff' }} />
-          <a href={`mailto:${email}`} style={{ color: '#1890ff' }}>
-            {email}
-          </a>
-        </div>
+        <Space>
+          <MailOutlined />
+          {email}
+        </Space>
       ),
     },
     {
       title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
-      width: 300,
       render: (address) => (
-        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-          <EnvironmentOutlined style={{ marginRight: 6, color: '#52c41a', marginTop: 2 }} />
-          <span style={{ lineHeight: '20px' }}>{address}</span>
-        </div>
+        <Space>
+          <EnvironmentOutlined />
+          {address}
+        </Space>
       ),
     },
     {
       title: 'Số điện thoại',
       dataIndex: 'phone',
       key: 'phone',
-      width: 150,
       render: (phone) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <PhoneOutlined style={{ marginRight: 6, color: '#fa8c16' }} />
-          <a href={`tel:${phone}`} style={{ color: '#fa8c16' }}>
-            {phone}
-          </a>
-        </div>
+        <Space>
+          <PhoneOutlined />
+          {phone}
+        </Space>
       ),
     },
     {
       title: 'Thao tác',
       key: 'action',
-      width: 120,
       render: (_, record) => (
-        <Space size="small">
+        <Space>
           <Button 
-            type="text" 
-            icon={<EditOutlined />} 
-            size="small"
-            style={{ color: '#1890ff' }}
+            type="link" 
+            icon={<EditOutlined />}
             onClick={() => console.log('Edit:', record.key)}
           >
             Sửa
           </Button>
           <Button 
-            type="text" 
-            icon={<DeleteOutlined />} 
-            size="small"
+            type="link" 
+            icon={<DeleteOutlined />}
             danger
             onClick={() => console.log('Delete:', record.key)}
           >
@@ -226,23 +200,19 @@ const PartnerList = () => {
   ];
 
   return (
-    <Row style={{ background: '#f0f2f5', minHeight: '100vh', padding: 24 }}>
+    <Row gutter={16}>
       <Col span={24}>
         <Card 
           title={
             <Row justify="space-between" align="middle">
-              <Col xs={24} sm={12} md={8}>
-                <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
-                  Danh sách Đối tác
-                </Title>
+              <Col>
+                <Title level={3}>Danh sách Đối tác</Title>
               </Col>
-              <Col xs={24} sm={12} md={16} style={{ textAlign: 'right' }}>
+              <Col>
                 <Input.Search
                   placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
                   allowClear
                   enterButton={<SearchOutlined />}
-                  size="large"
-                  style={{ width: '100%', maxWidth: 400 }}
                   onSearch={handleSearch}
                   onChange={(e) => {
                     if (!e.target.value) {
@@ -253,19 +223,14 @@ const PartnerList = () => {
               </Col>
             </Row>
           }
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
         >
           <Table
             columns={columns}
             dataSource={filteredData}
             pagination={{
-              pageSize: 5,
-              responsive: true,
+              showSizeChanger: true,
+              pageSizeOptions: ['5', '10', '20', '50'],
             }}
-            scroll={{ x: 1000 }}
-            rowClassName={(record, index) => 
-              index % 2 === 0 ? 'even-row' : 'odd-row'
-            }
           />
         </Card>
       </Col>
