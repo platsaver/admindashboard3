@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
-import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined,PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
 
 const partnerData = [
@@ -107,6 +107,7 @@ const PartnerList = () => {
   const [filteredData, setFilteredData] = useState(partnerData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -122,6 +123,10 @@ const PartnerList = () => {
     setFilteredData((prev) =>
       prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
     );
+  };
+
+  const handleAdd = (newRecord) => {
+    setFilteredData((prev) => [...prev, { ...newRecord, key: `${prev.length + 1}` }]);
   };
 
   const handleDelete = (key) => {
@@ -191,6 +196,12 @@ const PartnerList = () => {
     }
   ];
 
+  const handleOpenAddDrawer = () => {
+    setIsAdding(true);
+    setSelectedRecord(null);
+    setDrawerVisible(true);
+  };
+
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
@@ -198,6 +209,7 @@ const PartnerList = () => {
           title={
             <Row justify="end" gutter={[8, 8]}>
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
+              <Space>
                 <Input.Search
                   placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
                   allowClear
@@ -210,6 +222,14 @@ const PartnerList = () => {
                   }}
                   style={{ width: '100%' }}
                 />
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  onClick={handleOpenAddDrawer}
+                  className="force-color"
+                >
+                </Button>
+              </Space>
               </Col>
             </Row>
           }
@@ -232,16 +252,19 @@ const PartnerList = () => {
               style: { cursor: 'pointer' },
             })}
           />
-          {selectedRecord && (
-            <CarbonDrawer
-              visible={drawerVisible}
-              onClose={() => setDrawerVisible(false)}
-              record={selectedRecord}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              fieldsConfig={fieldsConfig}
-            />
-          )}
+          <CarbonDrawer
+            visible={drawerVisible}
+            onClose={() => {
+              setDrawerVisible(false);
+              setIsAdding(false);
+            }}
+            record={selectedRecord}
+            onUpdate={handleUpdate}
+            onAdd={handleAdd}
+            onDelete={handleDelete}
+            fieldsConfig={fieldsConfig}
+            isAdding={isAdding}
+          />
         </Card>
       </Col>
     </Row>

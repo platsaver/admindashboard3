@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
-import { SearchOutlined, PhoneOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { SearchOutlined, PhoneOutlined, MailOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
 
 const nhanSuData = [
@@ -107,6 +107,7 @@ const NhanSuList = () => {
   const [filteredData, setFilteredData] = useState(nhanSuData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -123,6 +124,10 @@ const NhanSuList = () => {
     setFilteredData((prev) =>
       prev.map((item) => (item.key === updatedRecord.key ? updatedRecord : item))
     );
+  };
+
+  const handleAdd = (newRecord) => {
+    setFilteredData((prev) => [...prev, { ...newRecord, key: `${prev.length + 1}` }]);
   };
 
   const handleDelete = (key) => {
@@ -192,6 +197,12 @@ const NhanSuList = () => {
       },
     }
   ];
+  
+  const handleOpenAddDrawer = () => {
+    setIsAdding(true);
+    setSelectedRecord(null);
+    setDrawerVisible(true);
+  };
 
   return (
     <Row gutter={[16, 16]}>
@@ -200,18 +211,27 @@ const NhanSuList = () => {
           title={
             <Row justify="end" gutter={[8, 8]}>
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
-                <Input.Search
-                  placeholder="Tìm kiếm theo tên, email, vai trò hoặc số điện thoại..."
-                  allowClear
-                  enterButton={<Button icon={<SearchOutlined />} />}
-                  onSearch={handleSearch}
-                  onChange={(e) => {
-                    if (!e.target.value) {
-                      handleSearch('');
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                />
+                <Space>
+                  <Input.Search
+                    placeholder="Tìm kiếm theo tên, email, vai trò hoặc số điện thoại..."
+                    allowClear
+                    enterButton={<Button icon={<SearchOutlined />} />}
+                    onSearch={handleSearch}
+                    onChange={(e) => {
+                      if (!e.target.value) {
+                        handleSearch('');
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                  />
+                  <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={handleOpenAddDrawer}
+                    className="force-color"
+                  >
+                  </Button>
+                </Space>
               </Col>
             </Row>
           }
@@ -234,16 +254,19 @@ const NhanSuList = () => {
               style: { cursor: 'pointer' },
             })}
           />
-          {selectedRecord && (
-            <CarbonDrawer
-              visible={drawerVisible}
-              onClose={() => setDrawerVisible(false)}
-              record={selectedRecord}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              fieldsConfig={fieldsConfig}
-            />
-          )}
+          <CarbonDrawer
+            visible={drawerVisible}
+            onClose={() => {
+              setDrawerVisible(false);
+              setIsAdding(false);
+            }}
+            record={selectedRecord}
+            onUpdate={handleUpdate}
+            onAdd={handleAdd}
+            onDelete={handleDelete}
+            fieldsConfig={fieldsConfig}
+            isAdding={isAdding}
+          />
         </Card>
       </Col>
     </Row>
