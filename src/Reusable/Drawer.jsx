@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message } from 'antd';
+import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message, DatePicker } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 
 const { Text } = Typography;
 
@@ -13,19 +14,34 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
       form.resetFields();
       setIsEditing(true);
     } else if (record) {
-      form.setFieldsValue(record);
+      const initialValues = { ...record };
+      if (record.thoiGian) {
+        initialValues.thoiGian = dayjs(record.thoiGian);
+      }
+      form.setFieldsValue(initialValues);
       setIsEditing(false);
     }
   }, [isAdding, record, form]);
 
   const handleEdit = () => {
     setIsEditing(true);
-    form.setFieldsValue(record);
+    if (record) {
+      const initialValues = { ...record };
+      if (record.thoiGian) {
+        initialValues.thoiGian = dayjs(record.thoiGian);
+      }
+      form.setFieldsValue(initialValues);
+    }
   };
 
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
+
+      if (values.thoiGian) {
+        values.thoiGian = values.thoiGian.format('DD/MM/YYYY');
+      }
+
       if (isAdding) {
         onAdd(values);
         message.success('Thêm mới thành công');
@@ -33,6 +49,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
         onUpdate({ ...record, ...values });
         message.success('Cập nhật thành công');
       }
+
       setIsEditing(false);
       onClose();
     } catch (error) {
@@ -97,7 +114,11 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               label={field.label}
               rules={field.rules || [{ required: true, message: `${field.label} là bắt buộc` }]}
             >
-              <Input />
+              {field.name === 'thoiGian' ? (
+                <DatePicker style={{ width: '100%' }} format="DD/MM/YYYY" />
+              ) : (
+                <Input />
+              )}
             </Form.Item>
           ))}
         </Form>
@@ -106,7 +127,11 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
           {fieldsConfig.map((field) => (
             <div key={field.name}>
               <Text strong>{field.label}: </Text>
-              <Text>{record ? record[field.name] : ''}</Text>
+              <Text>
+                {field.name === 'thoiGian' && record?.thoiGian
+                  ? dayjs(record.thoiGian).format('DD/MM/YYYY')
+                  : record?.[field.name] || ''}
+              </Text>
             </div>
           ))}
         </Space>

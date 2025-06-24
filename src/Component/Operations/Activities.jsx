@@ -57,8 +57,11 @@ const CarbonActivityList = () => {
   };
 
   const handleAdd = (newRecord) => {
-    setFilteredData((prev) => [...prev, {newRecord, key: `${prev.length + 1}` }])
-  }
+    setFilteredData((prev) => [
+      ...prev,
+      { ...newRecord, key: `${prev.length + 1}` }
+    ]);
+  };
 
   const handleDelete = (key) => {
     setFilteredData((prev) => prev.filter((item) => item.key !== key));
