@@ -51,3 +51,7 @@
     color: green;
     cursor: pointer;
 }
+
+.force-color{
+    background-color: green !important;
+}

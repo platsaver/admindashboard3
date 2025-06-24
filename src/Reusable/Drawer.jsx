@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
-const CarbonDrawer = ({ visible, onClose, record, onUpdate, onDelete, fieldsConfig }) => {
+const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fieldsConfig, isAdding }) => {
   const [form] = Form.useForm();
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(isAdding);
+
+  useEffect(() => {
+    if (isAdding) {
+      form.resetFields();
+      setIsEditing(true);
+    } else if (record) {
+      form.setFieldsValue(record);
+      setIsEditing(false);
+    }
+  }, [isAdding, record, form]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -16,11 +26,17 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onDelete, fieldsConf
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
-      onUpdate({ ...record, ...values });
+      if (isAdding) {
+        onAdd(values);
+        message.success('Thêm mới thành công');
+      } else {
+        onUpdate({ ...record, ...values });
+        message.success('Cập nhật thành công');
+      }
       setIsEditing(false);
-      message.success('Cập nhật thành công');
+      onClose();
     } catch (error) {
-      message.error('Cập nhật thất bại');
+      message.error(isAdding ? 'Thêm mới thất bại' : 'Cập nhật thất bại');
     }
   };
 
@@ -33,11 +49,12 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onDelete, fieldsConf
   const handleCancel = () => {
     setIsEditing(false);
     form.resetFields();
+    if (isAdding) onClose();
   };
 
   return (
     <Drawer
-      title={isEditing ? 'Chỉnh sửa thông tin' : 'Thông tin chi tiết'}
+      title={isAdding ? 'Thêm tiêu chuẩn mới' : isEditing ? 'Chỉnh sửa thông tin' : 'Thông tin chi tiết'}
       width={400}
       onClose={onClose}
       open={visible}
@@ -89,7 +106,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onDelete, fieldsConf
           {fieldsConfig.map((field) => (
             <div key={field.name}>
               <Text strong>{field.label}: </Text>
-              <Text>{record[field.name]}</Text>
+              <Text>{record ? record[field.name] : ''}</Text>
             </div>
           ))}
         </Space>
