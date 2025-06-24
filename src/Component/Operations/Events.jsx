@@ -35,7 +35,7 @@ const carbonEvents = [
 ];
 
 const CarbonEventList = () => {
-  const [searchText, setSearchText] = useState('');
+  const setSearchText = useState('');
   const [filteredData, setFilteredData] = useState(carbonEvents);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fieldsConfig, isAdding }) => {
   const [form] = Form.useForm();

@@ -103,7 +103,7 @@ const partnerData = [
 ];
 
 const PartnerList = () => {
-  const [searchText, setSearchText] = useState('');
+  const setSearchText = useState('');
   const [filteredData, setFilteredData] = useState(partnerData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);

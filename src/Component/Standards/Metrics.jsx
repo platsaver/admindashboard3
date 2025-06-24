@@ -35,7 +35,7 @@ const carbonData = [
 ];
 
 const CarbonCreditDashboard = () => {
-  const [searchText, setSearchText] = useState('');
+  const setSearchText = useState('');
   const [filteredData, setFilteredData] = useState(carbonData);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
