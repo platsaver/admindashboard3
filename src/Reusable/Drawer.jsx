@@ -129,7 +129,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               <Text strong>{field.label}: </Text>
               <Text>
                 {field.name === 'thoiGian' && record?.thoiGian
-                  ? dayjs(record.thoiGian).format('DD/MM/YYYY')
+                  ? dayjs(record.thoiGian, 'DD/MM/YYYY').format('DD/MM/YYYY')
                   : record?.[field.name] || ''}
               </Text>
             </div>
