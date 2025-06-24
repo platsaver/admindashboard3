@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Main from "./Layout/Main"; 
-import CarbonMarketDashboard from "./Component/Overview"; 
 import Partners from './Component/Partners/Partners';
 import Standards from './Component/Standards/Standards';
 import PersonnelList from "./Component/Partners/Personnel";
@@ -15,7 +14,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route element={<Main />}>
-          <Route path="/dashboard" element={<CarbonMarketDashboard />} />
           <Route path="/partners" element={<Partners/>} />
           <Route path="/standards" element={<Standards/>}/>
           <Route path="/personnel" element={<PersonnelList/>}/>
@@ -23,7 +21,7 @@ function App() {
           <Route path="/activities" element={<Activities/>}/>
           <Route path="/events" element={<Events/>}/>
           <Route path="/reports" element={<Reports/>}/>
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/partners" replace />} />
         </Route>
       </Routes>
     </div>
