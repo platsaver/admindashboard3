@@ -2,6 +2,7 @@ import { Flex, Typography, Avatar, Menu, Dropdown, Badge, Button } from "antd";
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { GlobalOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const CustomHeader = ({ collapsed, onToggle }) => {
   const { t, i18n } = useTranslation(); // Lấy cả t và i18n
@@ -51,6 +52,22 @@ const CustomHeader = ({ collapsed, onToggle }) => {
     />
   );
 
+  const userMenu = (
+    <Menu
+      items={[
+        {
+          key: 'logout',
+          label: t('logout'), // Đảm bảo bạn có khóa 'logout' trong file i18n
+          onClick: () => {
+            console.log('Logging out...');
+            navigate('/login'); // Giả sử LoginForm được định tuyến tại '/login'
+          },
+        },
+      ]}
+    />
+  );
+  const navigate = useNavigate();
+
   return (
     <Flex align="center" justify="space-between">
       <Flex align="center" justify="start">
@@ -72,7 +89,9 @@ const CustomHeader = ({ collapsed, onToggle }) => {
           <Dropdown overlay={languageMenu} trigger={['hover']} placement="bottomRight">
             <GlobalOutlined className="header-icon" />
           </Dropdown>
-          <Avatar icon={<UserOutlined />} />
+          <Dropdown overlay={userMenu} trigger={['hover']} placement="bottomRight">
+            <Avatar icon={<UserOutlined />} style={{ cursor: 'pointer' }} />
+          </Dropdown>
         </Flex>
       </Flex>
     </Flex>
