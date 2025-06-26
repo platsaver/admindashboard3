@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined,PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const partnerData = [
   {
@@ -108,6 +109,7 @@ const PartnerList = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
+  const { t } = useTranslation();
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -142,7 +144,7 @@ const PartnerList = () => {
   ];
   const columns = [
     {
-      title: 'Tên đối tác',
+      title: t('name'),
       dataIndex: 'name',
       key: 'name',
       render: (text, record) => (
@@ -152,7 +154,7 @@ const PartnerList = () => {
       ),
     },
     {
-      title: 'Email',
+      title: t('Email'),
       dataIndex: 'email',
       key: 'email',
       render: (email) => (
@@ -163,7 +165,7 @@ const PartnerList = () => {
       ),
     },
     {
-      title: 'Địa chỉ',
+      title: t('address'),
       dataIndex: 'address',
       key: 'address',
       render: (address) => (
@@ -174,7 +176,7 @@ const PartnerList = () => {
       ),
     },
     {
-      title: 'Số điện thoại',
+      title: t('phone'),
       dataIndex: 'phone',
       key: 'phone',
       render: (phone) => (
@@ -185,14 +187,18 @@ const PartnerList = () => {
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       render: (status) => {
         const color = status === 'active' ? 'green' : status === 'inactive' ? 'red' : 'orange';
-        const label = status === 'active' ? 'Hoạt động' : status === 'inactive' ? 'Ngừng hoạt động' : 'Chờ duyệt';
+        const label = status === 'active'
+          ? t('active')
+          : status === 'inactive'
+          ? t('inactive')
+          : t('pending');
         return <Tag color={color}>{label}</Tag>;
-      },
+      }
     }
   ];
 
@@ -211,7 +217,7 @@ const PartnerList = () => {
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
               <Space>
                 <Input.Search
-                  placeholder="Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại..."
+                  placeholder={t('partnerSearch')}
                   allowClear
                   enterButton={<Button icon={<SearchOutlined />} />}
                   onSearch={handleSearch}

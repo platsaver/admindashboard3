@@ -16,6 +16,16 @@ const resources = {
       password: 'Password',
       passwordRequired: 'Password field must not be blank',
       login: 'Login',
+      /*Partner*/
+      name: 'Name',
+      email: 'Email',
+      address: 'Address',
+      phone: 'Phone',
+      status: 'Status',
+      active: 'active',
+      inactive: 'inactive',
+      pending: 'Pending',
+      partnerSearch: 'Finding with name, email, address or phone number ...',
       /*SideBar*/
       partners: 'Partners',
       personnel: 'Personnel',
@@ -41,6 +51,16 @@ const resources = {
       password: 'Mật khẩu',
       passwordRequired: 'Trường mật khẩu không được để trống',
       login: 'Đăng nhập',
+      /*Partner*/
+      name: 'Tên',
+      email: 'Email',
+      address: 'Địa chỉ',
+      phone: 'Số điện thoại',
+      status: 'Trạng thái',
+      active: 'Hoạt động',
+      inactive: 'Ngừng hoạt động',
+      pending: 'Chờ duyệt',
+      partnerSearch: 'Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại...',
       /*SideBar*/
       partners: 'Đối tác',
       personnel: 'Nhân sự',
