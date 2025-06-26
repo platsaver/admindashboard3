@@ -67,8 +67,17 @@ const CarbonEventList = () => {
 
   const fieldsConfig = [
     { name: 'tenSuKien', label: t('name') },
-    { name: 'thoiGian', label: t('time') },
-    { name: 'status', label: t('status') } 
+    { name: 'thoiGian', label: t('time'), type: 'date' },
+    {
+    name: 'status',
+    label: t('status'),
+    type: 'select',
+    options: [
+      { value: 'upcoming', label: t('upcoming') },
+      { value: 'continuing', label: t('continuing') },
+      { value: 'complete', label: t('complete') },
+    ],
+  }
   ];
 
   const columns = [

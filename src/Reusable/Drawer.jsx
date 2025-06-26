@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message, DatePicker } from 'antd';
+import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message, DatePicker, Select } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,13 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
     if (record) {
       const initialValues = { ...record };
       if (record.thoiGian) {
-        initialValues.thoiGian = dayjs(record.thoiGian);
+        ['thoiGian', 'dob'].forEach((field) => {
+          const raw = record?.[field];
+          const parsed = dayjs(raw, 'DD/MM/YYYY', true);
+          if (parsed.isValid()) {
+            initialValues[field] = parsed;
+          }
+        });
       }
       form.setFieldsValue(initialValues);
     }
@@ -116,8 +122,16 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               label={field.label}
               rules={field.rules || [{ required: true, message: `${field.label} ${t('isRequired')}` }]}
             >
-              {field.name === 'thoiGian' ? (
+              {field.type === 'date' ? (
                 <DatePicker style={{ width: '100%' }} format="DD/MM/YYYY" />
+              ) : field.type === 'select' && field.options ? (
+                <Select style={{ width: '100%' }}>
+                  {field.options.map((opt) => (
+                    <Select.Option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </Select.Option>
+                  ))}
+                </Select>
               ) : (
                 <Input />
               )}

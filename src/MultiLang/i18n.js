@@ -56,6 +56,7 @@ const resources = {
       supervised: 'Supervised',
       expected: 'Expected',
       processing: 'Processing',
+      searchActivities: 'Searching for activity ...',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -131,6 +132,7 @@ const resources = {
       supervised: 'Đang theo dõi',
       expected: 'Dự kiến',
       processing: 'Đang thực hiện',
+      searchActivities: 'Tìm kiếm hoạt động ...',
       /*Events*/
       searchEvents: 'Tìm kiếm sự kiện ...',
       upcoming: 'Sắp diễn ra',

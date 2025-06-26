@@ -67,8 +67,17 @@ const CarbonActivityList = () => {
 
   const fieldsConfig = [
     { name: 'tenHoatDong', label: t('name') },
-    { name: 'thoiGian', label: t('time') },
-    { name: 'status', label: t('status') } 
+    { name: 'thoiGian', label: t('time'), type: 'date' },
+    {
+    name: 'status',
+    label: t('status'),
+    type: 'select',
+    options: [
+      { value: 'upcoming', label: t('expected') },
+      { value: 'continuing', label: t('processing') },
+      { value: 'complete', label: t('complete') },
+    ],
+    }
   ];
 
   const columns = [
