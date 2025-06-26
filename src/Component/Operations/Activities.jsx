@@ -35,7 +35,7 @@ const carbonActivities = [
 ];
 
 const CarbonActivityList = () => {
-  const setSearchText = useState('');
+  const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonActivities);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);

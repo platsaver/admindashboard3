@@ -35,7 +35,7 @@ const carbonStandards = [
 ];
 
 const CarbonStandardList = () => {
-  const setSearchText = useState('');
+  const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonStandards);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
