@@ -26,6 +26,9 @@ const resources = {
       inactive: 'inactive',
       pending: 'Pending',
       partnerSearch: 'Finding with name, email, address or phone number ...',
+      /*Personnel*/
+      role: 'Role', 
+      dob: 'Date of birth',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -71,6 +74,13 @@ const resources = {
       inactive: 'Ngừng hoạt động',
       pending: 'Chờ duyệt',
       partnerSearch: 'Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại...',
+      /*Personnel*/
+      role: 'Vai trò', 
+      dob: 'Ngày sinh',
+      retiredReason: 'Lý do',
+      working: 'Đang làm việc',
+      retired: 'Nghỉ việc',
+      personnelSearch: 'Tìm kiếm theo tên, email, vai trò hoặc số điện thoại...',
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',

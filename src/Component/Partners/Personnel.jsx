@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, PhoneOutlined, MailOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const nhanSuData = [
   {
@@ -10,7 +11,7 @@ const nhanSuData = [
     soDienThoai: '0901234567',
     email: 'nguyenvanan@company.com',
     vaiTro: 'Nhân viên',
-    status: 'active',
+    status: 'working',
     dob: '12/03/1990',
   },
   {
@@ -19,8 +20,9 @@ const nhanSuData = [
     soDienThoai: '0912345678',
     email: 'tranthibinh@company.com',
     vaiTro: 'Nhân viên',
-    status: 'active',
+    status: 'retired',
     dob: '24/07/1992',
+    lydo: 'Hết hợp đồng lao động'
   },
   {
     key: '3',
@@ -28,7 +30,7 @@ const nhanSuData = [
     soDienThoai: '0923456789',
     email: 'leminhcuong@company.com',
     vaiTro: 'Người cấp chứng chỉ',
-    status: 'active',
+    status: 'working',
     dob: '08/01/1988',
   },
   {
@@ -37,7 +39,7 @@ const nhanSuData = [
     soDienThoai: '0934567890',
     email: 'phamthuha@company.com',
     vaiTro: 'Nhân viên',
-    status: 'inactive',
+    status: 'retired',
     dob: '15/06/1995',
   },
   {
@@ -46,7 +48,7 @@ const nhanSuData = [
     soDienThoai: '0945678901',
     email: 'hoangvanduc@company.com',
     vaiTro: 'Hỗ trợ cấp chứng chỉ',
-    status: 'active',
+    status: 'working',
     dob: '29/09/1987',
   },
   {
@@ -55,7 +57,7 @@ const nhanSuData = [
     soDienThoai: '0956781234',
     email: 'dinhthilan@company.com',
     vaiTro: 'Hỗ trợ cấp chứng chỉ',
-    status: 'active',
+    status: 'working',
     dob: '03/05/1993',
   },
   {
@@ -73,7 +75,7 @@ const nhanSuData = [
     soDienThoai: '0978123456',
     email: 'ngothimai@company.com',
     vaiTro: 'Chuyên viên',
-    status: 'active',
+    status: 'working',
     dob: '06/04/1990',
   },
   {
@@ -82,7 +84,7 @@ const nhanSuData = [
     soDienThoai: '0989234567',
     email: 'dovanhung@company.com',
     vaiTro: 'Trưởng nhóm',
-    status: 'active',
+    status: 'working',
     dob: '27/08/1989',
   },
   {
@@ -91,7 +93,7 @@ const nhanSuData = [
     soDienThoai: '0990345678',
     email: 'buithithu@company.com',
     vaiTro: 'Nhân viên',
-    status: 'inactive',
+    status: 'retired',
     dob: '13/11/1994',
   },
   {
@@ -100,7 +102,7 @@ const nhanSuData = [
     soDienThoai: '0901456789',
     email: 'truongminhkhoa@company.com',
     vaiTro: 'Kỹ thuật viên',
-    status: 'active',
+    status: 'working',
     dob: '02/02/1991',
   },
   {
@@ -115,6 +117,7 @@ const nhanSuData = [
 ];
 
 const NhanSuList = () => {
+  const { t } = useTranslation();
   const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(nhanSuData);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -147,17 +150,18 @@ const NhanSuList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenNhanSu', label: 'Tên nhân sự' },
-    { name: 'soDienThoai', label: 'Số điện thoại' },
-    { name: 'email', label: 'Email' },
-    { name: 'vaiTro', label: 'Vai trò' },
-    { name: 'status', label: 'Trạng thái' }, 
-    { name: 'dob', label: 'Ngày sinh'}
+    { name: 'tenNhanSu', label: t('name') },
+    { name: 'soDienThoai', label: t('phone') },
+    { name: 'email', label: t('email') },
+    { name: 'vaiTro', label: t('role') },
+    { name: 'status', label: t('status') }, 
+    { name: 'dob', label: t('dob')},
+    { name: 'lydo', label: t('lydo')}
   ];
 
   const columns = [
     {
-      title: 'Tên nhân sự',
+      title: t('name'),
       dataIndex: 'tenNhanSu',
       key: 'tenNhanSu',
       render: (text, record) => (
@@ -167,7 +171,7 @@ const NhanSuList = () => {
       ),
     },
     {
-      title: 'Số điện thoại',
+      title: t('phone'),
       dataIndex: 'soDienThoai',
       key: 'soDienThoai',
       render: (phone) => (
@@ -178,7 +182,7 @@ const NhanSuList = () => {
       ),
     },
     {
-      title: 'Email',
+      title: t('email'),
       dataIndex: 'email',
       key: 'email',
       render: (email) => (
@@ -189,7 +193,7 @@ const NhanSuList = () => {
       ),
     },
     {
-      title: 'Vai trò',
+      title: t('role'),
       dataIndex: 'vaiTro',
       key: 'vaiTro',
       render: (role) => (
@@ -200,7 +204,7 @@ const NhanSuList = () => {
       ),
     },
     {
-      title: 'Ngày sinh',
+      title: t('dob'),
       dataIndex: 'dob',
       key: 'dob',
       render: (dob) => (
@@ -211,15 +215,33 @@ const NhanSuList = () => {
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       render: (status) => {
-        const color = status === 'active' ? 'green' : status === 'inactive' ? 'red' : 'orange';
-        const label = status === 'active' ? 'Đang làm việc' : status === 'inactive' ? 'Nghỉ việc' : 'Chờ duyệt';
+        const color =
+          status === 'working' ? 'green' :
+          status === 'retired' ? 'red' :
+          'orange';
+
+        const label =
+          status === 'working' ? t('working') :
+          status === 'retired' ? t('retired') :
+          t('pending');
+
         return <Tag color={color}>{label}</Tag>;
       },
-    }
+    },
+    {
+      title: t('retiredReason'),
+      dataIndex: 'lydo',
+      key: 'lydo',
+      render: (lydo) => (
+        <Space>
+          {lydo}
+        </Space>
+      ),
+    },
   ];
   
   const handleOpenAddDrawer = () => {
@@ -237,7 +259,7 @@ const NhanSuList = () => {
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
                 <Space>
                   <Input.Search
-                    placeholder="Tìm kiếm theo tên, email, vai trò hoặc số điện thoại..."
+                    placeholder={t('personnelSearch')}
                     allowClear
                     enterButton={<Button icon={<SearchOutlined />} />}
                     onSearch={handleSearch}
