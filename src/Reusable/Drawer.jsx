@@ -146,7 +146,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               <Text>
                 {['thoiGian', 'dob'].includes(field.name) && record?.[field.name]
                   ? dayjs(record[field.name], 'DD/MM/YYYY').format('DD/MM/YYYY')
-                  : ['loai', 'status', 'trangThai'].includes(field.name) && record?.[field.name]
+                  : ['loai', 'status', 'trangThai', 'vaiTro'].includes(field.name) && record?.[field.name]
                   ? t(record[field.name])
                   : record?.[field.name] || ''}
               </Text>

@@ -43,7 +43,7 @@ const partnerData = [
     email: 'contact@jkl.vn',
     address: '654 Hoàng Hoa Thám, Ba Đình, Hà Nội',
     phone: '024-3765-4321',
-    status: 'pending',
+    status: 'inactive',
   },
   {
     key: '6',
@@ -75,7 +75,7 @@ const partnerData = [
     email: 'contact@vwx.vn',
     address: '852 Cầu Giấy, Cầu Giấy, Hà Nội',
     phone: '024-3321-0987',
-    status: 'pending',
+    status: 'inactive',
   },
   {
     key: '10',
@@ -196,7 +196,7 @@ const PartnerList = () => {
           ? t('active')
           : status === 'inactive'
           ? t('inactive')
-          : t('pending');
+          : null;
         return <Tag color={color}>{label}</Tag>;
       }
     }

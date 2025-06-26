@@ -10,7 +10,7 @@ const nhanSuData = [
     tenNhanSu: 'Nguyễn Văn An',
     soDienThoai: '0901234567',
     email: 'nguyenvanan@company.com',
-    vaiTro: 'Nhân viên',
+    vaiTro: 'staff',
     status: 'working',
     dob: '12/03/1990',
   },
@@ -19,7 +19,7 @@ const nhanSuData = [
     tenNhanSu: 'Trần Thị Bình',
     soDienThoai: '0912345678',
     email: 'tranthibinh@company.com',
-    vaiTro: 'Nhân viên',
+    vaiTro: 'staff',
     status: 'retired',
     dob: '24/07/1992',
     lydo: 'Hết hợp đồng lao động'
@@ -29,7 +29,7 @@ const nhanSuData = [
     tenNhanSu: 'Lê Minh Cường',
     soDienThoai: '0923456789',
     email: 'leminhcuong@company.com',
-    vaiTro: 'Người cấp chứng chỉ',
+    vaiTro: 'professional',
     status: 'working',
     dob: '08/01/1988',
   },
@@ -38,7 +38,7 @@ const nhanSuData = [
     tenNhanSu: 'Phạm Thu Hà',
     soDienThoai: '0934567890',
     email: 'phamthuha@company.com',
-    vaiTro: 'Nhân viên',
+    vaiTro: 'staff',
     status: 'retired',
     dob: '15/06/1995',
   },
@@ -47,7 +47,7 @@ const nhanSuData = [
     tenNhanSu: 'Hoàng Văn Đức',
     soDienThoai: '0945678901',
     email: 'hoangvanduc@company.com',
-    vaiTro: 'Hỗ trợ cấp chứng chỉ',
+    vaiTro: 'professional',
     status: 'working',
     dob: '29/09/1987',
   },
@@ -56,7 +56,7 @@ const nhanSuData = [
     tenNhanSu: 'Đinh Thị Lan',
     soDienThoai: '0956781234',
     email: 'dinhthilan@company.com',
-    vaiTro: 'Hỗ trợ cấp chứng chỉ',
+    vaiTro: 'professional',
     status: 'working',
     dob: '03/05/1993',
   },
@@ -65,8 +65,8 @@ const nhanSuData = [
     tenNhanSu: 'Vũ Minh Tuấn',
     soDienThoai: '0967812345',
     email: 'vuminhtuan@company.com',
-    vaiTro: 'Quản lý',
-    status: 'pending',
+    vaiTro: 'manager',
+    status: 'working',
     dob: '10/12/1985',
   },
   {
@@ -74,7 +74,7 @@ const nhanSuData = [
     tenNhanSu: 'Ngô Thị Mai',
     soDienThoai: '0978123456',
     email: 'ngothimai@company.com',
-    vaiTro: 'Chuyên viên',
+    vaiTro: 'admin',
     status: 'working',
     dob: '06/04/1990',
   },
@@ -83,7 +83,7 @@ const nhanSuData = [
     tenNhanSu: 'Đỗ Văn Hùng',
     soDienThoai: '0989234567',
     email: 'dovanhung@company.com',
-    vaiTro: 'Trưởng nhóm',
+    vaiTro: 'superAdmin',
     status: 'working',
     dob: '27/08/1989',
   },
@@ -92,7 +92,7 @@ const nhanSuData = [
     tenNhanSu: 'Bùi Thị Thu',
     soDienThoai: '0990345678',
     email: 'buithithu@company.com',
-    vaiTro: 'Nhân viên',
+    vaiTro: 'staff',
     status: 'retired',
     dob: '13/11/1994',
   },
@@ -101,7 +101,7 @@ const nhanSuData = [
     tenNhanSu: 'Trương Minh Khoa',
     soDienThoai: '0901456789',
     email: 'truongminhkhoa@company.com',
-    vaiTro: 'Kỹ thuật viên',
+    vaiTro: 'staff',
     status: 'working',
     dob: '02/02/1991',
   },
@@ -110,8 +110,8 @@ const nhanSuData = [
     tenNhanSu: 'Lý Thị Hoa',
     soDienThoai: '0912567890',
     email: 'lythihoa@company.com',
-    vaiTro: 'Thực tập sinh',
-    status: 'pending',
+    vaiTro: 'manager',
+    status: 'working',
     dob: '19/07/2000',
   }
 ];
@@ -153,10 +153,29 @@ const NhanSuList = () => {
     { name: 'tenNhanSu', label: t('name') },
     { name: 'soDienThoai', label: t('phone') },
     { name: 'email', label: t('email') },
-    { name: 'vaiTro', label: t('role') },
-    { name: 'status', label: t('status') }, 
+    {
+    name: 'vaiTro',
+    label: t('role'),
+    type: 'select',
+    options: [
+      { value: 'staff', label: t('staff') },
+      { value: 'manager', label: t('manager') },
+      { value: 'professional', label: t('professional') },
+      { value: 'admin', label: t('admin') },
+      { value: 'superAdmin', label: t('superAdmin') },
+    ],
+    },
+    {
+    name: 'status',
+    label: t('status'),
+    type: 'select',
+    options: [
+      { value: 'working', label: t('working') },
+      { value: 'retired', label: t('retired') },
+    ],
+    },
     { name: 'dob', label: t('dob')},
-    { name: 'lydo', label: t('lydo')}
+    { name: 'lydo', label: t('retiredReason')}
   ];
 
   const columns = [
@@ -199,7 +218,7 @@ const NhanSuList = () => {
       render: (role) => (
         <Space>
           <UserOutlined />
-          <Tag color="blue">{role}</Tag>
+          <Tag color="blue">{t(role)}</Tag>
         </Space>
       ),
     },
@@ -227,7 +246,7 @@ const NhanSuList = () => {
         const label =
           status === 'working' ? t('working') :
           status === 'retired' ? t('retired') :
-          t('pending');
+          null;
 
         return <Tag color={color}>{label}</Tag>;
       },

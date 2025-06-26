@@ -94,7 +94,7 @@ const CarbonCreditDashboard = () => {
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
                 <Space>
                   <Input.Search
-                    placeholder="Tìm kiếm chỉ số carbon..."
+                    placeholder={t('metricSearch')}
                     allowClear
                     enterButton={<Button icon={<SearchOutlined />} />}
                     onSearch={handleSearch}
