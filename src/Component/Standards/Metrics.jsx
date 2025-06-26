@@ -9,28 +9,24 @@ const carbonData = [
     tenChiSo: 'Lượng phát thải CO₂ (tháng 6)',
     loai: 'Phát thải',
     giaTri: '128 tấn',
-    trangThai: 'vượt ngưỡng',
   },
   {
     key: '2',
     tenChiSo: 'Tín chỉ carbon đã mua',
     loai: 'Bù trừ',
     giaTri: '150 tấn',
-    trangThai: 'đã bù đủ',
   },
   {
     key: '3',
     tenChiSo: 'Tín chỉ khả dụng',
     loai: 'Tài sản carbon',
     giaTri: '42 tín chỉ',
-    trangThai: 'còn lại',
   },
   {
     key: '4',
     tenChiSo: 'Tỉ lệ tuân thủ CBAM',
     loai: 'Chính sách',
     giaTri: '100%',
-    trangThai: 'đạt yêu cầu',
   },
 ];
 
@@ -68,7 +64,6 @@ const CarbonCreditDashboard = () => {
     { name: 'tenChiSo', label: 'Tên chỉ số' },
     { name: 'loai', label: 'Loại' },
     { name: 'giaTri', label: 'Giá trị' },
-    { name: 'trangThai', label: 'Trạng thái' },
   ];
 
   const columns = [
@@ -99,18 +94,6 @@ const CarbonCreditDashboard = () => {
           {value}
         </Space>
       ),
-    },
-    {
-      title: 'Trạng thái',
-      dataIndex: 'trangThai',
-      key: 'trangThai',
-      render: (status) => {
-        let color = 'green';
-        if (status.includes('vượt')) color = 'red';
-        else if (status.includes('còn lại')) color = 'gold';
-        else if (status.includes('đã bù')) color = 'blue';
-        return <Tag color={color}>{status}</Tag>;
-      },
     },
   ];
 
