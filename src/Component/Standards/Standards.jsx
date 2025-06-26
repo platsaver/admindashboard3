@@ -29,7 +29,7 @@ const carbonStandards = [
   {
     key: '4',
     tenTieuChuan: 'Tiêu chuẩn quốc gia (TCVN)',
-    loai: 'international',
+    loai: 'national',
     moTa: 'Hệ thống tiêu chuẩn hóa do Bộ TN&MT ban hành',
     trangThai: 'constructing',
   },
@@ -69,9 +69,27 @@ const CarbonStandardList = () => {
 
   const fieldsConfig = [
     { name: 'tenTieuChuan', label: t('name') },
-    { name: 'loai', label: t('type') },
+    {
+    name: 'loai',
+    label: t('type'),
+    type: 'select',
+    options: [
+      { value: 'international', label: t('international') },
+      { value: 'laws', label: t('laws') },
+      { value: 'national', label: t('national') },
+    ],
+    },
     { name: 'moTa', label: t('description') },
-    { name: 'trangThai', label: t('status') },
+    {
+    name: 'trangThai',
+    label: t('status'),
+    type: 'select',
+    options: [
+      { value: 'applied', label: t('applied') },
+      { value: 'required', label: t('required') },
+      { value: 'constructing', label: t('constructing') },
+    ],
+    }
   ];
 
   const columns = [
