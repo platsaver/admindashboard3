@@ -40,6 +40,13 @@ const resources = {
       required: 'Required',
       constructing: 'Constructing',
       standardSearch: 'Finding carbon standards ... ',
+      /*Metrics*/
+      value: 'Value',
+      metricSearch: "Searching for carbon metrics...",
+      emission: 'Emission',
+      offset: 'Compensation',
+      carbonAsset: 'Carbon facilities',
+      policy: 'Policy',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -99,6 +106,13 @@ const resources = {
       required: 'Bắt buộc',
       constructing: 'Đang xây dựng',
       standardSearch: 'Tìm kiếm tiêu chuẩn carbon ... ',
+      /*Metrics*/
+      value: 'Giá trị',
+      metricSearch: "Tìm kiếm chỉ số carbon...",
+      emission: 'Phát thải',
+      offset: 'Bù trừ',
+      carbonAsset: 'Tài sản carbon',
+      policy: 'Chính sách',
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',

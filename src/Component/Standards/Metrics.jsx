@@ -2,35 +2,17 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, CloudOutlined, FireOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const carbonData = [
-  {
-    key: '1',
-    tenChiSo: 'Lượng phát thải CO₂ (tháng 6)',
-    loai: 'Phát thải',
-    giaTri: '128 tấn',
-  },
-  {
-    key: '2',
-    tenChiSo: 'Tín chỉ carbon đã mua',
-    loai: 'Bù trừ',
-    giaTri: '150 tấn',
-  },
-  {
-    key: '3',
-    tenChiSo: 'Tín chỉ khả dụng',
-    loai: 'Tài sản carbon',
-    giaTri: '42 tín chỉ',
-  },
-  {
-    key: '4',
-    tenChiSo: 'Tỉ lệ tuân thủ CBAM',
-    loai: 'Chính sách',
-    giaTri: '100%',
-  },
+  { key: '1', tenChiSo: 'Lượng phát thải CO₂ (tháng 6)', loai: 'emission', giaTri: '128 tấn' },
+  { key: '2', tenChiSo: 'Tín chỉ carbon đã mua', loai: 'offset', giaTri: '150 tấn' },
+  { key: '3', tenChiSo: 'Tín chỉ khả dụng', loai: 'carbonAsset', giaTri: '42 tín chỉ' },
+  { key: '4', tenChiSo: 'Tỉ lệ tuân thủ CBAM', loai: 'policy', giaTri: '100%' },
 ];
 
 const CarbonCreditDashboard = () => {
+  const { t } = useTranslation();
   const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonData);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -61,14 +43,14 @@ const CarbonCreditDashboard = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenChiSo', label: 'Tên chỉ số' },
-    { name: 'loai', label: 'Loại' },
-    { name: 'giaTri', label: 'Giá trị' },
+    { name: 'tenChiSo', label: t('name') },
+    { name: 'loai', label: t('type') },
+    { name: 'giaTri', label: t('value') },
   ];
 
   const columns = [
     {
-      title: 'Tên chỉ số',
+      title: t('name'),
       dataIndex: 'tenChiSo',
       key: 'tenChiSo',
       render: (text, record) => (
@@ -79,13 +61,13 @@ const CarbonCreditDashboard = () => {
       ),
     },
     {
-      title: 'Loại',
+      title: t('type'),
       dataIndex: 'loai',
       key: 'loai',
-      render: (text) => <Tag color="blue">{text}</Tag>,
+      render: (text) => <Tag color="blue">{t(text)}</Tag>,
     },
     {
-      title: 'Giá trị',
+      title: t('value'),
       dataIndex: 'giaTri',
       key: 'giaTri',
       render: (value) => (

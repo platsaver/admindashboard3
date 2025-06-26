@@ -130,8 +130,10 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
             <div key={field.name}>
               <Text strong>{field.label}: </Text>
               <Text>
-                {field.name === 'thoiGian' && record?.thoiGian
-                  ? dayjs(record.thoiGian, 'DD/MM/YYYY').format('DD/MM/YYYY')
+                {['thoiGian', 'dob'].includes(field.name) && record?.[field.name]
+                  ? dayjs(record[field.name], 'DD/MM/YYYY').format('DD/MM/YYYY')
+                  : ['loai', 'status', 'trangThai'].includes(field.name) && record?.[field.name]
+                  ? t(record[field.name])
                   : record?.[field.name] || ''}
               </Text>
             </div>
