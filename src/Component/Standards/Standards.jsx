@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, SafetyCertificateOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const carbonStandards = [
   {
@@ -9,32 +10,33 @@ const carbonStandards = [
     tenTieuChuan: 'Verra (VCS)',
     loai: 'Quốc tế',
     moTa: 'Tiêu chuẩn xác minh tín chỉ carbon tự nguyện lớn nhất thế giới',
-    trangThai: 'đã áp dụng',
+    trangThai: 'applied',
   },
   {
     key: '2',
     tenTieuChuan: 'Gold Standard',
     loai: 'Quốc tế',
     moTa: 'Tiêu chuẩn carbon tập trung vào phát triển bền vững',
-    trangThai: 'đã áp dụng',
+    trangThai: 'applied',
   },
   {
     key: '3',
     tenTieuChuan: 'CBAM (EU)',
     loai: 'Pháp lý',
     moTa: 'Thuế carbon biên giới do Liên minh châu Âu áp dụng từ 2026',
-    trangThai: 'bắt buộc',
+    trangThai: 'required',
   },
   {
     key: '4',
     tenTieuChuan: 'Tiêu chuẩn quốc gia (TCVN)',
     loai: 'Quốc gia',
     moTa: 'Hệ thống tiêu chuẩn hóa do Bộ TN&MT ban hành',
-    trangThai: 'đang xây dựng',
+    trangThai: 'constructing',
   },
 ];
 
 const CarbonStandardList = () => {
+  const { t } = useTranslation();
   const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonStandards);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -66,15 +68,15 @@ const CarbonStandardList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenTieuChuan', label: 'Tên tiêu chuẩn' },
-    { name: 'loai', label: 'Loại' },
-    { name: 'moTa', label: 'Mô tả' },
-    { name: 'trangThai', label: 'Trạng thái' },
+    { name: 'tenTieuChuan', label: t('name') },
+    { name: 'loai', label: t('type') },
+    { name: 'moTa', label: t('description') },
+    { name: 'trangThai', label: t('status') },
   ];
 
   const columns = [
     {
-      title: 'Tên tiêu chuẩn',
+      title: t('name'),
       dataIndex: 'tenTieuChuan',
       key: 'tenTieuChuan',
       render: (text, record) => (
@@ -85,27 +87,34 @@ const CarbonStandardList = () => {
       ),
     },
     {
-      title: 'Loại',
+      title: t('type'),
       dataIndex: 'loai',
       key: 'loai',
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
     {
-      title: 'Mô tả',
+      title: t('description'),
       dataIndex: 'moTa',
       key: 'moTa',
     },
     {
-      title: 'Trạng thái',
-      dataIndex: 'trangThai',
+      title: t('status'),
+      dataIndex: 'trangThai', // nếu dữ liệu là từ field khác thì bạn giữ lại 'trangThai'
       key: 'trangThai',
-      render: (status) => {
-        let color = 'green';
-        if (status.includes('bắt buộc')) color = 'red';
-        else if (status.includes('đang xây')) color = 'orange';
-        return <Tag color={color}>{status}</Tag>;
+      render: (status) => { 
+        const color =
+          status === 'required' ? 'red' :
+          status === 'constructing' ? 'orange' :
+          'green';
+
+        const label =
+          status === 'required' ? t('required') :
+          status === 'constructing' ? t('constructing') :
+          t('applied');
+
+        return <Tag color={color}>{label}</Tag>;
       },
-    },
+    }
   ];
 
   const handleOpenAddDrawer = () => {
@@ -123,7 +132,7 @@ const CarbonStandardList = () => {
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
                 <Space>
                   <Input.Search
-                    placeholder="Tìm kiếm tiêu chuẩn carbon..."
+                    placeholder={t('standardSearch')}
                     allowClear
                     enterButton={<Button icon={<SearchOutlined />} />}
                     onSearch={handleSearch}

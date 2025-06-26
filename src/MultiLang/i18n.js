@@ -85,6 +85,13 @@ const resources = {
       working: 'Đang làm việc',
       retired: 'Nghỉ việc',
       personnelSearch: 'Tìm kiếm theo tên, email, vai trò hoặc số điện thoại...',
+      /*Standards*/
+      type: 'Loại', 
+      description: 'Mô tả',
+      applied: 'Đã áp dụng',
+      required: 'Bắt buộc',
+      constructing: 'Đang xây dựng',
+      standardSearch: 'Tìm kiếm tiêu chuẩn carbon ... ',
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',
