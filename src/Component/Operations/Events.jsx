@@ -9,25 +9,25 @@ const carbonEvents = [
     key: '1',
     tenSuKien: 'Hội thảo CBAM & Thị trường carbon',
     thoiGian: '15/07/2025',
-    status: 'sắp diễn ra',
+    status: 'upcoming',
   },
   {
     key: '2',
     tenSuKien: 'Giao lưu doanh nghiệp - chia sẻ tín chỉ',
     thoiGian: '10/05/2025',
-    status: 'đã tổ chức',
+    status: 'complete',
   },
   {
     key: '3',
     tenSuKien: 'Chiến dịch "Plant 1 Million Trees"',
     thoiGian: '02/09/2025',
-    status: 'đang mở đăng ký',
+    status: 'continuing',
   },
   {
     key: '4',
     tenSuKien: 'Họp nội bộ đánh giá tín chỉ quý II',
     thoiGian: '30/06/2025',
-    status: 'hoàn thành',
+    status: 'complete',
   },
 ];
 
@@ -99,12 +99,13 @@ const CarbonEventList = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status) => {
-        if (!status) return <Tag color="default">Không xác định</Tag>;
         let color = 'green';
-        if (status.includes('sắp')) color = 'orange';
-        else if (status.includes('đang')) color = 'gold';
-        else if (status.includes('hoàn') || status.includes('đã tổ')) color = 'green';
-        return <Tag color={color}>{status}</Tag>;
+
+        if (status === 'upcoming') color = 'orange';
+        else if (status === 'continuing') color = 'gold';
+        else if (status === 'complete') color = 'green';
+
+        return <Tag color={color}>{t(status)}</Tag>;
       },
     },
   ];

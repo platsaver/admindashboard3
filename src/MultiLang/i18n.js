@@ -131,8 +131,10 @@ const resources = {
       supervised: 'Đang theo dõi',
       expected: 'Dự kiến',
       processing: 'Đang thực hiện',
-      emissionReduction: 'Giảm phát thải',
-      market: 'Thị trường',
+      /*Events*/
+      searchEvents: 'Tìm kiếm sự kiện ...',
+      upcoming: 'Sắp diễn ra',
+      continuing: 'Đang diễn ra', 
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',
