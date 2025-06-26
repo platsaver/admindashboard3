@@ -8,28 +8,28 @@ const carbonStandards = [
   {
     key: '1',
     tenTieuChuan: 'Verra (VCS)',
-    loai: 'Quốc tế',
+    loai: 'international',
     moTa: 'Tiêu chuẩn xác minh tín chỉ carbon tự nguyện lớn nhất thế giới',
     trangThai: 'applied',
   },
   {
     key: '2',
     tenTieuChuan: 'Gold Standard',
-    loai: 'Quốc tế',
+    loai: 'international',
     moTa: 'Tiêu chuẩn carbon tập trung vào phát triển bền vững',
     trangThai: 'applied',
   },
   {
     key: '3',
     tenTieuChuan: 'CBAM (EU)',
-    loai: 'Pháp lý',
+    loai: 'laws',
     moTa: 'Thuế carbon biên giới do Liên minh châu Âu áp dụng từ 2026',
     trangThai: 'required',
   },
   {
     key: '4',
     tenTieuChuan: 'Tiêu chuẩn quốc gia (TCVN)',
-    loai: 'Quốc gia',
+    loai: 'international',
     moTa: 'Hệ thống tiêu chuẩn hóa do Bộ TN&MT ban hành',
     trangThai: 'constructing',
   },
@@ -90,7 +90,7 @@ const CarbonStandardList = () => {
       title: t('type'),
       dataIndex: 'loai',
       key: 'loai',
-      render: (text) => <Tag color="blue">{text}</Tag>,
+      render: (text) => <Tag color="blue">{t(text)}</Tag>,
     },
     {
       title: t('description'),
@@ -99,7 +99,7 @@ const CarbonStandardList = () => {
     },
     {
       title: t('status'),
-      dataIndex: 'trangThai', // nếu dữ liệu là từ field khác thì bạn giữ lại 'trangThai'
+      dataIndex: 'trangThai', 
       key: 'trangThai',
       render: (status) => { 
         const color =

@@ -40,6 +40,9 @@ const resources = {
       required: 'Required',
       constructing: 'Constructing',
       standardSearch: 'Finding carbon standards ... ',
+      international: 'International',
+      laws: 'Laws',
+      national: 'National',
       /*Metrics*/
       value: 'Value',
       metricSearch: "Searching for carbon metrics...",
@@ -106,6 +109,9 @@ const resources = {
       required: 'Bắt buộc',
       constructing: 'Đang xây dựng',
       standardSearch: 'Tìm kiếm tiêu chuẩn carbon ... ',
+      international: 'Quốc tế',
+      laws: 'Pháp lý',
+      national: 'Quốc gia',
       /*Metrics*/
       value: 'Giá trị',
       metricSearch: "Tìm kiếm chỉ số carbon...",
