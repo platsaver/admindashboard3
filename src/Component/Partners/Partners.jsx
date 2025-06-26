@@ -136,11 +136,11 @@ const PartnerList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'name', label: 'Tên Doanh nghiệp' },
-    { name: 'email', label: 'Email' },
-    { name: 'address', label: 'Địa chỉ' },
-    { name: 'phone', label: 'Số điện thoại' },
-    { name: 'status', label: 'Trạng thái' } 
+    { name: 'name', label: t('name') },
+    { name: 'email', label: t('email') },
+    { name: 'address', label: t('address') },
+    { name: 'phone', label: t('phone') },
+    { name: 'status', label: t('status') } 
   ];
   const columns = [
     {

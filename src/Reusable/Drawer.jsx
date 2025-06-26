@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Drawer, Form, Input, Button, Space, Popconfirm, Typography, message, DatePicker } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
 const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fieldsConfig, isAdding }) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(isAdding);
 
@@ -71,7 +73,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
 
   return (
     <Drawer
-      title={isAdding ? 'Thêm tiêu chuẩn mới' : isEditing ? 'Chỉnh sửa thông tin' : 'Thông tin chi tiết'}
+      title={isAdding ? t('Add') : isEditing ? t('editData') : t('detailData')}
       width={400}
       onClose={onClose}
       open={visible}
@@ -80,25 +82,25 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
         <Space style={{ width: '100%', justifyContent: 'space-between' }}>
           {isEditing ? (
             <>
-              <Button onClick={handleCancel}>Hủy</Button>
+              <Button onClick={handleCancel}>{t('cancelBtn')}</Button>
               <Button type="primary" onClick={handleSave}>
-                Lưu
+                {t('saveBtn')}
               </Button>
             </>
           ) : (
             <>
               <Popconfirm
-                title="Bạn có chắc muốn xóa?"
+                title={t('confirmDelete')}
                 onConfirm={handleDelete}
-                okText="Xóa"
-                cancelText="Hủy"
+                okText={t('deleteBtn')}
+                cancelText={t('cancelBtn')}
               >
                 <Button danger icon={<DeleteOutlined />}>
-                  Xóa
+                  {t('deleteBtn')}
                 </Button>
               </Popconfirm>
               <Button type="primary" icon={<EditOutlined />} onClick={handleEdit}>
-                Chỉnh sửa
+                {t('editBtn')}
               </Button>
             </>
           )}
@@ -112,7 +114,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               key={field.name}
               name={field.name}
               label={field.label}
-              rules={field.rules || [{ required: true, message: `${field.label} là bắt buộc` }]}
+              rules={field.rules || [{ required: true, message: `${field.label} ${t('isRequired')}` }]}
             >
               {field.name === 'thoiGian' ? (
                 <DatePicker style={{ width: '100%' }} format="DD/MM/YYYY" />

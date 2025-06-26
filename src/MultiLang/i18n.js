@@ -26,6 +26,16 @@ const resources = {
       inactive: 'inactive',
       pending: 'Pending',
       partnerSearch: 'Finding with name, email, address or phone number ...',
+      /*Drawer*/
+      addingData: 'Add',
+      editData: 'Edit data',
+      detailData: 'Detail Information',
+      confirmDelete: 'Are your sure to delete?',
+      deleteBtn: 'Delete',
+      editBtn: 'Edit',
+      saveBtn: 'Save',
+      cancelBtn: 'Cancel',
+      isRequired: 'is required',
       /*SideBar*/
       partners: 'Partners',
       personnel: 'Personnel',
@@ -61,6 +71,16 @@ const resources = {
       inactive: 'Ngừng hoạt động',
       pending: 'Chờ duyệt',
       partnerSearch: 'Tìm kiếm theo tên, email, địa chỉ hoặc số điện thoại...',
+      /*Drawer*/
+      addingData: 'Thêm',
+      editData: 'Chỉnh sửa thông tin',
+      detailData: 'Thông tin chi tiết',
+      confirmDelete: 'Bạn có chắc muốn xóa?',
+      deleteBtn: 'Xóa',
+      editBtn: 'Sửa',
+      saveBtn: 'Lưu',
+      cancelBtn: 'Hủy',
+      isRequired: 'is required',
       /*SideBar*/
       partners: 'Đối tác',
       personnel: 'Nhân sự',
