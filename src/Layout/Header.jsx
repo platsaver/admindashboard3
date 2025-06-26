@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const CustomHeader = ({ collapsed, onToggle }) => {
-  const { t, i18n } = useTranslation(); // Lấy cả t và i18n
+  const { t } = useTranslation();
 
   const notificationMenu = (
     <Menu
@@ -24,29 +24,6 @@ const CustomHeader = ({ collapsed, onToggle }) => {
           key: '3',
           label: 'Meeting reminder at 3 PM',
           onClick: () => console.log('Notification 3 clicked'),
-        },
-      ]}
-    />
-  );
-
-  const languageMenu = (
-    <Menu
-      items={[
-        {
-          key: 'en',
-          label: t('english'), 
-          onClick: () => {
-            i18n.changeLanguage('en');
-            console.log('Selected English');
-          },
-        },
-        {
-          key: 'vi',
-          label: t('vietnamese'), 
-          onClick: () => {
-            i18n.changeLanguage('vi');
-            console.log('Selected Vietnamese');
-          },
         },
       ]}
     />
@@ -85,9 +62,6 @@ const CustomHeader = ({ collapsed, onToggle }) => {
             <Badge dot>
               <BellOutlined className="header-icon" style={{ cursor: 'pointer' }} />
             </Badge>
-          </Dropdown>
-          <Dropdown overlay={languageMenu} trigger={['hover']} placement="bottomRight">
-            <GlobalOutlined className="header-icon" />
           </Dropdown>
           <Dropdown overlay={userMenu} trigger={['hover']} placement="bottomRight">
             <Avatar icon={<UserOutlined />} style={{ cursor: 'pointer' }} />
