@@ -29,6 +29,10 @@ const resources = {
       /*Personnel*/
       role: 'Role', 
       dob: 'Date of birth',
+      retiredReason: 'Reason',
+      working: 'Working',
+      retired: 'Retired',
+      personnelSearch: 'Finding with name, email, role or phone number ...',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
