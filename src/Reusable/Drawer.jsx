@@ -79,7 +79,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
 
   return (
     <Drawer
-      title={isAdding ? t('Add') : isEditing ? t('editData') : t('detailData')}
+      title={isAdding ? t('addingData') : isEditing ? t('editData') : t('detailData')}
       width={400}
       onClose={onClose}
       open={visible}
