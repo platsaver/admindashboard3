@@ -57,10 +57,10 @@ const CustomHeader = ({ collapsed, onToggle }) => {
       items={[
         {
           key: 'logout',
-          label: t('logout'), // Đảm bảo bạn có khóa 'logout' trong file i18n
+          label: t('Log Out'),
           onClick: () => {
-            console.log('Logging out...');
-            navigate('/login'); // Giả sử LoginForm được định tuyến tại '/login'
+            localStorage.removeItem('access_token');
+            navigate('/verify');
           },
         },
       ]}

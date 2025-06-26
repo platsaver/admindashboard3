@@ -7,7 +7,8 @@ import Metrics from './Component/Standards/Metrics';
 import Activities from './Component/Operations/Activities';
 import Events from './Component/Operations/Events';
 import Reports from './Component/Operations/Reports';
-import Login from './Authorization/LoginForm';
+import VerifyForm from './Authorization/VerifyForm';
+import LoginForm from './Authorization/LoginForm';
 import PrivateRoute from './Authorization/PrivateRoute';
 import "antd/dist/reset.css";
 
@@ -16,7 +17,8 @@ function App() {
     <div className="App">
       <Routes>
         {/* Public route */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/verify" element={<VerifyForm />} />
+        <Route path="/login" element={<LoginForm />} />
 
         {/* Protected routes */}
         <Route element={<PrivateRoute />}>
@@ -28,9 +30,9 @@ function App() {
             <Route path="/activities" element={<Activities />} />
             <Route path="/events" element={<Events />} />
             <Route path="/reports" element={<Reports />} />
-            <Route path="*" element={<Navigate to="/partners" replace />} />
           </Route>
         </Route>
+        <Route path="*" element={<Navigate to="/verify" replace />} />
       </Routes>
     </div>
   );
