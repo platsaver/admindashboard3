@@ -11,6 +11,7 @@ const nhanSuData = [
     email: 'nguyenvanan@company.com',
     vaiTro: 'Nhân viên',
     status: 'active',
+    dob: '12/03/1990',
   },
   {
     key: '2',
@@ -19,6 +20,7 @@ const nhanSuData = [
     email: 'tranthibinh@company.com',
     vaiTro: 'Nhân viên',
     status: 'active',
+    dob: '24/07/1992',
   },
   {
     key: '3',
@@ -27,6 +29,7 @@ const nhanSuData = [
     email: 'leminhcuong@company.com',
     vaiTro: 'Người cấp chứng chỉ',
     status: 'active',
+    dob: '08/01/1988',
   },
   {
     key: '4',
@@ -35,6 +38,7 @@ const nhanSuData = [
     email: 'phamthuha@company.com',
     vaiTro: 'Nhân viên',
     status: 'inactive',
+    dob: '15/06/1995',
   },
   {
     key: '5',
@@ -43,6 +47,7 @@ const nhanSuData = [
     email: 'hoangvanduc@company.com',
     vaiTro: 'Hỗ trợ cấp chứng chỉ',
     status: 'active',
+    dob: '29/09/1987',
   },
   {
     key: '6',
@@ -51,6 +56,7 @@ const nhanSuData = [
     email: 'dinhthilan@company.com',
     vaiTro: 'Hỗ trợ cấp chứng chỉ',
     status: 'active',
+    dob: '03/05/1993',
   },
   {
     key: '7',
@@ -59,6 +65,7 @@ const nhanSuData = [
     email: 'vuminhtuan@company.com',
     vaiTro: 'Quản lý',
     status: 'pending',
+    dob: '10/12/1985',
   },
   {
     key: '8',
@@ -67,6 +74,7 @@ const nhanSuData = [
     email: 'ngothimai@company.com',
     vaiTro: 'Chuyên viên',
     status: 'active',
+    dob: '06/04/1990',
   },
   {
     key: '9',
@@ -75,6 +83,7 @@ const nhanSuData = [
     email: 'dovanhung@company.com',
     vaiTro: 'Trưởng nhóm',
     status: 'active',
+    dob: '27/08/1989',
   },
   {
     key: '10',
@@ -83,6 +92,7 @@ const nhanSuData = [
     email: 'buithithu@company.com',
     vaiTro: 'Nhân viên',
     status: 'inactive',
+    dob: '13/11/1994',
   },
   {
     key: '11',
@@ -91,6 +101,7 @@ const nhanSuData = [
     email: 'truongminhkhoa@company.com',
     vaiTro: 'Kỹ thuật viên',
     status: 'active',
+    dob: '02/02/1991',
   },
   {
     key: '12',
@@ -99,6 +110,7 @@ const nhanSuData = [
     email: 'lythihoa@company.com',
     vaiTro: 'Thực tập sinh',
     status: 'pending',
+    dob: '19/07/2000',
   }
 ];
 
@@ -139,7 +151,8 @@ const NhanSuList = () => {
     { name: 'soDienThoai', label: 'Số điện thoại' },
     { name: 'email', label: 'Email' },
     { name: 'vaiTro', label: 'Vai trò' },
-    { name: 'status', label: 'Trạng thái' } 
+    { name: 'status', label: 'Trạng thái' }, 
+    { name: 'dob', label: 'Ngày sinh'}
   ];
 
   const columns = [
@@ -183,6 +196,17 @@ const NhanSuList = () => {
         <Space>
           <UserOutlined />
           <Tag color="blue">{role}</Tag>
+        </Space>
+      ),
+    },
+    {
+      title: 'Ngày sinh',
+      dataIndex: 'dob',
+      key: 'dob',
+      render: (dob) => (
+        <Space>
+          <MailOutlined />
+          {dob}
         </Space>
       ),
     },
