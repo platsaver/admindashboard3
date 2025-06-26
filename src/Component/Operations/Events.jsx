@@ -2,39 +2,37 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, CalendarOutlined, EnvironmentOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const carbonEvents = [
   {
     key: '1',
     tenSuKien: 'Hội thảo CBAM & Thị trường carbon',
-    loai: 'Hội thảo',
     thoiGian: '15/07/2025',
     status: 'sắp diễn ra',
   },
   {
     key: '2',
     tenSuKien: 'Giao lưu doanh nghiệp - chia sẻ tín chỉ',
-    loai: 'Kết nối',
     thoiGian: '10/05/2025',
     status: 'đã tổ chức',
   },
   {
     key: '3',
     tenSuKien: 'Chiến dịch "Plant 1 Million Trees"',
-    loai: 'Hoạt động cộng đồng',
     thoiGian: '02/09/2025',
     status: 'đang mở đăng ký',
   },
   {
     key: '4',
     tenSuKien: 'Họp nội bộ đánh giá tín chỉ quý II',
-    loai: 'Nội bộ',
     thoiGian: '30/06/2025',
     status: 'hoàn thành',
   },
 ];
 
 const CarbonEventList = () => {
+  const { t } = useTranslation();
   const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonEvents);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -68,15 +66,14 @@ const CarbonEventList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenSuKien', label: 'Tên hoạt động' },
-    { name: 'loai', label: 'Loại' },
-    { name: 'thoiGian', label: 'Thời gian' },
-    { name: 'status', label: 'Trạng thái' } 
+    { name: 'tenSuKien', label: t('name') },
+    { name: 'thoiGian', label: t('time') },
+    { name: 'status', label: t('status') } 
   ];
 
   const columns = [
     {
-      title: 'Tên sự kiện',
+      title: t('name'),
       dataIndex: 'tenSuKien',
       key: 'tenSuKien',
       render: (text) => (
@@ -87,13 +84,7 @@ const CarbonEventList = () => {
       ),
     },
     {
-      title: 'Loại',
-      dataIndex: 'loai',
-      key: 'loai',
-      render: (text) => <Tag color="blue">{text}</Tag>,
-    },
-    {
-      title: 'Thời gian',
+      title: t('time'),
       dataIndex: 'thoiGian',
       key: 'thoiGian',
       render: (text) => (
@@ -104,7 +95,7 @@ const CarbonEventList = () => {
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       render: (status) => {

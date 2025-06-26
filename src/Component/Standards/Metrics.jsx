@@ -5,9 +5,9 @@ import CarbonDrawer from '../../Reusable/Drawer';
 import { useTranslation } from 'react-i18next';
 
 const carbonData = [
-  { key: '1', tenChiSo: 'Lượng phát thải CO₂ (tháng 6)', loai: 'emission', giaTri: '128 tấn' },
-  { key: '2', tenChiSo: 'Tín chỉ carbon đã mua', loai: 'offset', giaTri: '150 tấn' },
-  { key: '3', tenChiSo: 'Tín chỉ khả dụng', loai: 'carbonAsset', giaTri: '42 tín chỉ' },
+  { key: '1', tenChiSo: 'Lượng phát thải CO₂ (tháng 6)', loai: 'emission', giaTri: '128' },
+  { key: '2', tenChiSo: 'Tín chỉ carbon đã mua', loai: 'offset', giaTri: '150' },
+  { key: '3', tenChiSo: 'Tín chỉ khả dụng', loai: 'carbonAsset', giaTri: '42' },
   { key: '4', tenChiSo: 'Tỉ lệ tuân thủ CBAM', loai: 'policy', giaTri: '100%' },
 ];
 

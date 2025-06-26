@@ -56,9 +56,6 @@ const resources = {
       supervised: 'Supervised',
       expected: 'Expected',
       processing: 'Processing',
-      emissionReduction: 'Emission reduction',
-      market: 'Market',
-      searchActivities: 'Searching for carbon activities ...',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',

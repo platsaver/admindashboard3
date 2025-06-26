@@ -8,28 +8,24 @@ const carbonActivities = [
   {
     key: '1',
     tenHoatDong: 'Trồng rừng tại Gia Lai',
-    loai: 'emissionReduction',
     thoiGian: '15/05/2024',
     status: 'complete',
   },
   {
     key: '2',
     tenHoatDong: 'Lắp đặt hệ thống điện mặt trời',
-    loai: 'emissionReduction',
     thoiGian: '12/09/2023',
     status: 'supervised',
   },
   {
     key: '3',
     tenHoatDong: 'Tham gia giao dịch tín chỉ carbon với Singapore',
-    loai: 'market',
     thoiGian: '12/12/2024',
     status: 'expected',
   },
   {
     key: '4',
     tenHoatDong: 'Đánh giá chuỗi cung ứng theo ESG',
-    loai: 'market',
     thoiGian: '11/03/2025',
     status: 'processing',
   },
@@ -71,7 +67,6 @@ const CarbonActivityList = () => {
 
   const fieldsConfig = [
     { name: 'tenHoatDong', label: t('name') },
-    { name: 'loai', label: t('type') },
     { name: 'thoiGian', label: t('time') },
     { name: 'status', label: t('status') } 
   ];
@@ -87,12 +82,6 @@ const CarbonActivityList = () => {
           <strong>{text}</strong>
         </Space>
       ),
-    },
-    {
-      title: t('type'),
-      dataIndex: 'loai',
-      key: 'loai',
-      render: (text) => <Tag color="blue">{t(text)}</Tag>,
     },
     {
       title: t('time'),
