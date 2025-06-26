@@ -33,6 +33,13 @@ const resources = {
       working: 'Working',
       retired: 'Retired',
       personnelSearch: 'Finding with name, email, role or phone number ...',
+      /*Standards*/
+      type: 'Type', 
+      description: 'Description',
+      applied: 'Applied',
+      required: 'Required',
+      constructing: 'Constructing',
+      standardSearch: 'Finding carbon standards ... ',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -101,7 +108,7 @@ const resources = {
       editBtn: 'Sửa',
       saveBtn: 'Lưu',
       cancelBtn: 'Hủy',
-      isRequired: 'is required',
+      isRequired: 'là bắt buộc',
       /*SideBar*/
       partners: 'Đối tác',
       personnel: 'Nhân sự',
