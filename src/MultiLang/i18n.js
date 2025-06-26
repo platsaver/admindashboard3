@@ -50,6 +50,15 @@ const resources = {
       offset: 'Compensation',
       carbonAsset: 'Carbon facilities',
       policy: 'Policy',
+      /*Activities*/
+      time: 'Time',
+      complete: 'Complete',
+      supervised: 'Supervised',
+      expected: 'Expected',
+      processing: 'Processing',
+      emissionReduction: 'Emission reduction',
+      market: 'Market',
+      searchActivities: 'Searching for carbon activities ...',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -119,6 +128,14 @@ const resources = {
       offset: 'Bù trừ',
       carbonAsset: 'Tài sản carbon',
       policy: 'Chính sách',
+      /*Activities*/
+      time: 'Thời gian',
+      complete: 'Hoàn thành',
+      supervised: 'Đang theo dõi',
+      expected: 'Dự kiến',
+      processing: 'Đang thực hiện',
+      emissionReduction: 'Giảm phát thải',
+      market: 'Thị trường',
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',

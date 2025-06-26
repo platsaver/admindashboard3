@@ -2,39 +2,41 @@ import React, { useState } from 'react';
 import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, EnvironmentOutlined, CalendarOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
+import { useTranslation } from 'react-i18next';
 
 const carbonActivities = [
   {
     key: '1',
     tenHoatDong: 'Trồng rừng tại Gia Lai',
-    loai: 'Hấp thụ carbon',
+    loai: 'emissionReduction',
     thoiGian: '15/05/2024',
-    status: 'hoàn thành',
+    status: 'complete',
   },
   {
     key: '2',
     tenHoatDong: 'Lắp đặt hệ thống điện mặt trời',
-    loai: 'Giảm phát thải',
+    loai: 'emissionReduction',
     thoiGian: '12/09/2023',
-    status: 'đang theo dõi',
+    status: 'supervised',
   },
   {
     key: '3',
     tenHoatDong: 'Tham gia giao dịch tín chỉ carbon với Singapore',
-    loai: 'Thị trường',
+    loai: 'market',
     thoiGian: '12/12/2024',
-    status: 'dự kiến',
+    status: 'expected',
   },
   {
     key: '4',
     tenHoatDong: 'Đánh giá chuỗi cung ứng theo ESG',
-    loai: 'Kiểm toán',
+    loai: 'market',
     thoiGian: '11/03/2025',
-    status: 'đang thực hiện',
+    status: 'processing',
   },
 ];
 
 const CarbonActivityList = () => {
+  const { t } = useTranslation();
   const [,setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(carbonActivities);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -68,15 +70,15 @@ const CarbonActivityList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenHoatDong', label: 'Tên hoạt động' },
-    { name: 'loai', label: 'Loại' },
-    { name: 'thoiGian', label: 'Thời gian' },
-    { name: 'status', label: 'Trạng thái' } 
+    { name: 'tenHoatDong', label: t('name') },
+    { name: 'loai', label: t('type') },
+    { name: 'thoiGian', label: t('time') },
+    { name: 'status', label: t('status') } 
   ];
 
   const columns = [
     {
-      title: 'Tên hoạt động',
+      title: t('name'),
       dataIndex: 'tenHoatDong',
       key: 'tenHoatDong',
       render: (text) => (
@@ -87,13 +89,13 @@ const CarbonActivityList = () => {
       ),
     },
     {
-      title: 'Loại',
+      title: t('type'),
       dataIndex: 'loai',
       key: 'loai',
-      render: (text) => <Tag color="blue">{text}</Tag>,
+      render: (text) => <Tag color="blue">{t(text)}</Tag>,
     },
     {
-      title: 'Thời gian',
+      title: t('time'),
       dataIndex: 'thoiGian',
       key: 'thoiGian',
       render: (text) => (
@@ -104,17 +106,19 @@ const CarbonActivityList = () => {
       ),
     },
     {
-      title: 'Trạng thái',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       render: (status) => {
         let color = 'green';
-        if (status.includes('dự kiến')) color = 'orange';
-        else if (status.includes('đang')) color = 'gold';
-        else if (status.includes('hoàn')) color = 'green';
-        return <Tag color={color}>{status}</Tag>;
+
+        if (status.includes('expected')) color = 'orange';
+        else if (status.includes('processing') || status.includes('supervised')) color = 'gold';
+        else if (status.includes('complete')) color = 'green';
+
+        return <Tag color={color}>{t(status)}</Tag>;
       },
-    },
+    }
   ];
 
   const handleOpenAddDrawer = () => {
@@ -132,7 +136,7 @@ const CarbonActivityList = () => {
               <Col xs={24} sm={16} md={12} lg={8} xl={6}>
               <Space>
                 <Input.Search
-                  placeholder="Tìm kiếm hoạt động carbon..."
+                  placeholder={t('searchActivities')}
                   allowClear
                   enterButton={<Button icon={<SearchOutlined />} />}
                   onSearch={handleSearch}
