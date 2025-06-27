@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Card, message, Space } from 'antd';
+import { Form, Input, Button, Card, message, Space, notification } from 'antd';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import '@ant-design/v5-patch-for-react-19';
@@ -30,7 +30,10 @@ const VerifyForm = () => {
     .then((res) => {
       const { data, meta } = res.data;
       if (meta?.success && data?.access_code) {
-        message.success(meta.message || t('Verify Success'));
+        notification.success({
+          description: t('proceedLogin'),
+          placement: 'topRight',
+        });
         navigate('/login', {
           state: {
             accessCode: data.access_code,
@@ -39,12 +42,13 @@ const VerifyForm = () => {
             language: i18n.language,
           }
         });
-      } else {
-        message.error(meta.message || t('Verify Failed'));
       }
     })
     .catch((error) => {
-      message.error(t('Server Error'));
+      notification.error({
+          description: t('credentialsWarning'),
+          placement: 'topRight',
+        });
       console.error(error);
     });
   };
