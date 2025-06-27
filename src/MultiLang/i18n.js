@@ -28,7 +28,7 @@ const resources = {
       /*Personnel*/
       role: 'Role', 
       dob: 'Date of birth',
-      staff: 'Sraff', 
+      staff: 'Staff', 
       manager: 'Manager',
       professional: 'Certification support/Professional',
       admin: 'Administrator',
