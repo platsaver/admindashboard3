@@ -4,31 +4,6 @@ import { CloudOutlined, FireOutlined, LineChartOutlined } from '@ant-design/icon
 import { useTranslation } from 'react-i18next';
 import '@ant-design/v5-patch-for-react-19';
 
-const recentUpdates = [
-  {
-    key: '1',
-    chiSo: 'Phát thải quý I',
-    thoiGian: '12/06/2025',
-    thayDoi: 'Tăng từ 118 lên 126 tấn',
-    minhChung: 'https://example.com/images/update1.jpg',
-  },
-  {
-    key: '2',
-    chiSo: 'Tín chỉ Verra',
-    thoiGian: '10/06/2025',
-    thayDoi: 'Giảm từ 270 còn 250 tín chỉ',
-    minhChung: 'https://example.com/images/update2.jpg',
-  },
-  {
-    key: '3',
-    chiSo: 'Tỉ lệ CBAM',
-    thoiGian: '09/06/2025',
-    thayDoi: 'Từ 95% cập nhật thành 100%',
-    minhChung: 'https://example.com/images/update3.jpg',
-  },
-];
-
-
 const postData = [
   {
     key: '1',
@@ -105,40 +80,6 @@ const PostDashboard = () => {
       ),
     },
   ];
-  /*Chỉ số*/
-  const columnsUpdates = [
-    {
-      title: t('metrics'),
-      dataIndex: 'chiSo',
-      key: 'chiSo',
-      render: (text) => <strong>{text}</strong>,
-    },
-    {
-      title: t('updatedAt'),
-      dataIndex: 'thoiGian',
-      key: 'thoiGian',
-    },
-    {
-      title: t('modification'),
-      dataIndex: 'thayDoi',
-      key: 'thayDoi',
-    },
-
-    {
-      title: t('proof'),
-      dataIndex: 'minhChung',
-      key: 'minhChung',
-      render: (src) => (
-        <a href={src} target="_blank" rel="noopener noreferrer">
-          <img
-            src={src}
-            alt="Minh chứng"
-            style={{ width: 100, borderRadius: 4, objectFit: 'cover', cursor: 'pointer' }}
-          />
-        </a>
-      ),
-    }
-  ];
   return (
     <div style={{ padding: 24 }}>
       <Row gutter={[16, 16]}>
@@ -162,16 +103,6 @@ const PostDashboard = () => {
         <Table
           columns={columns}
           dataSource={postData}
-          pagination={false}
-          scroll={{ x: true }}
-        />
-      </Card>
-
-      <Divider>Cập nhật gần đây</Divider>
-      <Card>
-        <Table
-          columns={columnsUpdates}
-          dataSource={recentUpdates}
           pagination={false}
           scroll={{ x: true }}
         />
