@@ -97,7 +97,7 @@ const PostDashboard = () => {
         ))}
       </Row>
 
-      <Divider>Các bài viết</Divider>
+      <Divider>{t('posts')}</Divider>
 
       <Card>
         <Table

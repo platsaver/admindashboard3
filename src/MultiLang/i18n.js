@@ -83,6 +83,7 @@ const resources = {
       updatedAt: 'Updated At',
       modification: 'Modification',
       proof: 'Proof',
+      posts: 'Posts',
       /*Drawer*/
       addingData: 'Add',
       editData: 'Edit data',
@@ -194,6 +195,7 @@ const resources = {
       updatedAt: 'Ngày cập nhật',
       modification: 'Thay đổi',
       proof: 'Minh chứng',
+      posts: 'Các bài viết',
       /*Drawer*/
       addingData: 'Thêm',
       editData: 'Chỉnh sửa thông tin',
