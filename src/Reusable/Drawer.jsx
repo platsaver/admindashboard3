@@ -53,23 +53,23 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
 
       if (isAdding) {
         onAdd(values);
-        message.success('Thêm mới thành công');
+        message.success(t('addingSuccess'));
       } else {
         onUpdate({ ...record, ...values });
-        message.success('Cập nhật thành công');
+        message.success(t('updateSuccess'));
       }
 
       setIsEditing(false);
       onClose();
     } catch (error) {
-      message.error(isAdding ? 'Thêm mới thất bại' : 'Cập nhật thất bại');
+      message.error(isAdding ? t('addingFail') : t('updateFail'));
     }
   };
 
   const handleDelete = () => {
     onDelete(record.key);
     onClose();
-    message.success('Xóa thành công');
+    message.success(t('deleteSuccess'));
   };
 
   const handleCancel = () => {

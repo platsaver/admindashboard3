@@ -93,6 +93,11 @@ const resources = {
       saveBtn: 'Save',
       cancelBtn: 'Cancel',
       isRequired: 'is required',
+      addingSuccess: 'Adding successful',
+      updateSuccess: 'Updating successful',
+      addingFail: 'Error when adding',
+      updateFail: 'Error when updating',
+      deleteSuccess: 'Deleting successful',
       /*SideBar*/
       partners: 'Partners',
       personnel: 'Personnel',
@@ -199,6 +204,11 @@ const resources = {
       saveBtn: 'Lưu',
       cancelBtn: 'Hủy',
       isRequired: 'là bắt buộc',
+      addingSuccess: 'Adding successful',
+      updateSuccess: 'Updating successful',
+      addingFail: 'Error when adding',
+      updateFail: 'Error when updating',
+      deleteSuccess: 'Deleting successful',
       /*SideBar*/
       partners: 'Đối tác',
       personnel: 'Nhân sự',

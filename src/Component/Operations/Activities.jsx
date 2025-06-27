@@ -4,6 +4,7 @@ import { SearchOutlined, EnvironmentOutlined, CalendarOutlined, PlusOutlined } f
 import CarbonDrawer from '../../Reusable/Drawer';
 import { useTranslation } from 'react-i18next';
 import '@ant-design/v5-patch-for-react-19';
+import dayjs from 'dayjs';
 
 const carbonActivities = [
   {
@@ -195,6 +196,13 @@ const CarbonActivityList = () => {
             onDelete={handleDelete}
             fieldsConfig={fieldsConfig}
             isAdding={isAdding}
+            initialValues={
+              isAdding
+                ? {
+                    thoiGian: dayjs(),
+                  }
+                : undefined
+            }
           />
         </Card>
       </Col>
