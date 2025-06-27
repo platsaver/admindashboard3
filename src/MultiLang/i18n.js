@@ -11,6 +11,8 @@ const resources = {
       deviceIdRequired: 'Device ID is required',
       deviceID: 'Device ID',
       verify: 'Verify',
+      verifysuccess: 'User exist, proceeds ...',
+      verifyError: 'Wrong national ID',
       /*LoginForm*/
       EnterPassword: 'Enter password',
       password: 'Password',
@@ -107,6 +109,8 @@ const resources = {
       deviceIdRequired: 'Mã thiết bị là bắt buộc',
       deviceID: 'Mã thiết bị',
       verify: 'Xác minh',
+      verifysuccess: 'Người dùng tồn tại, chuyển tiếp ...',
+      verifyError: 'Sai mã số căn cước công dân',
       /*LoginForm*/
       EnterPassword: 'Nhập mật khẩu',
       password: 'Mật khẩu',

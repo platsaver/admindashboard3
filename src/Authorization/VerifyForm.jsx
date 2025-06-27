@@ -30,7 +30,7 @@ const VerifyForm = () => {
     .then((res) => {
       const { data, meta } = res.data;
       if (meta?.success && data?.access_code) {
-        message.success(meta.message || t('Verify Success'));
+        message.success(t('verifysuccess'));
         navigate('/login', {
           state: {
             accessCode: data.access_code,
@@ -42,7 +42,7 @@ const VerifyForm = () => {
       }
     })
     .catch((error) => { 
-      message.error(t('Server Error'));
+      message.error(t('verifyError'));
       console.error(error); 
     });
   };
