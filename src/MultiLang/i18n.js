@@ -71,7 +71,7 @@ const resources = {
       processing: 'Processing',
       searchActivities: 'Searching for activity ...',
       /*Reports*/
-      totalEmission: 'Total CO2 emission (tCO2)',
+      totalEmission: 'Total CO2 emission (tCO2e)',
       useCarbonCredit: 'Used carbon credits (credit)',
       offSetRate: 'Offset Rate',
       title: 'Title',
@@ -175,7 +175,7 @@ const resources = {
       upcoming: 'Sắp diễn ra',
       continuing: 'Đang diễn ra', 
       /*Reports*/
-      totalEmission: 'Tổng lượng phát thải CO₂ (tCO2)',
+      totalEmission: 'Tổng lượng phát thải CO₂ (tCO2e)',
       useCarbonCredit: 'Tín chỉ carbon đã sử dụng (tín chỉ)',
       offSetRate: 'Tỉ lệ bù trừ',
       title: 'Tiêu đề',
