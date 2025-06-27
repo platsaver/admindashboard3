@@ -2,7 +2,7 @@ import React from "react";
 import { Menu } from "antd";
 import { Flex } from "antd";
 import { FaSeedling } from "react-icons/fa";
-import { TeamOutlined, FundOutlined, PlayCircleOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
+import { TeamOutlined, PlayCircleOutlined, SafetyCertificateOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import '@ant-design/v5-patch-for-react-19';

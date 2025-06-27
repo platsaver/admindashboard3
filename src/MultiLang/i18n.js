@@ -19,8 +19,6 @@ const resources = {
       /*ForgotPasswordForm*/
       newPassword: 'New password',
       backToVerify: 'Return to previous page',
-      nationalIdRequired: 'National ID is required',
-      deviceIdRequired: 'Device ID is required',
       dobRequired: 'Date of Birth is required',
       newPasswordRequired: 'New password is required',
       forgotPrompt: 'Forgot password?',
@@ -117,8 +115,6 @@ const resources = {
       /*ForgotPasswordForm*/
       newPassword: 'Mật khẩu mới',
       backToVerify: 'Quay lại trang trước',
-      nationalIdRequired: 'Mã căn cước công dân là bắt buộc',
-      deviceIdRequired: 'Mã thiết bị là bắt buộc',
       dobRequired: 'Ngày sinh là bắt buộc',
       newPasswordRequired: 'Mật khẩu mới là bắt buộc',
       forgotPrompt: 'Quên mật khẩu?',

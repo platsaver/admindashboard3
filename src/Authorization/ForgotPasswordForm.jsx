@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Card, message, Space, DatePicker } from 'antd';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 import '@ant-design/v5-patch-for-react-19';
 
 const ForgotPasswordForm = () => {
@@ -101,9 +100,12 @@ const ForgotPasswordForm = () => {
           </Button>
         </Form.Item>
         <Form.Item style={{ textAlign: 'center', marginTop: -12 }}>
-            <a onClick={() => navigate('/verify')}>
-                {t('backToVerify')}
-            </a>
+          <Button
+            type="link"
+            onClick={() => navigate('/verify')}
+          >
+            {t('backToVerify')}
+          </Button>
         </Form.Item>
       </Form>
     </Card>
