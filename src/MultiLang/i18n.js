@@ -28,6 +28,11 @@ const resources = {
       /*Personnel*/
       role: 'Role', 
       dob: 'Date of birth',
+      staff: 'Sraff', 
+      manager: 'Manager',
+      professional: '',
+      admin: 'Quản trị viên',
+      superAdmin: 'Siêu quản trị viên',
       retiredReason: 'Reason',
       working: 'Working',
       retired: 'Retired',

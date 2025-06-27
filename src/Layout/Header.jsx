@@ -1,6 +1,6 @@
-import { Flex, Typography, Avatar, Menu, Dropdown, Badge, Button } from "antd";
+import { Flex, Avatar, Menu, Dropdown, Badge, Button } from "antd";
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import { GlobalOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
