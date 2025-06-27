@@ -43,7 +43,7 @@ const VerifyForm = () => {
         message.error(meta.message || t('Verify Failed'));
       }
     })
-    .catch((error) => {
+    .catch((error) => { 
       message.error(t('Server Error'));
       console.error(error); 
     });
