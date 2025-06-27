@@ -8,6 +8,7 @@ import Activities from './Component/Operations/Activities';
 import Events from './Component/Operations/Events';
 import Reports from './Component/Operations/Reports';
 import VerifyForm from './Authorization/VerifyForm';
+import ForgotPasswordForm from './Authorization/ForgotPasswordForm';
 import LoginForm from './Authorization/LoginForm';
 import PrivateRoute from './Authorization/PrivateRoute';
 import "antd/dist/reset.css";
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         {/* Public route */}
         <Route path="/verify" element={<VerifyForm />} />
+        <Route path="/forgot" element={<ForgotPasswordForm />} />
         <Route path="/login" element={<LoginForm />} />
 
         {/* Protected routes */}

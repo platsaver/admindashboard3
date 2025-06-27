@@ -16,6 +16,15 @@ const resources = {
       password: 'Password',
       passwordRequired: 'Password field must not be blank',
       login: 'Login',
+      /*ForgotPasswordForm*/
+      newPassword: 'New password',
+      backToVerify: 'Return to previous page',
+      nationalIdRequired: 'National ID is required',
+      deviceIdRequired: 'Device ID is required',
+      dobRequired: 'Date of Birth is required',
+      newPasswordRequired: 'New password is required',
+      forgotPrompt: 'Forgot password?',
+      forgotPassword: 'Reset password',
       /*Partner*/
       name: 'Name',
       email: 'Email',
@@ -107,6 +116,15 @@ const resources = {
       password: 'Mật khẩu',
       passwordRequired: 'Trường mật khẩu không được để trống',
       login: 'Đăng nhập',
+      /*ForgotPasswordForm*/
+      newPassword: 'Mật khẩu mới',
+      backToVerify: 'Quay lại trang trước',
+      nationalIdRequired: 'Mã căn cước công dân là bắt buộc',
+      deviceIdRequired: 'Mã thiết bị là bắt buộc',
+      dobRequired: 'Ngày sinh là bắt buộc',
+      newPasswordRequired: 'Mật khẩu mới là bắt buộc',
+      forgotPrompt: 'Quên mật khẩu?',
+      forgotPassword: 'Đặt lại mật khẩu',
       /*Partner*/
       name: 'Tên',
       email: 'Email',

@@ -80,6 +80,12 @@ const VerifyForm = () => {
             {t('verify')}
           </Button>
         </Form.Item>
+        <Form.Item style={{ textAlign: 'center', marginTop: -12 }}>
+          <span>{t('forgotPrompt')}&nbsp;</span>
+          <a onClick={() => navigate('/forgot')}>
+            {t('forgotPassword')}
+          </a>
+        </Form.Item>
       </Form>
     </Card>
   );
