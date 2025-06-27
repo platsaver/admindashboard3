@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/src/testAccount.txt
 
 # testing
 /coverage
