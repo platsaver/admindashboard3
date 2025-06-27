@@ -3,7 +3,7 @@ import { Layout, Button } from "antd";
 import { Outlet } from "react-router-dom"; // Thêm Outlet
 import SideBar from "./SideBar";
 import CustomHeader from "./Header";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import '@ant-design/v5-patch-for-react-19';
 import "../App.css";
 
 const { Sider, Header, Content } = Layout;

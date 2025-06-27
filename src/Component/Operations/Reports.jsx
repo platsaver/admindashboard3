@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Card, Statistic, Table, Tag, Divider, Space } from 'antd';
 import { CloudOutlined, FireOutlined, LineChartOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import '@ant-design/v5-patch-for-react-19';
 
 const recentUpdates = [
   {

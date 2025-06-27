@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Card, message } from 'antd';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import '@ant-design/v5-patch-for-react-19';
 
 const LoginForm = () => {
   const navigate = useNavigate();

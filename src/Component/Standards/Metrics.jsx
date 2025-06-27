@@ -3,6 +3,7 @@ import { Table, Tag, Space, Input, Row, Col, Card, Button } from 'antd';
 import { SearchOutlined, CloudOutlined, FireOutlined, PlusOutlined } from '@ant-design/icons';
 import CarbonDrawer from '../../Reusable/Drawer';
 import { useTranslation } from 'react-i18next';
+import '@ant-design/v5-patch-for-react-19';
 
 const carbonData = [
   { key: '1', tenChiSo: 'Lượng phát thải CO₂ (tháng 6)', loai: 'emission', giaTri: '128' },

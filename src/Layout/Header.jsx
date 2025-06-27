@@ -3,6 +3,7 @@ import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import '@ant-design/v5-patch-for-react-19';
 
 const CustomHeader = ({ collapsed, onToggle }) => {
   const { t } = useTranslation();
