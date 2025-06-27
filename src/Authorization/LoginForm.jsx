@@ -37,7 +37,7 @@ const LoginForm = () => {
         if (meta?.success && data?.access_token) {
           console.log('Access token:', data.access_token);
           localStorage.setItem('access_token', data.access_token);
-          message.success(meta.message || 'Login successful');
+          message.success(t('loginSuccess'));
           navigate('/partners');
         }
     })
@@ -46,7 +46,7 @@ const LoginForm = () => {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
-        message.error(error.response.data?.meta?.message || 'Error response from the server');
+        message.error(t('loginFail'));
         } else if (error.request) {
         console.log(error.request);
         message.error('Cannot receive response from server');

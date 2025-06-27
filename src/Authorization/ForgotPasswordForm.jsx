@@ -39,14 +39,14 @@ const ForgotPasswordForm = () => {
       const { meta } = res;
 
       if (meta?.success) {
-        message.success(meta.message || 'Password reset successful');
+        message.success(t('resetSuccess'));
         navigate('/verify');
       } else {
         message.error(meta?.message || 'Reset failed');
       }
     } catch (err) {
       console.error(err);
-      message.error('Unexpected error occurred');
+      message.error(t('resetFail'));
     } finally {
       setLoading(false);
     }
