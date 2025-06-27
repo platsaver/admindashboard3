@@ -353,6 +353,7 @@ const NhanSuList = () => {
             onDelete={handleDelete}
             fieldsConfig={fieldsConfig}
             isAdding={isAdding}
+            initialValues={isAdding ? { status: 'working' } : undefined}
           />
         </Card>
       </Col>

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
-const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fieldsConfig, isAdding }) => {
+const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fieldsConfig, isAdding, initialValues }) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(isAdding);
@@ -14,6 +14,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
   useEffect(() => {
     if (isAdding) {
       form.resetFields();
+      form.setFieldsValue(initialValues || {});
       setIsEditing(true);
     } else if (record) {
       const initialValues = { ...record };
