@@ -151,32 +151,53 @@ const NhanSuList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenNhanSu', label: t('name') },
-    { name: 'soDienThoai', label: t('phone') },
-    { name: 'email', label: t('email') },
     {
-    name: 'vaiTro',
-    label: t('role'),
-    type: 'select',
-    options: [
-      { value: 'staff', label: t('staff') },
-      { value: 'manager', label: t('manager') },
-      { value: 'professional', label: t('professional') },
-      { value: 'admin', label: t('admin') },
-      { value: 'superAdmin', label: t('superAdmin') },
-    ],
+      name: 'tenNhanSu',
+      label: t('name'),
+      rules: [{ required: true, message: `${t('name')} ${t('isRequired')}` }],
     },
     {
-    name: 'status',
-    label: t('status'),
-    type: 'select',
-    options: [
-      { value: 'working', label: t('working') },
-      { value: 'retired', label: t('retired') },
-    ],
+      name: 'soDienThoai',
+      label: t('phone'),
+      rules: [{ required: true, message: `${t('phone')} ${t('isRequired')}` }],
     },
-    { name: 'dob', label: t('dob')},
-    { name: 'lydo', label: t('retiredReason')}
+    {
+      name: 'email',
+      label: t('email'),
+      rules: [{ required: true, message: `${t('email')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'vaiTro',
+      label: t('role'),
+      type: 'select',
+      options: [
+        { value: 'staff', label: t('staff') },
+        { value: 'manager', label: t('manager') },
+        { value: 'professional', label: t('professional') },
+        { value: 'admin', label: t('admin') },
+        { value: 'superAdmin', label: t('superAdmin') },
+      ],
+      rules: [{ required: true, message: `${t('role')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'status',
+      label: t('status'),
+      type: 'select',
+      options: [
+        { value: 'working', label: t('working') },
+        { value: 'retired', label: t('retired') },
+      ],
+      rules: [{ required: true, message: `${t('status')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'dob',
+      label: t('dob'),
+      rules: [{ required: true, message: `${t('dob')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'lydo',
+      label: t('retiredReason') // Không có rules → không bắt buộc
+    }
   ];
 
   const columns = [

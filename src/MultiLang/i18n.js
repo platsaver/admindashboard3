@@ -63,7 +63,7 @@ const resources = {
       /*Metrics*/
       ad: 'AD(kg)',
       ef: 'EF(kg GHG / TJ)',
-      coefficient: 'Coefficient emission',
+      coefficient: 'Coefficient emission (tCO2)',
       metricSearch: "Searching for carbon metrics...",
       /*Activities*/
       time: 'Time',
@@ -165,7 +165,7 @@ const resources = {
       /*Metrics*/
       ad: 'AD(kg)',
       ef: 'EF(kg GHG / TJ)',
-      coefficient: 'Hệ số phát thải',
+      coefficient: 'Hệ số phát thải (tCO2)',
       metricSearch: "Tìm kiếm hệ số...",
       /*Activities*/
       time: 'Thời gian',

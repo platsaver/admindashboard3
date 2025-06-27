@@ -137,11 +137,31 @@ const PartnerList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'name', label: t('name') },
-    { name: 'email', label: t('email') },
-    { name: 'address', label: t('address') },
-    { name: 'phone', label: t('phone') },
-    { name: 'status', label: t('status') } 
+    {
+      name: 'name',
+      label: t('name'),
+      rules: [{ required: true, message: `${t('name')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'email',
+      label: t('email'),
+      rules: [{ required: true, message: `${t('email')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'address',
+      label: t('address'),
+      rules: [{ required: true, message: `${t('address')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'phone',
+      label: t('phone'),
+      rules: [{ required: true, message: `${t('phone')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'status',
+      label: t('status'),
+      rules: [{ required: true, message: `${t('status')} ${t('isRequired')}` }],
+    },
   ];
   const columns = [
     {

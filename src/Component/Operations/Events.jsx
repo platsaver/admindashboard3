@@ -67,18 +67,28 @@ const CarbonEventList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenSuKien', label: t('name') },
-    { name: 'thoiGian', label: t('time'), type: 'date' },
     {
-    name: 'status',
-    label: t('status'),
-    type: 'select',
-    options: [
-      { value: 'upcoming', label: t('upcoming') },
-      { value: 'continuing', label: t('continuing') },
-      { value: 'complete', label: t('complete') },
-    ],
-  }
+      name: 'tenSuKien',
+      label: t('name'),
+      rules: [{ required: true, message: `${t('name')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'thoiGian',
+      label: t('time'),
+      type: 'date',
+      rules: [{ required: true, message: `${t('time')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'status',
+      label: t('status'),
+      type: 'select',
+      options: [
+        { value: 'upcoming', label: t('upcoming') },
+        { value: 'continuing', label: t('continuing') },
+        { value: 'complete', label: t('complete') },
+      ],
+      rules: [{ required: true, message: `${t('status')} ${t('isRequired')}` }],
+    },
   ];
 
   const columns = [

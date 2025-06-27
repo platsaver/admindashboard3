@@ -83,10 +83,26 @@ const CarbonCreditDashboard = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenChiSo', label: t('name') },
-    { name: 'AD', label: t('ad') },
-    { name: 'EF', label: t('ef') },
-    { name: 'heSoPhatThaiCO2', label: t('CO₂ Emission Factor') },
+    {
+      name: 'tenChiSo',
+      label: t('name'),
+      rules: [{ required: true, message: `${t('name')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'AD',
+      label: t('ad'),
+      rules: [{ required: true, message: `${t('ad')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'EF',
+      label: t('ef'),
+      rules: [{ required: true, message: `${t('ef')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'heSoPhatThaiCO2',
+      label: t('CO₂ Emission Factor'),
+      rules: [{ required: true, message: `${t('CO₂ Emission Factor')} ${t('isRequired')}` }],
+    },
   ];
 
   const columns = [

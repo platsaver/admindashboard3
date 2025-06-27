@@ -120,7 +120,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
               key={field.name}
               name={field.name}
               label={field.label}
-              rules={field.rules || [{ required: true, message: `${field.label} ${t('isRequired')}` }]}
+              {...(field.rules ? { rules: field.rules } : {})}
             >
               {field.type === 'date' ? (
                 <DatePicker style={{ width: '100%' }} format="DD/MM/YYYY" />

@@ -69,28 +69,38 @@ const CarbonStandardList = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenTieuChuan', label: t('name') },
     {
-    name: 'loai',
-    label: t('type'),
-    type: 'select',
-    options: [
-      { value: 'international', label: t('international') },
-      { value: 'laws', label: t('laws') },
-      { value: 'national', label: t('national') },
-    ],
+      name: 'tenTieuChuan',
+      label: t('name'),
+      rules: [{ required: true, message: `${t('name')} ${t('isRequired')}` }],
     },
-    { name: 'moTa', label: t('description') },
     {
-    name: 'trangThai',
-    label: t('status'),
-    type: 'select',
-    options: [
-      { value: 'applied', label: t('applied') },
-      { value: 'required', label: t('required') },
-      { value: 'constructing', label: t('constructing') },
-    ],
-    }
+      name: 'loai',
+      label: t('type'),
+      type: 'select',
+      options: [
+        { value: 'international', label: t('international') },
+        { value: 'laws', label: t('laws') },
+        { value: 'national', label: t('national') },
+      ],
+      rules: [{ required: true, message: `${t('type')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'moTa',
+      label: t('description'),
+      rules: [{ required: true, message: `${t('description')} ${t('isRequired')}` }],
+    },
+    {
+      name: 'trangThai',
+      label: t('status'),
+      type: 'select',
+      options: [
+        { value: 'applied', label: t('applied') },
+        { value: 'required', label: t('required') },
+        { value: 'constructing', label: t('constructing') },
+      ],
+      rules: [{ required: true, message: `${t('status')} ${t('isRequired')}` }],
+    },
   ];
 
   const columns = [
