@@ -43,7 +43,7 @@ const carbonData = [
   },
   {
     key: '6',
-    ten: 'Năng lượng mặt trời',
+    tenChiSo: 'Năng lượng mặt trời',
     AD: '1.0',
     EF: '0.0',
     heSoPhatThaiCO2: '0',
@@ -83,9 +83,9 @@ const CarbonCreditDashboard = () => {
   };
 
   const fieldsConfig = [
-    { name: 'ten', label: t('name') },
-    { name: 'AD', label: 'AD' },
-    { name: 'EF', label: 'EF' },
+    { name: 'tenChiSo', label: t('name') },
+    { name: 'AD', label: t('ad') },
+    { name: 'EF', label: t('ef') },
     { name: 'heSoPhatThaiCO2', label: t('CO₂ Emission Factor') },
   ];
 
