@@ -6,10 +6,48 @@ import { useTranslation } from 'react-i18next';
 import '@ant-design/v5-patch-for-react-19';
 
 const carbonData = [
-  { key: '1', tenChiSo: 'Lượng phát thải CO₂ (tháng 6)', loai: 'emission', giaTri: '128' },
-  { key: '2', tenChiSo: 'Tín chỉ carbon đã mua', loai: 'offset', giaTri: '150' },
-  { key: '3', tenChiSo: 'Tín chỉ khả dụng', loai: 'carbonAsset', giaTri: '42' },
-  { key: '4', tenChiSo: 'Tỉ lệ tuân thủ CBAM', loai: 'policy', giaTri: '100%' },
+  {
+    key: '1',
+    tenChiSo: 'Điện từ than đá',
+    AD: '0.9',
+    EF: '98.0',
+    heSoPhatThaiCO2: '882',
+  },
+  {
+    key: '2',
+    tenChiSo: 'Điện từ khí thiên nhiên',
+    AD: '0.85',
+    EF: '75.0',
+    heSoPhatThaiCO2: '510',
+  },
+  {
+    key: '3',
+    tenChiSo: 'Điện từ dầu diesel',
+    AD: '0.88',
+    EF: '85.0',
+    heSoPhatThaiCO2: '742',
+  },
+  {
+    key: '4',
+    tenChiSo: 'Sinh khối (biomass)',
+    AD: '0.5',
+    EF: '25.0',
+    heSoPhatThaiCO2: '100',
+  },
+  {
+    key: '5',
+    tenChiSo: 'Thủy điện',
+    AD: '0.95',
+    EF: '5.0',
+    heSoPhatThaiCO2: '24',
+  },
+  {
+    key: '6',
+    ten: 'Năng lượng mặt trời',
+    AD: '1.0',
+    EF: '0.0',
+    heSoPhatThaiCO2: '0',
+  },
 ];
 
 const CarbonCreditDashboard = () => {
@@ -23,8 +61,9 @@ const CarbonCreditDashboard = () => {
   const handleSearch = (value) => {
     setSearchText(value);
     const filtered = carbonData.filter(item =>
-      item.tenChiSo.toLowerCase().includes(value.toLowerCase()) ||
-      item.loai.toLowerCase().includes(value.toLowerCase())
+      Object.values(item).some(val =>
+        String(val).toLowerCase().includes(value.toLowerCase())
+      )
     );
     setFilteredData(filtered);
   };
@@ -44,9 +83,10 @@ const CarbonCreditDashboard = () => {
   };
 
   const fieldsConfig = [
-    { name: 'tenChiSo', label: t('name') },
-    { name: 'loai', label: t('type') },
-    { name: 'giaTri', label: t('value') },
+    { name: 'ten', label: t('name') },
+    { name: 'AD', label: 'AD' },
+    { name: 'EF', label: 'EF' },
+    { name: 'heSoPhatThaiCO2', label: t('CO₂ Emission Factor') },
   ];
 
   const columns = [
@@ -62,18 +102,21 @@ const CarbonCreditDashboard = () => {
       ),
     },
     {
-      title: t('type'),
-      dataIndex: 'loai',
-      key: 'loai',
-      render: (text) => <Tag color="blue">{t(text)}</Tag>,
+      title: t('ad'),
+      dataIndex: 'AD',
+      key: 'AD',
     },
     {
-      title: t('value'),
-      dataIndex: 'giaTri',
-      key: 'giaTri',
+      title: t('ef'),
+      dataIndex: 'EF',
+      key: 'EF',
+    },
+    {
+      title: t('coefficient'),
+      dataIndex: 'heSoPhatThaiCO2',
+      key: 'heSoPhatThaiCO2',
       render: (value) => (
         <Space>
-          <FireOutlined />
           {value}
         </Space>
       ),

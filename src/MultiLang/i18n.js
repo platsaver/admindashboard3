@@ -57,12 +57,10 @@ const resources = {
       laws: 'Laws',
       national: 'National',
       /*Metrics*/
-      value: 'Value',
+      ad: 'AD(kg)',
+      ef: 'EF(kg GHG / TJ)',
+      coefficient: 'Coefficient emission',
       metricSearch: "Searching for carbon metrics...",
-      emission: 'Emission',
-      offset: 'Compensation',
-      carbonAsset: 'Carbon facilities',
-      policy: 'Policy',
       /*Activities*/
       time: 'Time',
       complete: 'Complete',
@@ -157,12 +155,10 @@ const resources = {
       laws: 'Pháp lý',
       national: 'Quốc gia',
       /*Metrics*/
-      value: 'Giá trị',
-      metricSearch: "Tìm kiếm chỉ số carbon...",
-      emission: 'Phát thải',
-      offset: 'Bù trừ',
-      carbonAsset: 'Tài sản carbon',
-      policy: 'Chính sách',
+      ad: 'AD(kg)',
+      ef: 'EF(kg GHG / TJ)',
+      coefficient: 'Hệ số phát thải',
+      metricSearch: "Tìm kiếm hệ số...",
       /*Activities*/
       time: 'Thời gian',
       complete: 'Hoàn thành',
