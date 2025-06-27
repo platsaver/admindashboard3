@@ -39,8 +39,6 @@ const LoginForm = () => {
           localStorage.setItem('access_token', data.access_token);
           message.success(meta.message || 'Login successful');
           navigate('/partners');
-        } else {
-        message.error(meta.message || 'Login unsuccessful');
         }
     })
     .catch(function (error) {

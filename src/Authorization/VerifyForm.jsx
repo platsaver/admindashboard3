@@ -39,8 +39,6 @@ const VerifyForm = () => {
             language: i18n.language,
           }
         });
-      } else {
-        message.error(meta.message || t('Verify Failed'));
       }
     })
     .catch((error) => { 
