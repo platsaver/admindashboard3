@@ -24,7 +24,7 @@ const CarbonDrawer = ({ visible, onClose, record, onUpdate, onAdd, onDelete, fie
       form.setFieldsValue(initialValues);
       setIsEditing(false);
     }
-  }, [isAdding, record, form]);
+  }, [isAdding, record, form, initialValues]);
 
   const handleEdit = () => {
     setIsEditing(true);

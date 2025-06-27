@@ -28,7 +28,7 @@ const resources = {
       forgotPrompt: 'Forgot password?',
       forgotPassword: 'Reset password',
       resetSuccess: 'Password reset successful',
-      resetSuccess: 'Invalid credential, please try again',
+      resetFail: 'Invalid credential, please try again',
       /*Partner*/
       name: 'Name',
       email: 'Email',
