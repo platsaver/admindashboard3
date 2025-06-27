@@ -71,7 +71,7 @@ const PostDashboard = () => {
       icon: <FireOutlined style={{ color: '#fa541c' }} />,
     },
     {
-      title: t('offsetRate'),
+      title: t('offSetRate'),
       value: '92%',
       icon: <LineChartOutlined style={{ color: '#52c41a' }} />,
     },
