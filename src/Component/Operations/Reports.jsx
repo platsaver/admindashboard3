@@ -156,7 +156,7 @@ const PostDashboard = () => {
         ))}
       </Row>
 
-      <Divider>Các bài viết liên quan đến tín chỉ carbon</Divider>
+      <Divider>Các bài viết</Divider>
 
       <Card>
         <Table
