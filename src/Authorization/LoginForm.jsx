@@ -35,7 +35,6 @@ const LoginForm = () => {
     .then((res) => {
         const { data, meta } = res.data;
         if (meta?.success && data?.access_token) {
-          console.log('Access token:', data.access_token);
           localStorage.setItem('access_token', data.access_token);
           message.success(t('loginSuccess'));
           navigate('/partners');
@@ -43,9 +42,6 @@ const LoginForm = () => {
     })
     .catch(function (error) {
         if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
         message.error(t('loginFail'));
         } else if (error.request) {
         console.log(error.request);
